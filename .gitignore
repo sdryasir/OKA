@@ -1,8 +1,4 @@
-include
-lib
-scripts
-pyvenv.cfg
+
 header.html
 index.html
-
 
