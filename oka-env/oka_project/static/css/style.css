@@ -1,0 +1,90 @@
+.form-s-width{
+    width: 380px !important;
+    border-radius: 50px;
+}
+.form-b-color{
+    background-color: rgb(66, 165, 246);
+    color: white;
+    border-radius: 50px;
+    margin-left: -73px;
+    padding-left: 30px;
+    padding-right: 30px;
+    border: 0;
+}
+
+.nav-bottom-cl{
+    color: white !important;
+    font-size: 14px;
+    margin: 3px !important;
+}
+/* dorpdown-start */
+.dropbtn {
+   border: 0;
+  }
+  
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 11232343;
+  }
+  
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .dropdown-content a:hover {background-color: #ddd;}
+  
+  .nav-item:hover .dropdown-content {display: block;}
+  
+  /* dorpdown-end */
+
+
+
+  /* breakpoint starts */
+
+
+  @media (min-width: 50px) and (max-width: 575.98px) { 
+    .dropbtn {
+        border: 0;
+        background-color: #ffffff;
+        color: black !important;
+       }
+   }
+  @media (min-width: 576px) and (max-width: 767.98px) { 
+    .dropbtn {
+        border: 0;
+        background-color: #fff;
+        color: black !important;
+       }
+   }
+  @media (min-width: 768px) and (max-width: 991.98px) { 
+    .dropbtn {
+        border: 0;
+        background-color: #fff;
+        color: black !important;
+       }
+   }
+  @media (min-width: 992px) { 
+    .bg-cl {
+        background-color: #42A5F6;
+        
+    }
+    .nav-bt-cetr{
+        align-self: center;
+    }
+    .dropbtn {
+        border: 0;
+        background-color: #42A5F6;
+       }
+   }
+  /* breakpoint ends */
