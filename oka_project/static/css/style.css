@@ -17,19 +17,19 @@
   padding-top: 5%;
   font-family: var(--font-family);
 }
-ul li a {
+.media-footer-mobile li a {
   text-decoration: none;
   color: #9c9c9c;
 }
-ul li a:hover {
+.media-footer-mobile li a:hover {
   text-decoration: none;
   color: #bb73b3;
 }
-ul li {
+.media-footer-mobile li {
   margin-bottom: 7%;
   list-style-type: none;
 }
-ul {
+.media-footer-mobile {
   padding: 1px;
 }
 .bg-footer-color {
@@ -92,9 +92,7 @@ ul {
   height: 100%;
   background-color: #ffffff;
 }
-.h5-center {
-  text-align: center;
-}
+
 .copyright-text {
   font-size: 19px;
   color: #9c9c9c;
