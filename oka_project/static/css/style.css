@@ -6,10 +6,7 @@
   --font-style: normal;
   --black: black;
 }
-* {
-  margin: 0;
-  padding: 0;
-}
+
 .conatiner {
   background-color: #fcfcfc;
 }
