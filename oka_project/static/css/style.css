@@ -242,6 +242,21 @@
   border: 1px white solid !important;
   background-color: #9ba4cb !important;
 }
+.owl-theme .owl-dots .owl-dot span {
+  width: 6px;
+  height: 6px;
+  margin: 5px 2px;
+  background: #D6D6D6;
+  display: block;
+  transition: opacity .2s ease;
+  border-radius: 30px;
+}
+
+
+
+
+
+
 /* search model start */
 .modal {
   display: none;
