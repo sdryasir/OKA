@@ -1,0 +1,135 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
+
+:root {
+  --font-family: "Quicksand", sans-serif;
+  --font-weight: 400;
+  --font-style: normal;
+  --black: black;
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+.conatiner {
+  background-color: #fcfcfc;
+}
+.row {
+  padding-top: 5%;
+  font-family: var(--font-family);
+}
+ul li a {
+  text-decoration: none;
+  color: #9c9c9c;
+}
+ul li a:hover {
+  text-decoration: none;
+  color: #bb73b3;
+}
+ul li {
+  margin-bottom: 7%;
+  list-style-type: none;
+}
+ul {
+  padding: 1px;
+}
+.bg-footer-color {
+  background-color: #a6489c;
+  color: white;
+  font-family: var(--font-family);
+  height: auto;
+}
+.btn-subscribe {
+  border: 0;
+  background-color: #bf64b6;
+  color: white;
+  width: 9vw;
+}
+.d-flex .input-box-subscribe-btn-main {
+  justify-content: center;
+}
+.input-box-email {
+  border: var(--bs-border-width) var(--bs-border-style) color#BF64B6 !important;
+  height: 57px;
+  width: 25vw;
+  padding: 3%;
+}
+.d-flex row my-5 {
+  font-family: var(--font-family);
+}
+.col-2 h5 {
+  margin-bottom: 11%;
+}
+.col-3 h5 {
+  margin-bottom: 6%;
+}
+.social-container {
+  height: auto;
+  display: flex;
+  justify-content: center;
+  background-color: #ffffff;
+}
+.social-icon {
+  margin: 5px;
+  background-color: #bb73b3;
+  color: white;
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.social-icon:hover {
+  transform: translateY(-5px);
+  transition: background-color 0.3s ease, transform 0.2s ease 0.1s;
+  background-color: #eb5ddb;
+}
+.credit-footer-main {
+  padding-left: 20px;
+  float: left;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+}
+.h5-center {
+  text-align: center;
+}
+.copyright-text {
+  font-size: 19px;
+  color: #9c9c9c;
+}
+.bg-footer-color .container .row .col-3 {
+  font-family: var(--font-family);
+}
+.bg-footer-color .container .row .col-3 h2 {
+  font-weight: 600;
+}
+@media (max-width: 991.98px) {
+  .input-box-email {
+    width: 65vw;
+  }
+  .btn-subscribe {
+    width: 26vw;
+  }
+  .input-box-subscribe-btn-main {
+    margin-bottom: 10%;
+  }
+  .bg-footer-color .container {
+    margin-bottom: 0rem !important;
+    margin-top: 1rem !important;
+  }
+  #mer {
+    text-align: center;
+  }
+  #mesecemail {
+    text-align: center;
+  }
+  #mediaq-bottom-footer {
+    text-align: center;
+  }
+  .media-footer-mobile {
+    padding-left: 1%;
+    margin-top: 5%;
+  }
+}
