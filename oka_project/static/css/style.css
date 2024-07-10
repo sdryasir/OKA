@@ -9,7 +9,6 @@
 body {
   margin: 0;
   padding: 0;
-  overflow-x: hidden;
 }
 .conatiner {
   background-color: #fcfcfc;
@@ -131,10 +130,15 @@ padding-bottom: 1%;
   background-color: rgb(255, 255, 255);
   color: #a6489c;
 }
-
+.responsive-iframe{
+padding: 0 !important;
+}
 #button-send-styles:hover {
   background-color: #a6489c;
   color: white;
+}
+#responsiv-row-for-iframe{
+  margin: 0;
 }
 
 @media (max-width: 991.98px) {
