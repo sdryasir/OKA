@@ -132,6 +132,7 @@ padding-bottom: 1%;
 }
 .responsive-iframe{
 padding: 0 !important;
+margin: 0 !important;
 }
 #button-send-styles:hover {
   background-color: #a6489c;
