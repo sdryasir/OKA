@@ -6,7 +6,7 @@
   --font-style: normal;
   --black: black;
 }
-* {
+body {
   margin: 0;
   padding: 0;
 }
@@ -105,6 +105,18 @@ ul {
 .bg-footer-color .container .row .col-3 h2 {
   font-weight: 600;
 }
+iframe{
+  width: 98vw;
+  height: 82vh;
+
+}
+
+
+
+
+
+
+
 @media (max-width: 991.98px) {
   .input-box-email {
     width: 65vw;
