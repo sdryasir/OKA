@@ -1,3 +1,5 @@
+/* ZAIN CSS STARTS */
+
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
 
 :root {
@@ -177,7 +179,35 @@ margin: 0 !important;
     width: 96vw !important;
   }
 }
+/* ZAIN CSS ENDS */
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* UBAID CSS STARTS */
 .head-wrapper {
   position: fixed;
   width: 100%;
@@ -295,6 +325,44 @@ margin: 0 !important;
   display: block;
   transition: opacity 0.2s ease;
   border-radius: 30px;
+}
+
+
+.u-cart-cl{
+  background-color: #42A5F6;
+  color: white;
+}
+.u-cart-cl:hover{
+  background-color: #dfaaff;
+}
+.u-dtls-cl{
+  background-color: #42A5F6;
+  color: white;
+}
+.u-dtls-cl:hover{
+  background-color: #dfaaff;
+}
+.u-btns{
+  display: flex;
+  justify-content: space-around;
+}
+.u-center{
+  text-align: center;
+}
+.u-blank-prize{
+  text-decoration: line-through;
+  color: #868d93;
+}
+.u-card-hover:hover{
+border: 1px solid #42A5F6;
+    -webkit-animation: fadeinout 1s linear forwards;
+    animation: fadeinout 1s linear forwards;
+}
+
+
+@keyframes fadeinout {
+  20% { opacity: 0.6; }
+  100% { opacity: 1; }
 }
 
 /* search model start */
@@ -500,3 +568,5 @@ margin: 0 !important;
 }
 
 /* breakpoint ends */
+
+/* UBAID CSS ends */
