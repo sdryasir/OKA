@@ -119,9 +119,9 @@ iframe {
 .b-r-noone {
   border-radius: 0;
 }
-#contact-margin-adjust{
-margin-top: 10px;
-padding-bottom: 1%;
+#contact-margin-adjust {
+  margin-top: 10px;
+  padding-bottom: 1%;
 }
 #button-send-styles {
   border: 2px solid;
@@ -132,18 +132,40 @@ padding-bottom: 1%;
   background-color: rgb(255, 255, 255);
   color: #a6489c;
 }
-.responsive-iframe{
-padding: 0 !important;
-margin: 0 !important;
+.responsive-iframe {
+  padding: 0 !important;
+  margin: 0 !important;
 }
 #button-send-styles:hover {
   background-color: #a6489c;
   color: white;
 }
-#responsiv-row-for-iframe{
+#responsiv-row-for-iframe {
   margin: 0;
 }
+.z-login-default-pad {
+  padding-top: 15%;
+  text-align: center;
+  font-family: var(--font-family);
+}
+.z-w-but-login {
+  width: 10vw;
+}
+.z-w-but-creat {
+  margin-left: 10%;
+  width: 12vw;
+  background-color: #d980cf;
+  border: none;
+}
 
+.z-w-but-creat:hover {
+  color: white;
+  background-color: #ffffff;
+  border: 1px solid black;
+}
+.z-w-30{
+  width: 30vw;
+}
 @media (max-width: 991.98px) {
   .input-box-email {
     width: 65vw;
@@ -171,41 +193,30 @@ margin: 0 !important;
     padding-left: 1%;
     margin-top: 5%;
   }
-  .color-and-fonts{
+  .color-and-fonts {
     padding-top: 11%;
     text-align: center;
   }
-  iframe{
+  iframe {
     width: 96vw !important;
+  }
+  #z-mob-responsive{
+    width: 40vw;
+  }
+  .z-w-but-creat{
+    width: 55vw;
+    margin-left: 0;
+  }
+  .z-w-but-login{
+    width: 55vw;
+  }
+  .form-control{
+    width: 55vw;
   }
 }
 /* ZAIN CSS ENDS */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/*----------------------------------------------------------------------------------------------------------------*/
 
 /* UBAID CSS STARTS */
 .head-wrapper {
@@ -327,42 +338,44 @@ margin: 0 !important;
   border-radius: 30px;
 }
 
-
-.u-cart-cl{
-  background-color: #42A5F6;
+.u-cart-cl {
+  background-color: #42a5f6;
   color: white;
 }
-.u-cart-cl:hover{
+.u-cart-cl:hover {
   background-color: #dfaaff;
 }
-.u-dtls-cl{
-  background-color: #42A5F6;
+.u-dtls-cl {
+  background-color: #42a5f6;
   color: white;
 }
-.u-dtls-cl:hover{
+.u-dtls-cl:hover {
   background-color: #dfaaff;
 }
-.u-btns{
+.u-btns {
   display: flex;
   justify-content: space-around;
 }
-.u-center{
+.u-center {
   text-align: center;
 }
-.u-blank-prize{
+.u-blank-prize {
   text-decoration: line-through;
   color: #868d93;
 }
-.u-card-hover:hover{
-border: 1px solid #42A5F6;
-    -webkit-animation: fadeinout 1s linear forwards;
-    animation: fadeinout 1s linear forwards;
+.u-card-hover:hover {
+  border: 1px solid #42a5f6;
+  -webkit-animation: fadeinout 1s linear forwards;
+  animation: fadeinout 1s linear forwards;
 }
 
-
 @keyframes fadeinout {
-  20% { opacity: 0.6; }
-  100% { opacity: 1; }
+  20% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 /* search model start */
