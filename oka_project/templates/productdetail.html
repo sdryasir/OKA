@@ -1,0 +1,160 @@
+{% include 'header.html' %}
+{% load static %}
+
+<main>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6 col-lg-4">
+        <div class="container">
+          <div class="mySlides">
+            <div class="numbertext">1 / 6</div>
+            <img src="{% static 'images/product-1.webp' %}" style="width:100%">
+          </div>
+
+          <div class="mySlides">
+            <div class="numbertext">2 / 6</div>
+            <img src="{% static 'images/product-2.webp' %}" style="width:100%">
+          </div>
+
+          <div class="mySlides">
+            <div class="numbertext">3 / 6</div>
+            <img src="{% static 'images/product-1.webp' %}" style="width:100%">
+          </div>
+
+          <div class="mySlides">
+            <div class="numbertext">4 / 6</div>
+            <img src="{% static 'images/product-2.webp' %}" style="width:100%">
+          </div>
+
+          <div class="mySlides">
+            <div class="numbertext">5 / 6</div>
+            <img src="{% static 'images/product-1.webp' %}" style="width:100%">
+          </div>
+
+          <div class="mySlides">
+            <div class="numbertext">6 / 6</div>
+            <img src="{% static 'images/product-2.webp' %}" style="width:100%">
+          </div>
+
+          <a class="prev" onclick="plusSlides(-1)">❮</a>
+          <a class="next" onclick="plusSlides(1)">❯</a>
+
+          <div class="caption-container">
+            <p id="caption"></p>
+          </div>
+
+          <div class="row">
+            <div class="column">
+              <img class="demo cursor" src="{% static 'images/product-1.webp' %}" style="width:100%"
+                onclick="currentSlide(1)">
+            </div>
+            <div class="column">
+              <img class="demo cursor" src="{% static 'images/product-2.webp' %}" style="width:100%"
+                onclick="currentSlide(2)">
+            </div>
+            <div class="column">
+              <img class="demo cursor" src="{% static 'images/product-1.webp' %}" style="width:100%"
+                onclick="currentSlide(3)">
+            </div>
+            <div class="column">
+              <img class="demo cursor" src="{% static 'images/product-2.webp' %}" style="width:100%"
+                onclick="currentSlide(4)">
+            </div>
+            <div class="column">
+              <img class="demo cursor" src="{% static 'images/product-1.webp' %}" style="width:100%"
+                onclick="currentSlide(5)">
+            </div>
+            <div class="column">
+              <img class="demo cursor" src="{% static 'images/product-2.webp' %}" style="width:100%"
+                onclick="currentSlide(6)">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 u-product-middle col-lg-5">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title" style="font-size: 18px; font-weight: 600;">SY Baby Half Sleeves Inner Vest White - Sunshine</h5>
+            <div class="card-subtitle mb-2 u-price text-body-secondary mt-2 d-flex align-items-center"><span
+                style="text-decoration: line-through; color: #696969;">Rs.295</span>
+              <spa style="color: #42A5F6; font-weight: 600;">
+                <h5 class="d-inline ms-2">Rs.195</h5>
+              </spa><span class="ms-2"
+                style="background-color: #42A5F6; border-radius: 2px; font-weight: 600; color: white; font-size: 13px; padding: 2px 4px;">
+                SAVE 34%</span>
+            </div>
+            <p class="card-text" style="font-size: 13px; color: #696969;"><a style="color: #696969;"
+                href="">Shipping</a> calculated at checkout.</p>
+            <p class="card-text" style="font-size: 14px; color: #696969;">06 Months to 10 Years. White Half Sleeve Baby
+              Vests by Sunshine - a soft comfy innerwear stitched from breathable cotton, providing soft and gentle feel
+              against the kid's sensitive delicate skin, ensuring utmost comfort throughout the day.</p>
+            <div class="card-text d-flex align-items-baseline " style="font-size: 14px; color: #696969;">
+              <h6 class="me-2" style="font-size: 15px;">SELECT SIZE :
+              </h6>
+              <select style=" border-radius: 4px; font-weight: 600;">
+                <option value="0">Choose</option>
+                <option value="1">Small</option>
+                <option value="2">Medium</option>
+                <option value="3">Large</option>
+                <option value="3">X-large</option>
+                <option value="3">Full Size</option>
+              </select>
+            </div>
+            <div class="card-text d-flex mt-3 align-items-baseline " style="font-size: 14px; color: #696969;">
+              <h6 class="me-2" style="font-size: 15px;">SELECT COLOUR :
+              </h6>
+              <select style=" border-radius: 4px; font-weight: 600;">
+                <option value="0">Choose</option>
+                <option value="1">Red</option>
+                <option value="2">Green</option>
+                <option value="3">White</option>
+                <option value="3">Black</option>
+                <option value="3">Brown</option>
+              </select>
+            </div>
+            <div class="card-text d-flex align-items-baseline mt-4" style="font-size: 14px; color: #696969;">
+              <form action="">
+                <input type="number" value="1" min="1" max="50">
+              </form>
+              <a class="u-cart-adjust ms-4" href=""><i class="bi bi-cart"></i> ADD TO CART</a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <h5 class="mb-3 u-par-underline">Shipping & Delivery</h3>
+          <div class="d-flex mt-4" style="align-items:  end;">
+            <div><i class="bi bi-truck" style="font-size: 38px; color: #696969;"></i></div>
+            <div class="ms-3">
+              <div>
+                <h6 style="color: #696969; font-size: 14px; font-weight: 600;">FREE SHIPPING</h6>
+              </div>
+              <div style="color: #696969; font-size: 14px;">Free shipping over Rs. 1500</div>
+            </div>
+          </div>
+          <div class="d-flex mt-4" style="align-items:  end;">
+            <div><i class="bi bi-headset" style="font-size: 38px; color: #696969;"></i></div>
+            <div class="ms-3">
+              <div>
+                <h6 style="color: #696969; font-size: 14px; font-weight: 600;">
+                  SUPPORT 24/7</h6>
+              </div>
+              <div style="color: #696969; font-size: 14px;">We support 24 hours a day</div>
+            </div>
+          </div>
+          <div class="d-flex mt-4" style="align-items:  end;">
+            <div><i class="bi bi-arrow-left-right" style="font-size: 38px; color: #696969;"></i></div>
+            <div class="ms-3">
+              <div>
+                <h6 style="color: #696969; font-size: 14px; font-weight: 600;">EASY RETURN</h6>
+              </div>
+              <div style="color: #696969; font-size: 14px;">Simple and easy return and refund policy.</div>
+            </div>
+          </div>
+      </div>
+    </div><!-- /.row -->
+  </div><!-- /.container -->
+</main>
+
+{% include 'footer.html' %}

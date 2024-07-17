@@ -28,33 +28,38 @@
 
               </div><!-- /.hamburger -->
               <img class="logo-size" src="{% static 'images/logo.png' %}" alt="">
-              <div class="nav-items-inner">
-                <ul class="navbar-nav icon-inline mb-2 mb-lg-0">
-                  <li class="nav-item sizing me-3">
-                    <i class="bi bi-search"  id="myBtn"></i>
-                    <div id="myModal" class="modal">
-                      <div class="modal-content">
-                        <span class="close">&times;</span>
-
-                        <form method="get" class="d-flex align-items-center" role="search">
-                          <input class="form-control form-s-width" type="search" placeholder="Search"
-                            aria-label="Search">
-                          <button class="btn form-b-color" type="submit">
-                            <i class="bi bi-search p-1 px-3" style="background-color: white; border-radius: 50px;"></i></button>
-                        </form>
+             
+                
+                <div class="nav-items-inner">
+                  <ul class="navbar-nav icon-inline mb-2 mb-lg-0">
+                    <li class="nav-item sizing me-3">
+                      <i class="bi bi-search" style="cursor: pointer;"  id="myBtn"></i>
+                      <div id="myModal" class="modal">
+                        <div class="modal-content">
+                          <span class="close">&times;</span>
+  
+                          <form method="get" class="d-flex align-items-center" role="search">
+                            <input class="form-control form-s-width" type="search" placeholder="Search"
+                              aria-label="Search">
+                            <button class="btn form-b-color" type="submit">
+                              <i class="bi bi-search p-1 px-3" style="background-color: white; border-radius: 50px;"></i></button>
+                          </form>
+                        </div>
                       </div>
-                    </div>
-
-                  </li>
-                  <li class="nav-item sizing me-3">
-                    <i class="bi bi-person"></i>
-                  </li>
-
-                  <li class="nav-item sizing me-3">
-                    <i class="bi bi-cart"></i>
-                  </li>
-                </ul>
-              </div><!-- /.nav-items-inner -->
+  
+                    </li>
+                    <li class="nav-item sizing me-3">
+                      <a href="{% url 'login' %}">
+                        <i class="bi bi-person" style="color: black;"></i></a>
+                      
+                    </li>
+  
+                    <li class="nav-item sizing me-3">
+                      <i class="bi bi-cart"></i>
+                    </li>
+                  </ul>
+                </div><!-- /.nav-items-inner -->
+              
             </div>
           </div>
         </nav>
