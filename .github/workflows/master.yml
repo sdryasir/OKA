@@ -1,6 +1,8 @@
-on: 
+on:
   push:
-        -babybranch
+      branches:
+          - babybranch
+
 name: 🚀 Deploy website on push
 jobs:
 web-deploy:
@@ -13,6 +15,6 @@ web-deploy:
   - name: 📂 Sync files
     uses: SamKirkland/FTP-Deploy-Action@v4.3.5
     with:
-      server: ftp.nullxcoder.xyz
+      server: ftp.samkirkland.com
       username: ${{ secrets.ftp_username }}
       password: ${{ secrets.ftp_password }}
