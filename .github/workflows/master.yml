@@ -21,3 +21,5 @@ jobs:
           password: ${{ secrets.ftp_password }}
           protocol: ftp
           timeout: 300   # Increase the timeout to 5 minutes
+          log-level: verbose  # Enable detailed logging
+1
