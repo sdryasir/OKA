@@ -1,19 +1,28 @@
 on:
-    push:
-      branches:
-        - babybranch
-name: 🚀 Deploy website on push
+  push:
+    branches:
+      - babybranch
+
+name:  Deploy website on push
+
 jobs:
-    web-deploy:
-      name: 🎉 Deploy
-      runs-on: ubuntu-latest
-      steps:
-        - name: 🚚 Get latest code
-          uses: actions/checkout@v4
-  
-        - name: 📂 Sync files
-          uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-          with:
-            server: ftp.nullxcoder.xyz
-            username: ${{ secrets.ftp_username }}
-            password: ${{ secrets.ftp_password }}
+  web-deploy:
+    name:  Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name:  Get latest code (with error handling)
+        uses: actions/checkout@v4
+        steps:
+          - uses: actions/checkout@v4
+            with:
+              fetch-depth: 0  # Optional: Only fetch the latest commit
+          - run: echo "Successfully fetched code"
+            if: success()
+          - fail: An error occurred while fetching code.
+            if: failure()
+      - name:  Sync files
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ftp.nullxcoder.xyz
+          username: ${{ secrets.ftp_username }}
+          password: ${{ secrets.ftp_password }}
