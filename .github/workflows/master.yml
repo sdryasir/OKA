@@ -17,3 +17,4 @@ jobs:
             server: nullxcoder.xyz
             username: ${{ secrets.ftp_username }}
             password: ${{ secrets.ftp_password }}
+            
