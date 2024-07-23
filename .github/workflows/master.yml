@@ -1,25 +1,19 @@
 on:
-  push:
-    branches:
-      - babybranch
+    push:
+      branches:
+        - babybranch
 name: 🚀 Deploy website on push
-
 jobs:
-  web-deploy:
-    name: 🎉 Deploy
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: 🚚 Get latest code
-        uses: actions/checkout@v4
-
-      - name: 📂 Sync files
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: nullxcoder.xyz
-          username: ${{ secrets.ftp_username }}
-          password: ${{ secrets.ftp_password }}
-          protocol: ftp
-          timeout: 300   # Increase the timeout to 5 minutes
-          log-level: verbose  # Enable detailed logging
-1
+    web-deploy:
+      name: 🎉 Deploy
+      runs-on: ubuntu-latest
+      steps:
+        - name: 🚚 Get latest code
+          uses: actions/checkout@v4
+  
+        - name: 📂 Sync files
+          uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+          with:
+            server: nullxcoder.xyz
+            username: ${{ secrets.ftp_username }}
+            password: ${{ secrets.ftp_password }}
