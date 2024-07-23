@@ -1,22 +1,19 @@
 on:
-  push:
-    branches:
-      - babybranch
-
+    push:
+      branches:
+        - babybranch
 name: 🚀 Deploy website on push
 jobs:
-  web-deploy:
-    name: 🎉 Deploy
-    runs-on: ubuntu-latest
-    steps:
-    - name: 🚚 Get latest code
-      uses: actions/checkout@v4
-    
-    - name: 📂 Sync files
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-      with:
-        server: ftp.nullxcoder.xyz
-        username: ${{ secrets.ftp_username }}
-        password: ${{ secrets.ftp_password }}
-        passive: true
-        timeout: 120
+    web-deploy:
+      name: 🎉 Deploy
+      runs-on: ubuntu-latest
+      steps:
+        - name: 🚚 Get latest code
+          uses: actions/checkout@v4
+  
+        - name: 📂 Sync files
+          uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+          with:
+            server: ftp.nullxcoder.xyz
+            username: ${{ secrets.ftp_username }}
+            password: ${{ secrets.ftp_password }}
