@@ -322,7 +322,7 @@ main {
 }
 
 .nav-bottom-cl {
-  color: white !important;
+  color: rgb(255, 255, 255) !important;
   font-size: 14px;
   margin: 8px !important;
 }
@@ -588,7 +588,7 @@ footer{
   bottom: -2px;
   width: 85%;
   height: 2px;
-  background: black;
+  background: rgb(255, 255, 255);
   transform: scaleX(0);
   transition: transform 0.4s ease-in-out;
   transform-origin: right;
