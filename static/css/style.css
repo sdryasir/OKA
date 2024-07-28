@@ -100,7 +100,7 @@ body {
 .social-icon:hover {
   transform: translateY(-11px);
   transition: background-color 0.4s ease, transform 0.3s ease 0.2s;
-  background-color: #d55c00;
+  background-color: transparent;
 }
 
 .credit-footer-main {
@@ -193,7 +193,7 @@ iframe {
 .z-w-but-creat {
   margin-left: 10%;
   width: 12vw;
-  background-color: #d980cf;
+  background-color: #FF6F00;
   border: none;
 }
 
@@ -203,6 +203,9 @@ iframe {
   border: 1px solid black;
 }
 
+#fashion-pg-h1{
+  text-align: center;
+}
 .z-w-30 {
   width: 30vw;
 }
