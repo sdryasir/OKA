@@ -25,7 +25,7 @@ body {
 
 .media-footer-mobile li a {
   text-decoration: none;
-  color: #9c9c9c;
+  color: #ffffff;
 }
 
 .media-footer-mobile li a:hover {
@@ -113,16 +113,20 @@ body {
   
 }
 
-.cpy-adjustment {
+.cpy-adjustment{
   margin-top: 0 !important;
   margin-bottom: 0rem !important;
-  color: white;
+  color: white !important;
   padding: 6px 0;
 }
 
+.cpy-adjustment a{
+  color: white !important;
+  text-decoration: none;
+}
 .copyright-text {
   font-size: 15px;
-  color: #9c9c9c;
+  color: #ffffff;
 }
 
 .bg-footer-color .container .row .col-3 {
