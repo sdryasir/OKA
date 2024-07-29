@@ -489,11 +489,11 @@ main {
 }
 .u-cart-adjust {
   color: white;
-  background-color: #42a5f6;
-  padding: 8px 18px;
-  font-weight: 600;
-  text-decoration: none;
-  border-radius: 18px;
+  background-color: #ff6f00;
+  padding: 8px 18px; 
+  font-weight: 600; 
+  text-decoration: none; 
+  border-radius: 18px; 
 }
 .u-product-middle .card .card-body {
   padding: 0;
@@ -968,7 +968,11 @@ footer {
     height: 600px;
   }
 }
-
+@media (max-width: 1099px){
+.u_last{
+  display: none;
+}
+}
 /* breakpoint ends */
 
 .preview {
