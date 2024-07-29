@@ -991,7 +991,11 @@ right: 0;
     height: 600px;
   }
 }
-
+@media (max-width: 1099px){
+.u_last{
+  display: none;
+}
+}
 /* breakpoint ends */
 
 
