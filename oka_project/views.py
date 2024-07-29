@@ -11,8 +11,13 @@ def contact(request):
 
 def login(request):
     return render(request, "login.html")
- 
+
+
 def signup(request):
     return render(request, "signup.html")
+
 def productDetails(request):
     return render(request, "productdetail.html")
+
+def fashion(request):
+    return render(request, "fashion.html")
