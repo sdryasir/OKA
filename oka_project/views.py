@@ -21,3 +21,6 @@ def productDetails(request):
 
 def fashion(request):
     return render(request, "fashion.html")
+
+def searchResult(request):
+    return render(request, "fashion.html")
