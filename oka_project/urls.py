@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, re_path
 from django.conf import settings
 from . import views
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns # new
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf import settings
 from django.views.static import serve
 

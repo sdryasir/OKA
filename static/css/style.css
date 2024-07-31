@@ -191,16 +191,20 @@ iframe {
 }
 
 .z-login-default-pad {
-  padding-top: 15%;
+  margin-bottom: 0 !important;
+  margin-top: 9% !important;
+  padding-top: 5%;
+  padding-bottom: 3%;
   text-align: center;
   font-family: var(--font-family);
 }
 
 .z-w-but-login {
-  width: 10vw;
+  width: 13vw;
 }
 
 .z-w-but-creat {
+  
   margin-left: 10%;
   width: 12vw;
   background-color: #ff6f00;
@@ -270,10 +274,12 @@ iframe {
 
   .z-w-but-creat {
     width: 55vw;
+    margin-top: 10px;
     margin-left: 0;
   }
 
   .z-w-but-login {
+    
     width: 55vw;
   }
 
@@ -581,7 +587,7 @@ main {
 .owl-dots {
   display: none;
 }
-footer {
+.footer-cls{
   background-color: #000;
 }
 .h5-center {
@@ -870,6 +876,9 @@ footer {
     background-color: #ffffff;
     color: black !important;
   }
+  .z-login-default-pad{
+    margin-top: 15% !important;
+  }
 
   .mb-cl {
     color: black !important;
@@ -901,6 +910,9 @@ footer {
     margin-top: 25%;
   }
 
+  #signup-mobile{
+    width: 55vw !important;
+  }
   .carousel-wrapper {
     margin-top: -4% !important;
   }

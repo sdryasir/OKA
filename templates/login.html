@@ -3,10 +3,10 @@
 
 
 <main>
-    <div class="container z-login-default-pad my-5">
+    <div class="container z-login-default-pad my-1">
         <h1>Login</h1>
     </div>
-    <div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-center mb-3">
         <form id="z-mob-responsive" class="z-w-30">
             <div class="mb-3">
                 <label for="email" class="form-label">Email address</label>
@@ -16,8 +16,8 @@
                 <label for="password" class="form-label">Password</label>
                 <input type="password" class="form-control" name="password" id="password">
             </div>
-            <button type="submit" class="btn btn-primary z-w-but-login my-3">Login</button>
-            <a class="btn btn-primary z-w-but-creat" href="{% url 'signup' %}">Create Account</a>
+            <button  type="submit" class="btn btn-primary z-w-but-login my-3">Login</button>
+            <a  class="btn btn-primary z-w-but-creat" href="{% url 'signup' %}">Create Account</a>
         </form>
     </div>
     {% include 'footer.html' %}
