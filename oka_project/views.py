@@ -1,8 +1,19 @@
 from django.shortcuts import render
-
+from products.models import Products
+from categories.models import Category
+from carousel.models import Carousel
 
 def home(request):
-    return render(request, "index.html")
+    productdata = Products.objects.all()
+    categorydata = Category.objects.all()
+    carouseldata = Carousel.objects.all()
+
+    data = {
+        'products' : productdata,
+        'categories' : categorydata,
+        'carousels' : carouseldata,
+    }
+    return render(request, "index.html" , data)
 
 
 def contact(request):
