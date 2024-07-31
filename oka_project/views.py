@@ -37,13 +37,11 @@ def register_user(request):
     email = request.POST["email"]
     password = request.POST["password"]
     if not username or not first_name or not email or not password:
-        return render(request, "signup.html")
         messages.error(request, "Please Fill All The Fields Correctly!")
-        print("fail")
+        return render(request, "signup.html")
     else:
         if User.objects.filter(username=username).exists():
             messages.error(request, "Username Already Register")
-            print("username reg")
             return render(request, "signup.html")
         elif User.objects.filter(email=email).exists():
             print("email reg")
