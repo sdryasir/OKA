@@ -33,5 +33,6 @@ urlpatterns = [
     path('fashion/', views.fashion, name='fashion'),
     path('product-details/', views.productDetails, name='product-details'),
     path('search-results/', views.searchResult, name='search-results'),
+    path('register-user/', views.register_user, name='register-user'),
 ]
 
