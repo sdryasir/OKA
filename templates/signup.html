@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,46 +10,53 @@
 </head>
 
 <body>
-    <div style="padding-top: 7%" class="container z-login-default-pad my-5">
+    <div style="padding-top: 7%; padding-bottom:0%;" class="container z-login-default-pad my-5">
         <h1>Sign up</h1>
     </div>
     <div class="container d-flex justify-content-center align-items-center">
         {% for message in messages %}
-        <div style="text-align: center; width: 60vw;" class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+        <div style="text-align: center;" class="alert alert-{{message.tags}} alert-dismissible fade show cust-responsive-mb" role="alert">
             <strong>{{message}}</strong> 
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         {% endfor %}
     </div>
-    <div style="padding-bottom: 5%" class="d-flex justify-content-center">
-        
-        <form method="POST" action="{% url 'register-user'%}" id="z-mob-responsive" class="z-w-30">
-            {% csrf_token %}
-            <div class="mb-3">
-                <label for="name" class="form-label">Name</label>
-                <input type="text" class="form-control" id="name" name="first_name" />
-            </div>
-            <div class="mb-3">
-                <label for="name" class="form-label">Username</label>
-                <input type="text" class="form-control" id="name" name="username" />
-            </div>
-            <div class="mb-3">
-                <label for="email" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="email" name="email" />
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" name="password" id="password" />
-            </div>
-            <button style="margin-bottom: 0px !important" id="signup-mobile" type="submit"
-                class="btn btn-primary z-w-but-login mb-4">
-                Create Account
-            </button>
-            <a style="margin-bottom: 0 !important" class="btn btn-primary z-w-but-creat mb-5"
-                href="{% url 'login' %}">Login</a>
-        </form>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6"><div style="padding-bottom: 5% !important;" class="container justify-content-center con-center">
+                
+                <form method="POST" action="{% url 'register-user'%}" id="z-mob-responsive" class="z-w-30">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="name" name="first_name" />
+                </div>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="name" name="username" />
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="email" name="email" />
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" name="password" id="password" />
+                </div>
+                <button style="margin-bottom: 0px !important" id="signup-mobile" type="submit"
+                    class="btn btn-primary z-w-but-login mb-4">
+                    Create Account
+                </button>
+                <a style="margin-bottom: 0 !important" class="btn btn-primary z-w-but-creat mb-5"
+                    href="{% url 'login' %}">Login</a>
+            </form>
+        </div></div>
+        <div class="col-md-6">
+            <img class="respo-img-acc" style="width: 320px;" src="{%static '/images/acc.png' %}" alt="">
+        </div>
     </div>
-    {% include 'footer.html' %}
+</div>
+        {% include 'footer.html' %}
 </body>
 
 </html>

@@ -6,8 +6,10 @@
     <div class="container z-login-default-pad my-1">
         <h1>Login</h1>
     </div>
+<div class="container">
     <div class="d-flex justify-content-center mb-3">
-        <form id="z-mob-responsive" class="z-w-30">
+        <form method="POST" action="{% url 'login-user' %}" id="z-mob-responsive" class="z-w-30">
+            {% csrf_token %}
             <div class="mb-3">
                 <label for="email" class="form-label">Email address</label>
                 <input type="email" class="form-control" id="email" name="email">
@@ -20,6 +22,7 @@
             <a  class="btn btn-primary z-w-but-creat" href="{% url 'signup' %}">Create Account</a>
         </form>
     </div>
+</div>
     {% include 'footer.html' %}
 </main>
 
