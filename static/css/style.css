@@ -870,6 +870,9 @@ main {
   width: 77vw !important;
 }
 
+.popup-content{
+  margin-top: 45% !important;
+}
   .respo-img-acc {
     display: none;
   }
