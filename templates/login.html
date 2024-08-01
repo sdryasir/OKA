@@ -19,8 +19,8 @@
         <form method="POST" action="{% url 'loginuser' %}" id="z-mob-responsive" class="z-w-30">
             {% csrf_token %}
             <div class="mb-3">
-                <label for="email" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="email" name="username">
+                <label for="email" class="form-label">Username</label>
+                <input type="text" class="form-control" id="email" name="username">
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>

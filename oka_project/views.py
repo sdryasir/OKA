@@ -88,7 +88,7 @@ def register_user(request):
                 return render(request, "signup.html")
             elif User.objects.filter(email=email).exists():
                 print("email reg")
-                messages.error(request, "Email Already Register")
+                messages.error(request, "Email Already Register!")
                 return render(request, "signup.html")
             elif len(password) < 8:
                 messages.error(request, "Password Must be 8 Characters Long!")
