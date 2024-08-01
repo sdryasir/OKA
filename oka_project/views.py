@@ -11,7 +11,7 @@ def home(request):
     data = {
         'products' : productdata,
         'categories' : categorydata,
-        'carousels' : carouseldata,
+        'carousels' : carouseldata
     }
     return render(request, "index.html" , data)
 
@@ -31,7 +31,15 @@ def productDetails(request):
     return render(request, "productdetail.html")
 
 def fashion(request):
-    return render(request, "fashion.html")
+    productdata = Products.objects.all()
+    data = {
+        'products' : productdata,
+        }
+
+    return render(request, "products.html" , data)
 
 def searchResult(request):
-    return render(request, "fashion.html")
+    return render(request, "search_results.html")
+
+def productResult(request):
+    return render(request, "product_results.html")

@@ -32,9 +32,10 @@ urlpatterns = [
     path('contact/', views.contact, name='contact'),
     path('login/', views.login, name='login'),
     path('signup/', views.signup, name='signup'),
-    path('products/', views.fashion, name='products'),
+    path('all-products/', views.fashion, name='products'),
     path('product-details/', views.productDetails, name='product-details'),
     path('search-results/', views.searchResult, name='search-results'),
+    path('product-results/', views.productResult, name='product-results'),
 ]
 if settings.DEBUG :
     urlpatterns += static(settings.MEDIA_URL , document_root = settings.MEDIA_ROOT)

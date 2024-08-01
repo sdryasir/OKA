@@ -678,6 +678,19 @@ background-color: #f2f2f2;}
   left: calc(30% - 0%);
   bottom: -3px;
 }
+.u-lining{
+  white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.u-img-lining{
+  width: 77%;
+  align-self: center;
+}
+
+
+
+
 
 
 
@@ -932,6 +945,12 @@ background-color: #f2f2f2;}
   .carousel-inner .carousel-item img {
     height: 300px;
   }
+}
+@media (min-width: 480px) and (max-width: 575.98px){
+  .u-card-adjusting {
+    flex: 0 0 auto;
+    width: 50%;
+}
 }
 
 @media (min-width: 576px) and (max-width: 767.98px) {
