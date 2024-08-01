@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, re_path
 from django.conf import settings
 from . import views
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns # new
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf import settings
 from django.views.static import serve
 from django.conf.urls.static import static
@@ -35,7 +35,13 @@ urlpatterns = [
     path('all-products/', views.fashion, name='products'),
     path('product-details/', views.productDetails, name='product-details'),
     path('search-results/', views.searchResult, name='search-results'),
+<<<<<<< HEAD
     path('product-results/', views.productResult, name='product-results'),
+=======
+    path('register-user/', views.register_user, name='register-user'),
+    path('login-user/', views.log_inUser, name='loginuser'),
+    path('logout/', views.log_out_user, name='logout'),
+>>>>>>> 91f26806ae5e1e12320a885db5d4c437a1a14751
 ]
 if settings.DEBUG :
     urlpatterns += static(settings.MEDIA_URL , document_root = settings.MEDIA_ROOT)
