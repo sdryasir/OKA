@@ -29,7 +29,6 @@ def login_User(request):
     else:
             return render(request, "login.html")
     
-
 def signup(request):
     return render(request, "signup.html")
 
