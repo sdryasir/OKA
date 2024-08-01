@@ -98,17 +98,10 @@ body {
 }
 #dropdwnbtn {
   float: inline-end !important;
-<<<<<<< HEAD
   color: #F85606 !important;
 }
 .dropdown-toggle{
   background-color:  #F85606 !important;
-=======
-  color: #ff6f00 !important;
-}
-.dropdown-toggle {
-  background-color: #ff6f00 !important;
->>>>>>> 91f26806ae5e1e12320a885db5d4c437a1a14751
   border: none !important;
 }
 
@@ -514,19 +507,12 @@ main {
 }
 .u-cart-adjust {
   color: white;
-<<<<<<< HEAD
   background-color: #F85606;
   padding: 8px 18px; 
   font-weight: 600; 
   text-decoration: none; 
   border-radius: 18px; 
-=======
-  background-color: #ff6f00;
-  padding: 8px 18px;
-  font-weight: 600;
-  text-decoration: none;
-  border-radius: 18px;
->>>>>>> 91f26806ae5e1e12320a885db5d4c437a1a14751
+
 }
 .u-product-middle .card .card-body {
   padding: 0;
@@ -597,15 +583,9 @@ main {
   border: none;
 }
 .product-wrapper {
-<<<<<<< HEAD
   padding-top: 60px !important;
 background-color: #f2f2f2;  padding-bottom: 50px;
-=======
-  padding-top: 25px !important;
-  margin-top: 40px;
-  background-image: linear-gradient(to top, #fff1f1, #fff1f1);
-  padding-bottom: 50px;
->>>>>>> 91f26806ae5e1e12320a885db5d4c437a1a14751
+
 }
 .u_card_hover .card-body {
   padding-bottom: 35px !important;
@@ -687,15 +667,9 @@ background-color: #f2f2f2;  padding-bottom: 50px;
 .u-img-card:hover .u-img-card-body {
   right: 0;
 }
-<<<<<<< HEAD
 .u_category_inner_wrapper{
   
 background-color: #f2f2f2;}
-=======
-.u_category_inner_wrapper {
-  background-image: linear-gradient(to top, #fff1f1, #fff1f1);
-}
->>>>>>> 91f26806ae5e1e12320a885db5d4c437a1a14751
 #fashion-pg-h1 {
   display: inline-block;
   position: relative;
@@ -704,10 +678,10 @@ background-color: #f2f2f2;}
 #fashion-pg-h1::after {
   content: "";
   height: 2px;
-  width: 40%;
+  width: 60%;
   background: #000;
   position: absolute;
-  left: calc(30% - 0%);
+  left: calc(10% - 0%);
   bottom: -3px;
 }
 .u-lining{

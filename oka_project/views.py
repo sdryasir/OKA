@@ -1,16 +1,13 @@
-<<<<<<< HEAD
 from django.shortcuts import render
 from products.models import Products
 from categories.models import Category
 from carousel.models import Carousel
-=======
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.sessions.models import Session
 from django.contrib.auth import authenticate, login as auth_login, logout
 
->>>>>>> 91f26806ae5e1e12320a885db5d4c437a1a14751
 
 def home(request):
     productdata = Products.objects.all()
@@ -91,15 +88,10 @@ def fashion(request):
 
 
 def searchResult(request):
-<<<<<<< HEAD
     return render(request, "search_results.html")
 
 def productResult(request):
     return render(request, "product_results.html")
-=======
-    return render(request, "fashion.html")
-
-
 def register_user(request):
     if not request.user.is_authenticated:
         first_name = request.POST["first_name"]
@@ -128,4 +120,3 @@ def register_user(request):
         return render(request, "signup.html")
     else:
         return redirect("home")
->>>>>>> 91f26806ae5e1e12320a885db5d4c437a1a14751
