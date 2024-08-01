@@ -8,11 +8,11 @@
     </div>
 <div class="container">
     <div class="d-flex justify-content-center mb-3">
-        <form method="POST" action="{% url 'login-user' %}" id="z-mob-responsive" class="z-w-30">
+        <form method="POST" action="{% url 'loginuser' %}" id="z-mob-responsive" class="z-w-30">
             {% csrf_token %}
             <div class="mb-3">
                 <label for="email" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="email" name="email">
+                <input type="email" class="form-control" id="email" name="username">
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
