@@ -30,8 +30,8 @@ def log_inUser(request):
                 return redirect('login')
             user = authenticate(request, username=username, password=password)
             if user is not None:
-                auth_login(request, user)
                 messages.success(request, "Login Successful!")
+                auth_login(request, user)
                 request.session["username"] = user.username
                 return redirect("home")
             else:
@@ -89,6 +89,9 @@ def register_user(request):
             elif User.objects.filter(email=email).exists():
                 print("email reg")
                 messages.error(request, "Email Already Register")
+                return render(request, "signup.html")
+            elif len(password) < 8:
+                messages.error(request, "Password Must be 8 Characters Long!")
                 return render(request, "signup.html")
             else:
                 user = User.objects.create_user(
