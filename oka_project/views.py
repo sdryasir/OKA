@@ -80,8 +80,11 @@ def productDetails(request):
 
 def fashion(request):
     productdata = Products.objects.all()
+    
+
     data = {
         'products' : productdata,
+
         }
 
     return render(request, "products.html" , data)
@@ -90,8 +93,14 @@ def fashion(request):
 def searchResult(request):
     return render(request, "search_results.html")
 
-def productResult(request):
-    return render(request, "product_results.html")
+def productResult(request , category):
+    productsbycat = Products.objects.filter(category_id = category)
+
+    data = {
+        'productsbycat': productsbycat,
+    }
+
+    return render(request, "product_results.html" , data)
 def register_user(request):
     if not request.user.is_authenticated:
         first_name = request.POST["first_name"]

@@ -197,6 +197,40 @@
     inputField.value = currentValue + 1;
   });
   </script>
+  <script>
+    const minRange = document.querySelector('.min-range');
+    const maxRange = document.querySelector('.max-range');
+    const minPrice = document.getElementById('min-price');
+    const maxPrice = document.getElementById('max-price');
+    const sliderRange = document.getElementById('slider-range');
+
+    function updateRange() {
+        const minVal = parseInt(minRange.value);
+        const maxVal = parseInt(maxRange.value);
+
+        if (minVal > maxVal - 10) {
+            minRange.value = maxVal - 10;
+        }
+
+        if (maxVal < minVal + 10) {
+            maxRange.value = minVal + 10;
+        }
+
+        minPrice.textContent = minRange.value;
+        maxPrice.textContent = maxRange.value;
+
+        const minPercent = (minRange.value / minRange.max) * 100;
+        const maxPercent = (maxRange.value / maxRange.max) * 100;
+
+        sliderRange.style.left = minPercent + '%';
+        sliderRange.style.width = (maxPercent - minPercent) + '%';
+    }
+
+    minRange.addEventListener('input', updateRange);
+    maxRange.addEventListener('input', updateRange);
+
+    updateRange();
+</script>
 </body>
 
 </html>

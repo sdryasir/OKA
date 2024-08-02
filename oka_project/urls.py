@@ -36,6 +36,7 @@ urlpatterns = [
     path('product-details/', views.productDetails, name='product-details'),
     path('search-results/', views.searchResult, name='search-results'),
     path('product-results/', views.productResult, name='product-results'),
+    path('product-results/<category>', views.productResult, name='product-results'),
     path('register-user/', views.register_user, name='register-user'),
     path('login-user/', views.log_inUser, name='loginuser'),
     path('logout/', views.log_out_user, name='logout'),
