@@ -10,6 +10,7 @@ class Products(models.Model):
     In_Stock = models.IntegerField(null=True)
     category = models.ForeignKey(Category , on_delete=models.CASCADE)
     image = models.FileField(max_length=60 , upload_to= "products/")
+ 
 
     def __str__(self):
         return self.title
