@@ -21,6 +21,7 @@ from . import views
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf import settings
 from django.views.static import serve
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
@@ -36,5 +37,9 @@ urlpatterns = [
     path('register-user/', views.register_user, name='register-user'),
     path('login-user/', views.log_inUser, name='loginuser'),
     path('logout/', views.log_out_user, name='logout'),
+    path('password_reset/', auth_views.PasswordResetView.as_view(template_name='Password_Reset_View.html'), name='password_reset'),
+    path('password_reset_done/', auth_views.PasswordResetDoneView.as_view(template_name='password_reset_done.html'), name='password_reset_done'),
+    path('password_reset_confirm/<uidb64>/<token>/',auth_views.PasswordResetConfirmView.as_view(template_name='password_reset_confirm.html'), name='password_reset_confirm'),
+    path('password_reset_complete/', auth_views.PasswordResetCompleteView.as_view(template_name='password_reset_complete.html'), name='password_reset_complete'),
 ]
 
