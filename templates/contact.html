@@ -11,6 +11,7 @@
 </head>
 
 <body>
+
     <div class="container-fluid p-0">
         <iframe class="w-100"
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2629.3364469259504!2d73.05171778159371!3d33.59481154268757!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38df949d2be3d885%3A0x83a37f5f6cf58313!2sSuperTech%20Institute%20of%20Computer%20Sciences!5e0!3m2!1sen!2s!4v1720588599133!5m2!1sen!2s"
@@ -18,7 +19,15 @@
             referrerpolicy="no-referrer-when-downgrade">
         </iframe>
     </div>
-
+    <div class="container d-flex justify-content-center align-items-center">
+        {% for message in messages %}
+        <div style="text-align: center;"
+            class="alert alert-{{message.tags}} alert-dismissible fade show cust-responsive-mb" role="alert">
+            <strong>{{message}}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+    </div>
     <div class="container mt-4">
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
@@ -29,23 +38,23 @@
                         {% csrf_token %}
                         <div class="mb-3">
                             <label for="formGroupExampleInput" class="form-label">Your Name (required)</label>
-                            <input name="name" type="text" class="form-control" id="formGroupExampleInput" required>
+                            <input name="name" type="text" class="form-control" id="formGroupExampleInput">
                         </div>
                         <div class="mb-3">
                             <label for="formGroupExampleInput2" class="form-label">Your Email (required)</label>
-                            <input name="email" type="text" class="form-control" id="formGroupExampleInput2" required>
+                            <input name="email" type="text" class="form-control" id="formGroupExampleInput2">
                         </div>
                         <div class="mb-3">
                             <label for="formGroupExampleInput3" class="form-label">Your Phone Number</label>
-                            <input name="phone" type="text" class="form-control" id="formGroupExampleInput3" required>
+                            <input name="phone" type="text" class="form-control" id="formGroupExampleInput3">
                         </div>
                         <div class="mb-3">
                             <label for="formGroupExampleInput4" class="form-label">Your Message</label>
-                            <textarea name="message" class="form-control" id="formGroupExampleInput4" rows="9" cols="6"
-                                required></textarea>
+                            <textarea name="message" class="form-control" id="formGroupExampleInput4" rows="9"
+                                cols="6"></textarea>
                         </div>
                         <button style="margin-bottom: 2%;" type="submit" class="btn btn-outline-light"
-                        id="button-send-styles"><b>Send</b></button>
+                            id="button-send-styles"><b>Send</b></button>
                     </form>
                 </div>
             </div>

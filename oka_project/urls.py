@@ -32,6 +32,7 @@ urlpatterns = [
     path('login/', views.login, name='login'),
     path('signup/', views.signup, name='signup'),
     path('contact/', include('contact.urls'), name='contact'),
+    path('faq/', views.faq, name='faq'),
     path('all-products/', views.fashion, name='products'),
     path('product-details/', views.productDetails, name='product-details'),
     path('search-results/', views.searchResult, name='search-results'),
