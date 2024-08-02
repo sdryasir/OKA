@@ -4,58 +4,81 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Contact us</title>
+    <title>Contact Us</title>
     {% include 'header.html' %}
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
-
 <body>
-    <div class="container-fluid responsive-iframe">
-        <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2629.3364469259504!2d73.05171778159371!3d33.59481154268757!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38df949d2be3d885%3A0x83a37f5f6cf58313!2sSuperTech%20Institute%20of%20Computer%20Sciences!5e0!3m2!1sen!2s!4v1720588599133!5m2!1sen!2s"
-            width="100%" height="450" style="border: 0" allowfullscreen="" loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"></iframe>
-    </div>
-    <div class="row" id="responsiv-row-for-iframe">
-        <div class="col-lg-6 col-md-6 col-sm-12">
-            <div class="container color-and-fonts">
-                <h4>DROP US A LINE</h4>
-                <form>
-                    <div class="mb-3">
-                        <label for="formGroupExampleInput" class="form-label">Your Name (required)</label>
-                        <input type="text" class="form-control b-r-noone" id="formGroupExampleInput">
-                    </div>
-                    <div class="mb-3">
-                        <label for="formGroupExampleInput2" class="form-label">Your Email (required)</label>
-                        <input type="text" class="form-control b-r-noone" id="formGroupExampleInput2">
-                    </div>
-                    <div class="mb-3">
-                        <label for="formGroupExampleInput2" class="form-label">Your Phone Number</label>
-                        <input type="text" class="form-control b-r-noone" id="formGroupExampleInput2">
-                    </div>
-                    <div class="mb-3">
-                        <label for="formGroupExampleInput2" class="form-label">Your Message</label>
-                        <textarea type="text" class="form-control b-r-noone" id="formGroupExampleInput2" rows="9"
-                            cols="6"></textarea>
-                    </div>
-                    <button type="button" class="btn btn-outline-light" id="button-send-styles"><b>Send</b></button>
-                </form>
-            </div>
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-12">
-            <div class="container color-and-fonts">
-                <h4>CONTACT INFORMATION</h4><br>
-                <p>We are always delighted to hear from you. Please feel free to write us about your queries, questions,
-                    testimonials or anything that you think would help us to serve you better.</p><br>
-                <p class="bi bi-house-door" id="contact-margin-adjust"> Building # 21, Block B, Faisal Town, Lahore.</p>
-                <p class="bi bi-telephone" id="contact-margin-adjust"> +92 333 142 1787</p>
-                <p class="bi bi-envelope" id="contact-margin-adjust"> info@babyplanet.pk</p>
-                <p class="bi bi-clock" id="contact-margin-adjust"> 24/7</p>
-            </div>
 
+    <div class="container-fluid p-0">
+        <iframe class="w-100"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2629.3364469259504!2d73.05171778159371!3d33.59481154268757!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38df949d2be3d885%3A0x83a37f5f6cf58313!2sSuperTech%20Institute%20of%20Computer%20Sciences!5e0!3m2!1sen!2s!4v1720588599133!5m2!1sen!2s"
+            height="450" style="border: 0" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+    </div>
+    <div class="container d-flex justify-content-center align-items-center">
+        {% for message in messages %}
+        <div style="text-align: center;"
+            class="alert alert-{{message.tags}} alert-dismissible fade show cust-responsive-mb" role="alert">
+            <strong>{{message}}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
+                <div style="border: none !important;
+    background-color: #FCFCFC !important;" class="p-3 border bg-light">
+                    <h4>DROP US A LINE</h4>
+                    <form method="post" action="{% url 'form-submit' %}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="formGroupExampleInput" class="form-label">Your Name (required)</label>
+                            <input name="name" type="text" class="form-control" id="formGroupExampleInput">
+                        </div>
+                        <div class="mb-3">
+                            <label for="formGroupExampleInput2" class="form-label">Your Email (required)</label>
+                            <input name="email" type="text" class="form-control" id="formGroupExampleInput2">
+                        </div>
+                        <div class="mb-3">
+                            <label for="formGroupExampleInput3" class="form-label">Your Phone Number</label>
+                            <input name="phone" type="text" class="form-control" id="formGroupExampleInput3">
+                        </div>
+                        <div class="mb-3">
+                            <label for="formGroupExampleInput4" class="form-label">Your Message</label>
+                            <textarea name="message" class="form-control" id="formGroupExampleInput4" rows="9"
+                                cols="6"></textarea>
+                        </div>
+                        <button style="margin-bottom: 2%;" type="submit" class="btn btn-outline-light"
+                            id="button-send-styles"><b>Send</b></button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div style="border: none !important;
+    background-color: #FCFCFC !important;" class="p-3 border bg-light">
+                    <h4>CONTACT INFORMATION</h4><br>
+                    <p>We are always delighted to hear from you. Please feel free to write us about your queries,
+                        questions, testimonials or anything that you think would help us to serve you better.</p><br>
+                    <p><i class="bi bi-house-door"></i> Building # 21, Block B, Faisal Town, Lahore.</p>
+                    <p><i class="bi bi-telephone"></i> +92 333 142 1787</p>
+                    <p><i class="bi bi-envelope"></i> info@babyplanet.pk</p>
+                    <p><i class="bi bi-clock"></i> 24/7</p>
+                </div>
+            </div>
         </div>
     </div>
+
     {% include 'footer.html' %}
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>

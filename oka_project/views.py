@@ -15,11 +15,11 @@ def home(request):
     carouseldata = Carousel.objects.all()
 
     data = {
-        'products' : productdata,
-        'categories' : categorydata,
-        'carousels' : carouseldata
+        "products": productdata,
+        "categories": categorydata,
+        "carousels": carouseldata,
     }
-    return render(request, "index.html" , data)
+    return render(request, "index.html", data)
 
 
 def contact(request):
@@ -80,27 +80,28 @@ def productDetails(request):
 
 def fashion(request):
     productdata = Products.objects.all()
-    
 
     data = {
-        'products' : productdata,
+        "products": productdata,
+    }
 
-        }
-
-    return render(request, "products.html" , data)
+    return render(request, "products.html", data)
 
 
 def searchResult(request):
     return render(request, "search_results.html")
 
-def productResult(request , category):
-    productsbycat = Products.objects.filter(category_id = category)
+
+def productResult(request, category):
+    productsbycat = Products.objects.filter(category_id=category)
 
     data = {
-        'productsbycat': productsbycat,
+        "productsbycat": productsbycat,
     }
 
-    return render(request, "product_results.html" , data)
+    return render(request, "product_results.html", data)
+
+
 def register_user(request):
     if not request.user.is_authenticated:
         first_name = request.POST["first_name"]
@@ -132,3 +133,5 @@ def register_user(request):
         return render(request, "signup.html")
     else:
         return redirect("home")
+def faq(request):
+    return render(request, 'faq.html')
