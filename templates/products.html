@@ -1,0 +1,69 @@
+{% load static %}
+{% include 'header.html' %}
+
+<main>
+  <div class="u_category_inner_wrapper pt-4">
+    <div class="container-fluid">
+      <div class="category mb-5">
+        <h2 id="fashion-pg-h1"> All Products </h2>
+      </div><!-- /.category -->
+
+      <div class="row p-0">
+
+        {% for product in products %}
+        <div class="col-sm-6 u-card-adjusting col-md-4 col-lg-3 col-xl-3 my-2">
+          <div class="card u_card_hover">
+            <img src="/media/{{product.image}}" class="card-img-top u-img-lining" alt="..." />
+            <div class="card-body" style="text-align: center;">
+              <h5 class="card-title u-lining">{{product.title}}
+              </h5>
+              <p style="margin: 0;"><span
+                  style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.{{product.compare_price}}</span>
+                <span style="color: #FF6F00; font-size: 17px;">Rs.{{product.price}}</span>
+              </p>
+              <a style="margin-top: 1rem;" href="" class="btn btn-primary u_btn_color">Add to cart</a>
+              <a style="margin-top: 1rem;" href="{% url 'product-details' %}"
+                class="btn btn-primary u_btn_color">Details</a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div><!-- /.u_category_inner_wrapper -->
+  <div class="u-filter-wrapper">
+    <button class="btn u-btn-style" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop"
+      aria-controls="staticBackdrop">
+      <i class="bi bi-funnel"></i>
+    </button>
+
+    <div class="offcanvas offcanvas-start" style="width: 260px;" data-bs-backdrop="static" tabindex="-1"
+      id="staticBackdrop" aria-labelledby="staticBackdropLabel">
+      <div class="offcanvas-header">
+        <button type="button" class="btn-close"
+          data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <div class="u-price-wrapper">
+          <div class="u-price-heading">
+            <h3 style="text-align: center;">Price</h3>
+          </div>
+          <div class="u-price">
+            <div class="range-slider">
+              <div class="slider-track"></div>
+              <div class="slider-range" id="slider-range"></div>
+              <input type="range" class="min-range" min="0" max="8000" value="0">
+              <input type="range" class="max-range" min="0" max="8000" value="5000">
+          </div>
+          <div class="price-range">
+              <div style="font-size: 14px;">Min: Rs . <span id="min-price">100</span></div>
+              <div style="font-size: 14px;">Max: Rs . <span id="max-price">5000</span></div>
+          </div>
+          </div>
+        </div><!-- /.u-price-wrapper -->
+      </div>
+    </div>
+  </div><!-- /.u-filter-wrapper -->
+
+  {% include 'footer.html' %}
+</main>

@@ -21,6 +21,8 @@ from . import views
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf import settings
 from django.views.static import serve
+from django.conf.urls.static import static
+
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
@@ -31,9 +33,11 @@ urlpatterns = [
     path('contact/', views.contact, name='contact'),
     path('login/', views.login, name='login'),
     path('signup/', views.signup, name='signup'),
-    path('fashion/', views.fashion, name='fashion'),
+    path('all-products/', views.fashion, name='products'),
     path('product-details/', views.productDetails, name='product-details'),
     path('search-results/', views.searchResult, name='search-results'),
+    path('product-results/', views.productResult, name='product-results'),
+    path('product-results/<category>', views.productResult, name='product-results'),
     path('register-user/', views.register_user, name='register-user'),
     path('login-user/', views.log_inUser, name='loginuser'),
     path('logout/', views.log_out_user, name='logout'),
@@ -42,4 +46,5 @@ urlpatterns = [
     path('password_reset_confirm/<uidb64>/<token>/',auth_views.PasswordResetConfirmView.as_view(template_name='password_reset_confirm.html'), name='password_reset_confirm'),
     path('password_reset_complete/', auth_views.PasswordResetCompleteView.as_view(template_name='password_reset_complete.html'), name='password_reset_complete'),
 ]
-
+if settings.DEBUG :
+    urlpatterns += static(settings.MEDIA_URL , document_root = settings.MEDIA_ROOT)

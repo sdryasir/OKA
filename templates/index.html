@@ -6,79 +6,52 @@
   <div class="carousel-wrapper">
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-indicators indicators">
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+          aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+          aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+          aria-label="Slide 3"></button>
       </div>
       <div class="carousel-inner">
-        <div class="carousel-item active"  data-bs-interval="2500">
-          <img src="{% static 'images/carousel-1.jpg' %}" class="d-block w-100" alt="...">
+        {% for carousel in carousels %}
+        <div class="carousel-item active" data-bs-interval="2500">
+          <img src="media/{{carousel.image}}" class="d-block w-100" alt="...">
         </div>
-        <div class="carousel-item" data-bs-interval="2500">
-          <img src="{% static 'images/carousel-2.webp' %}" class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item" data-bs-interval="2500">
-          <img src="{% static 'images/carousel-3.jpg' %}" class="d-block w-100" alt="...">
-        </div>
+        {% endfor %}
       </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+        data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Previous</span>
       </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+        data-bs-slide="next">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
       </button>
     </div>
   </div><!-- /.carousel-wrapper -->
-  <div class="category-wrapper">
+  <div class="category-wrapper pt-5 pb-5" style="background-color: #f36e2d;">
     <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-4 col-sm-6 col-lg-3 mt-4 d-flex justify-content-center">
+      <div class="u-category-hd d-flex justify-content-center" style="color: white;">
+      <h2 class="u-par-underline-3">All Categories</h2>
+    </div><!-- /.u-category-hd -->
+      <div class="owl-carousel owl-theme mt-4">
+        {% for category in categories %}
+        <div class="item d-flex justify-content-center mt-4">
           <div class="u-img-card">
-            <img height="350px" width="" src="{% static 'images/trousers.png' %}" alt="">
+            <img height="350px" width="" src="media/{{category.image}}" alt="">
             <div class="u-img-card-body">
-             <div class="u-inner">
-              <h5 class="mb-4">Pants and Shirts</h5>
-              <a href="{% url 'fashion' %}">View More</a>
-             </div>
+              <div class="u-inner">
+                <h5 class="mb-4">{{category.title}}</h5>
+                <a href="{% url 'product-results'%}{{category.id}}">View More</a>
+              </div>
             </div><!-- /.u-img-card-body -->
           </div><!-- /.img-card -->
-        </div><!-- /.col-lg-3 -->
-        <div class="col-md-4 col-sm-6 col-lg-3 mt-4 d-flex justify-content-center">
-          <div class="u-img-card">
-            <img height="350px" width="" src="{% static 'images/wests.jpeg' %}" alt="">
-            <div class="u-img-card-body">
-              <div class="u-inner">
-               <h5 class="mb-4">Kids Vests</h5>
-               <a href="">View More</a>
-              </div>
-             </div><!-- /.u-img-card-body -->
-          </div><!-- /.img-card -->
-        </div><!-- /.col-lg-3 -->
-        <div class="col-md-4 col-sm-6 col-lg-3 mt-4 d-flex justify-content-center">
-          <div class="u-img-card">
-            <img height="350px" width="" src="{% static 'images/trousers.png' %}" alt="">
-            <div class="u-img-card-body">
-              <div class="u-inner">
-               <h5 class="mb-4">Kids Trousers</h5>
-               <a href="">View More</a>
-              </div>
-             </div><!-- /.u-img-card-body -->
-          </div><!-- /.img-card -->
-        </div><!-- /.col-lg-3 -->
-        <div class="col-md-4 col-sm-6 col-lg-3 mt-4 d-flex justify-content-center">
-          <div class="u-img-card">
-            <img height="350px" width="" src="{% static 'images/frok.jpg' %}" alt="">
-            <div class="u-img-card-body">
-              <div class="u-inner">
-               <h5 class="mb-4">Kids Froks</h5>
-               <a href="">View More</a>
-              </div>
-             </div><!-- /.u-img-card-body -->
-          </div><!-- /.img-card -->
-        </div><!-- /.col-lg-3 -->
-      </div><!-- /.row -->
+        </div><!-- /.item -->
+    {% endfor %}
+      </div><!-- /.owl-carousel -->
     </div><!-- /.container-fluid -->
   </div><!-- /.category-wrapper -->
   <div class="product-wrapper container-fluid">
@@ -90,10 +63,13 @@
         <div class="card u_card_hover">
           <img src="{% static 'images/product-2.webp' %}" class="card-img-top" alt="...">
           <div class="card-body" style="text-align: center;">
-            <h5 class="card-title">SY Baby Vest White
+            <h5 class="card-title u-lining">SY Baby Vest White
             </h5>
-            <p style="margin: 0;"><span style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
-            <a style="margin-top: 1rem;" href="{% url 'product-details' %}" class="btn btn-primary u_btn_color">Add to cart</a>
+            <p style="margin: 0;"><span
+                style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span
+                style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
+            <a style="margin-top: 1rem;" href="{% url 'product-details' %}" class="btn btn-primary u_btn_color">Add to
+              cart</a>
             <a style="margin-top: 1rem;" href="#" class="btn btn-primary u_btn_color">Details</a>
           </div>
         </div>
@@ -104,8 +80,11 @@
           <div class="card-body" style="text-align: center;">
             <h5 class="card-title">SY Baby Vest White
             </h5>
-            <p style="margin: 0;"><span style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
-            <a style="margin-top: 1rem;" href="{% url 'product-details' %}" class="btn btn-primary u_btn_color">Add to cart</a>
+            <p style="margin: 0;"><span
+                style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span
+                style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
+            <a style="margin-top: 1rem;" href="{% url 'product-details' %}" class="btn btn-primary u_btn_color">Add to
+              cart</a>
             <a style="margin-top: 1rem;" href="#" class="btn btn-primary u_btn_color">Details</a>
           </div>
         </div>
@@ -116,8 +95,11 @@
           <div class="card-body" style="text-align: center;">
             <h5 class="card-title">SY Baby Vest White
             </h5>
-            <p style="margin: 0;"><span style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
-            <a style="margin-top: 1rem;" href="{% url 'product-details' %}" class="btn btn-primary u_btn_color">Add to cart</a>
+            <p style="margin: 0;"><span
+                style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span
+                style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
+            <a style="margin-top: 1rem;" href="{% url 'product-details' %}" class="btn btn-primary u_btn_color">Add to
+              cart</a>
             <a style="margin-top: 1rem;" href="#" class="btn btn-primary u_btn_color">Details</a>
           </div>
         </div>
@@ -128,8 +110,11 @@
           <div class="card-body" style="text-align: center;">
             <h5 class="card-title">SY Baby Vest White
             </h5>
-            <p style="margin: 0;"><span style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
-            <a style="margin-top: 1rem;" href="{% url 'product-details' %}" class="btn btn-primary u_btn_color">Add to cart</a>
+            <p style="margin: 0;"><span
+                style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span
+                style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
+            <a style="margin-top: 1rem;" href="{% url 'product-details' %}" class="btn btn-primary u_btn_color">Add to
+              cart</a>
             <a style="margin-top: 1rem;" href="#" class="btn btn-primary u_btn_color">Details</a>
           </div>
         </div>
@@ -140,8 +125,11 @@
           <div class="card-body" style="text-align: center;">
             <h5 class="card-title">SY Baby Vest White
             </h5>
-            <p style="margin: 0;"><span style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
-            <a style="margin-top: 1rem;" href="{% url 'product-details' %}" class="btn btn-primary u_btn_color">Add to cart</a>
+            <p style="margin: 0;"><span
+                style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span
+                style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
+            <a style="margin-top: 1rem;" href="{% url 'product-details' %}" class="btn btn-primary u_btn_color">Add to
+              cart</a>
             <a style="margin-top: 1rem;" href="#" class="btn btn-primary u_btn_color">Details</a>
           </div>
         </div>
@@ -152,7 +140,8 @@
           <div class="card-body" style="text-align: center;">
             <h5 class="card-title">SY Baby Vest White
             </h5>
-            <p><span style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
+            <p><span style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span
+                style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
             <a href="#" class="btn btn-primary u_btn_color">Add to cart</a>
             <a href="#" class="btn btn-primary u_btn_color">Details</a>
           </div>
@@ -164,7 +153,8 @@
           <div class="card-body" style="text-align: center;">
             <h5 class="card-title">SY Baby Vest White
             </h5>
-            <p><span style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
+            <p><span style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span
+                style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
             <a href="#" class="btn btn-primary u_btn_color">Add to cart</a>
             <a href="#" class="btn btn-primary u_btn_color">Details</a>
           </div>
@@ -176,7 +166,8 @@
           <div class="card-body" style="text-align: center;">
             <h5 class="card-title">SY Baby Vest White
             </h5>
-            <p><span style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
+            <p><span style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span
+                style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
             <a href="#" class="btn btn-primary u_btn_color">Add to cart</a>
             <a href="#" class="btn btn-primary u_btn_color">Details</a>
           </div>
@@ -188,7 +179,8 @@
           <div class="card-body" style="text-align: center;">
             <h5 class="card-title">SY Baby Vest White
             </h5>
-            <p><span style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
+            <p><span style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span
+                style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
             <a href="#" class="btn btn-primary u_btn_color">Add to cart</a>
             <a href="#" class="btn btn-primary u_btn_color">Details</a>
           </div>
@@ -230,58 +222,8 @@
     </div>
   </div><!-- /.product-wrapper -->
   <div class="sales">
-<img src="{% static 'images/saleimage.png' %}" width="100%" alt="">    
+    <img src="{% static 'images/sale image.png' %}" width="100%" alt="">
   </div><!-- /.sales -->
-  <div class="category-wrapper">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-4 col-sm-6 col-lg-3 mt-4 d-flex justify-content-center">
-          <div class="u-img-card">
-            <img height="350px" width="" src="{% static 'images/trousers.png' %}" alt="">
-            <div class="u-img-card-body">
-             <div class="u-inner">
-              <h5 class="mb-4">Pants and Shirts</h5>
-              <a href="{% url 'fashion' %}">View More</a>
-             </div>
-            </div><!-- /.u-img-card-body -->
-          </div><!-- /.img-card -->
-        </div><!-- /.col-lg-3 -->
-        <div class="col-md-4 col-sm-6 col-lg-3 mt-4 d-flex justify-content-center">
-          <div class="u-img-card">
-            <img height="350px" width="" src="{% static 'images/wests.jpeg' %}" alt="">
-            <div class="u-img-card-body">
-              <div class="u-inner">
-               <h5 class="mb-4">Kids Vests</h5>
-               <a href="">View More</a>
-              </div>
-             </div><!-- /.u-img-card-body -->
-          </div><!-- /.img-card -->
-        </div><!-- /.col-lg-3 -->
-        <div class="col-md-4 col-sm-6 col-lg-3 mt-4 d-flex justify-content-center">
-          <div class="u-img-card">
-            <img height="350px" width="" src="{% static 'images/trousers.png' %}" alt="">
-            <div class="u-img-card-body">
-              <div class="u-inner">
-               <h5 class="mb-4">Kids Trousers</h5>
-               <a href="">View More</a>
-              </div>
-             </div><!-- /.u-img-card-body -->
-          </div><!-- /.img-card -->
-        </div><!-- /.col-lg-3 -->
-        <div class="col-md-4 col-sm-6 col-lg-3 mt-4 d-flex justify-content-center">
-          <div class="u-img-card">
-            <img height="350px" width="" src="{% static 'images/frok.jpg' %}" alt="">
-            <div class="u-img-card-body">
-              <div class="u-inner">
-               <h5 class="mb-4">Kids Froks</h5>
-               <a href="">View More</a>
-              </div>
-             </div><!-- /.u-img-card-body -->
-          </div><!-- /.img-card -->
-        </div><!-- /.col-lg-3 -->
-      </div><!-- /.row -->
-    </div><!-- /.container-fluid -->
-  </div><!-- /.category-wrapper -->
   <div class="product-wrapper container-fluid">
     <div class="category mb-5">
       <h2 class="u-par-underline-2">For You</h2>
@@ -293,7 +235,8 @@
           <div class="card-body" style="text-align: center;">
             <h5 class="card-title">SY Baby Vest White
             </h5>
-            <p><span style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
+            <p><span style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span
+                style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
             <a href="#" class="btn btn-primary u_btn_color">Add to cart</a>
             <a href="#" class="btn btn-primary u_btn_color">Details</a>
           </div>
@@ -305,7 +248,8 @@
           <div class="card-body" style="text-align: center;">
             <h5 class="card-title">SY Baby Vest White
             </h5>
-            <p><span style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
+            <p><span style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span
+                style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
             <a href="#" class="btn btn-primary u_btn_color">Add to cart</a>
             <a href="#" class="btn btn-primary u_btn_color">Details</a>
           </div>
@@ -317,7 +261,8 @@
           <div class="card-body" style="text-align: center;">
             <h5 class="card-title">SY Baby Vest White
             </h5>
-            <p><span style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
+            <p><span style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span
+                style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
             <a href="#" class="btn btn-primary u_btn_color">Add to cart</a>
             <a href="#" class="btn btn-primary u_btn_color">Details</a>
           </div>
@@ -329,7 +274,8 @@
           <div class="card-body" style="text-align: center;">
             <h5 class="card-title">SY Baby Vest White
             </h5>
-            <p><span style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
+            <p><span style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span
+                style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
             <a href="#" class="btn btn-primary u_btn_color">Add to cart</a>
             <a href="#" class="btn btn-primary u_btn_color">Details</a>
           </div>
@@ -341,7 +287,8 @@
           <div class="card-body" style="text-align: center;">
             <h5 class="card-title">SY Baby Vest White
             </h5>
-            <p><span style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
+            <p><span style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span
+                style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
             <a href="#" class="btn btn-primary u_btn_color">Add to cart</a>
             <a href="#" class="btn btn-primary u_btn_color">Details</a>
           </div>
@@ -353,7 +300,8 @@
           <div class="card-body" style="text-align: center;">
             <h5 class="card-title">SY Baby Vest White
             </h5>
-            <p><span style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
+            <p><span style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span
+                style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
             <a href="#" class="btn btn-primary u_btn_color">Add to cart</a>
             <a href="#" class="btn btn-primary u_btn_color">Details</a>
           </div>
@@ -365,7 +313,8 @@
           <div class="card-body" style="text-align: center;">
             <h5 class="card-title">SY Baby Vest White
             </h5>
-            <p><span style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
+            <p><span style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span
+                style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
             <a href="#" class="btn btn-primary u_btn_color">Add to cart</a>
             <a href="#" class="btn btn-primary u_btn_color">Details</a>
           </div>
@@ -377,7 +326,8 @@
           <div class="card-body" style="text-align: center;">
             <h5 class="card-title">SY Baby Vest White
             </h5>
-            <p><span style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
+            <p><span style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span
+                style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
             <a href="#" class="btn btn-primary u_btn_color">Add to cart</a>
             <a href="#" class="btn btn-primary u_btn_color">Details</a>
           </div>
@@ -389,7 +339,8 @@
           <div class="card-body" style="text-align: center;">
             <h5 class="card-title">SY Baby Vest White
             </h5>
-            <p><span style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
+            <p><span style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span
+                style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
             <a href="#" class="btn btn-primary u_btn_color">Add to cart</a>
             <a href="#" class="btn btn-primary u_btn_color">Details</a>
           </div>
@@ -431,7 +382,7 @@
     </div>
   </div><!-- /.product-wrapper -->
 
-  
+
 </main>
 <div class="last-wrapper">
   <div class="bg-footer-color">
@@ -475,15 +426,3 @@
   </div>
 </div><!-- /.last-wrapper -->
 {% include 'footer.html' %}
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,3 +1,7 @@
+from django.shortcuts import render
+from products.models import Products
+from categories.models import Category
+from carousel.models import Carousel
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -6,7 +10,16 @@ from django.contrib.auth import authenticate, login as auth_login, logout
 
 
 def home(request):
-    return render(request, "index.html")
+    productdata = Products.objects.all()
+    categorydata = Category.objects.all()
+    carouseldata = Carousel.objects.all()
+
+    data = {
+        'products' : productdata,
+        'categories' : categorydata,
+        'carousels' : carouseldata
+    }
+    return render(request, "index.html" , data)
 
 
 def contact(request):
@@ -66,13 +79,28 @@ def productDetails(request):
 
 
 def fashion(request):
-    return render(request, "fashion.html")
+    productdata = Products.objects.all()
+    
+
+    data = {
+        'products' : productdata,
+
+        }
+
+    return render(request, "products.html" , data)
 
 
 def searchResult(request):
-    return render(request, "fashion.html")
+    return render(request, "search_results.html")
 
+def productResult(request , category):
+    productsbycat = Products.objects.filter(category_id = category)
 
+    data = {
+        'productsbycat': productsbycat,
+    }
+
+    return render(request, "product_results.html" , data)
 def register_user(request):
     if not request.user.is_authenticated:
         first_name = request.POST["first_name"]

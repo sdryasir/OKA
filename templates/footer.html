@@ -74,7 +74,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
   integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
   crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-{% block scripts %}
 <script>
   $('.owl-carousel').owlCarousel({
     loop: true,
@@ -102,9 +101,35 @@
     }
   })
 </script>
+<script>
+  $('.owl-carousel-2').owlCarousel({
+    loop: false,
+    margin: 10,
+    responsiveClass: true,
+    responsive: {
+      0: {
+        items: 1,
+        nav: true
+      },
+      500: {
+        items: 2,
+        nav: true
+      },
+      800: {
+        items: 3,
+        nav: true
+      },
+
+      1000: {
+        items: 3,
+        nav: true,
+        loop: false
+      }
+    }
+  })
+</script>
 
 
-{% endblock %}
 <script>
   let slideIndex = 1;
   showSlides(slideIndex);
@@ -172,6 +197,40 @@
     inputField.value = currentValue + 1;
   });
   </script>
+  <script>
+    const minRange = document.querySelector('.min-range');
+    const maxRange = document.querySelector('.max-range');
+    const minPrice = document.getElementById('min-price');
+    const maxPrice = document.getElementById('max-price');
+    const sliderRange = document.getElementById('slider-range');
+
+    function updateRange() {
+        const minVal = parseInt(minRange.value);
+        const maxVal = parseInt(maxRange.value);
+
+        if (minVal > maxVal - 10) {
+            minRange.value = maxVal - 10;
+        }
+
+        if (maxVal < minVal + 10) {
+            maxRange.value = minVal + 10;
+        }
+
+        minPrice.textContent = minRange.value;
+        maxPrice.textContent = maxRange.value;
+
+        const minPercent = (minRange.value / minRange.max) * 100;
+        const maxPercent = (maxRange.value / maxRange.max) * 100;
+
+        sliderRange.style.left = minPercent + '%';
+        sliderRange.style.width = (maxPercent - minPercent) + '%';
+    }
+
+    minRange.addEventListener('input', updateRange);
+    maxRange.addEventListener('input', updateRange);
+
+    updateRange();
+</script>
 </body>
 
 </html>
