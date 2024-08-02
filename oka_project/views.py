@@ -74,8 +74,14 @@ def signup(request):
         return render(request, "signup.html")
 
 
-def productDetails(request):
-    return render(request, "productdetail.html")
+def productDetails(request , id):
+    productsdetails = Products.objects.get(id__exact = id)
+
+    data = {
+        'products': productsdetails,
+    }
+
+    return render(request, "productdetail.html" , data)
 
 
 def fashion(request):
@@ -91,7 +97,15 @@ def fashion(request):
 
 
 def searchResult(request):
-    return render(request, "search_results.html")
+    searchresults = request.GET['search']
+    searchterm = Products.objects.filter(title__icontains = searchresults)
+    data = {
+        'searchterm' : searchterm
+    }
+    return render(request, "search_results.html" , data)
+
+
+
 
 def productResult(request , category):
     productsbycat = Products.objects.filter(category_id = category)

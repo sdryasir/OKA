@@ -105,9 +105,9 @@
                 <ul class="navbar-nav icon-inline mb-2 mb-lg-0">
                   <li class="nav-item sizing u_sizing">
                     <div class=" u_search me-1">
-                      <form method="get" class="d-flex align-items-center">
-                        <input class="form-control u_search_box " type="search" placeholder="Search" >
-                        <button class="u_search_button_2">
+                      <form method="get" action="{% url 'search-results' %}" class="d-flex align-items-center">
+                        <input class="form-control u_search_box " type="search" placeholder="Search" name="search" >
+                        <button type="submit" class="u_search_button_2">
                           <i class="ph-bold ph-magnifying-glass"></i>
                         </button>
                       </form>

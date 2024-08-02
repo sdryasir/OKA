@@ -21,8 +21,8 @@
                   style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.{{product.compare_price}}</span>
                 <span style="color: #FF6F00; font-size: 17px;">Rs.{{product.price}}</span>
               </p>
-              <a style="margin-top: 1rem;" href="" class="btn btn-primary u_btn_color">Add to cart</a>
-              <a style="margin-top: 1rem;" href="{% url 'product-details' %}"
+              <a style="margin-top: 1rem;" href="" class="btn btn-primary u_btn_color">Add to cart {{product.id}}</a>
+              <a style="margin-top: 1rem;" href="{% url 'product-details' product.id %}"
                 class="btn btn-primary u_btn_color">Details</a>
             </div>
           </div>
