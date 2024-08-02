@@ -33,8 +33,9 @@ urlpatterns = [
     path('signup/', views.signup, name='signup'),
     path('contact/', include('contact.urls'), name='contact'),
     path('faq/', views.faq, name='faq'),
-    path('all-products/', views.fashion, name='products'),
+    path('all-products/', views.products, name='products'),
     path('product-details/', views.productDetails, name='product-details'),
+    path('product-details/<id>', views.productDetails, name='product-details'),
     path('search-results/', views.searchResult, name='search-results'),
     path('product-results/', views.productResult, name='product-results'),
     path('product-results/<category>', views.productResult, name='product-results'),
@@ -47,4 +48,4 @@ urlpatterns = [
     path('password_reset_complete/', auth_views.PasswordResetCompleteView.as_view(template_name='password_reset_complete.html'), name='password_reset_complete'),
 ]
 if settings.DEBUG :
-    urlpatterns += static(settings.MEDIA_URL , document_root = settings.MEDIA_ROOT)
+    urlpatterns += static(settings.MEDIA_URL , document_root = settings.MEDIA_ROOT)  

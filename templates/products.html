@@ -18,11 +18,11 @@
               <h5 class="card-title u-lining">{{product.title}}
               </h5>
               <p style="margin: 0;"><span
-                  style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.{{product.compare_price}}</span>
+                  style="color: #858585; text-decoration: line-through; font-size: 14px;">Rs.{{product.compare_price}}</span>
                 <span style="color: #FF6F00; font-size: 17px;">Rs.{{product.price}}</span>
               </p>
-              <a style="margin-top: 1rem;" href="" class="btn btn-primary u_btn_color">Add to cart</a>
-              <a style="margin-top: 1rem;" href="{% url 'product-details' %}"
+              <a style="margin-top: 1rem;" href="" class="btn btn-primary u_btn_color">Add to cart </a>
+              <a style="margin-top: 1rem;" href="{% url 'product-details' product.id %}"
                 class="btn btn-primary u_btn_color">Details</a>
             </div>
           </div>
@@ -30,40 +30,27 @@
         {% endfor %}
       </div>
     </div>
+    <div class="pagination-wrapper">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination d-flex justify-content-center m-0 py-5">
+          {% if products.has_previous %}
+          <li class="page-item"><a style="color: black;box-shadow: none; border: 1px solid black;"
+              class="page-link" href="/all-products/?page={{products.previous_page_number}}">Previous</a></li>
+          {% endif %}
+          {% for p in totalpages %}
+          <li class="page-item"><a style="color: black;box-shadow: none; border: 1px solid black;"
+              class="page-link {% if products.number == p  %} u-bg-pg {% endif %}" href="/all-products/?page={{p}}"> {{p}} </a></li>
+          {% endfor %}
+          {% if products.has_next %}
+          <li class="page-item"><a style="color: black;box-shadow: none; border: 1px solid black;"
+              class="page-link" href="/all-products/?page={{products.next_page_number}}">Next</a></li>
+          {% endif %}
+        </ul>
+      </nav>
+    </div><!-- /.pagination-wrapper -->
+
   </div><!-- /.u_category_inner_wrapper -->
-  <div class="u-filter-wrapper">
-    <button class="btn u-btn-style" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop"
-      aria-controls="staticBackdrop">
-      <i class="bi bi-funnel"></i>
-    </button>
-
-    <div class="offcanvas offcanvas-start" style="width: 260px;" data-bs-backdrop="static" tabindex="-1"
-      id="staticBackdrop" aria-labelledby="staticBackdropLabel">
-      <div class="offcanvas-header">
-        <button type="button" class="btn-close"
-          data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      </div>
-      <div class="offcanvas-body">
-        <div class="u-price-wrapper">
-          <div class="u-price-heading">
-            <h3 style="text-align: center;">Price</h3>
-          </div>
-          <div class="u-price">
-            <div class="range-slider">
-              <div class="slider-track"></div>
-              <div class="slider-range" id="slider-range"></div>
-              <input type="range" class="min-range" min="0" max="8000" value="0">
-              <input type="range" class="max-range" min="0" max="8000" value="5000">
-          </div>
-          <div class="price-range">
-              <div style="font-size: 14px;">Min: Rs . <span id="min-price">100</span></div>
-              <div style="font-size: 14px;">Max: Rs . <span id="max-price">5000</span></div>
-          </div>
-          </div>
-        </div><!-- /.u-price-wrapper -->
-      </div>
-    </div>
-  </div><!-- /.u-filter-wrapper -->
-
+ 
+  {% include 'filter.html' %}
   {% include 'footer.html' %}
 </main>
