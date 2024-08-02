@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     'products',
     'carousel',
     'contact',
+    'footer',
+    'faq',
+    'navbar'
 ]
 
 

@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.sessions.models import Session
 from django.contrib.auth import authenticate, login as auth_login, logout
+from faq.models import Faq
 
 
 def home(request):
@@ -133,5 +134,5 @@ def register_user(request):
         return render(request, "signup.html")
     else:
         return redirect("home")
-def faq(request):
-    return render(request, 'faq.html')
+
+
