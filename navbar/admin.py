@@ -1,6 +1,7 @@
-# from django.contrib import admin
-# from .models import Products
-# class productAdmin(admin.ModelAdmin):
-#     list_display = ['title' , 'price' , 'category']
+from django.contrib import admin
+from .models import Navbar
 
-# admin.site.register(Products , productAdmin)
+class NavBarAdmin(admin.ModelAdmin):
+    list_display = ['name' , 'url' , 'create']
+
+admin.site.register(Navbar , NavBarAdmin)
