@@ -8,29 +8,33 @@
     </div>
     <div class="container d-flex justify-content-center align-items-center">
         {% for message in messages %}
-        <div style="text-align: center;" class="alert alert-{{message.tags}} alert-dismissible fade show cust-responsive-mb" role="alert">
-            <strong>{{message}}</strong> 
+        <div style="text-align: center;"
+            class="alert alert-{{message.tags}} alert-dismissible fade show cust-responsive-mb" role="alert">
+            <strong>{{message}}</strong>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         {% endfor %}
     </div>
-<div class="container">
-    <div class="d-flex justify-content-center mb-3">
-        <form method="POST" action="{% url 'loginuser' %}" id="z-mob-responsive" class="z-w-30">
-            {% csrf_token %}
-            <div class="mb-3">
-                <label for="email" class="form-label">Username</label>
-                <input type="text" class="form-control" id="email" name="username">
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" name="password" id="password">
-            </div>
-            <button  type="submit" class="btn btn-primary z-w-but-login my-3">Login</button>
-            <a  class="btn btn-primary z-w-but-creat" href="{% url 'signup' %}">Create Account</a>
-        </form>
+    <div class="container">
+        <div class="d-flex justify-content-center mb-3">
+            <form method="POST" action="{% url 'loginuser' %}" id="z-mob-responsive" class="z-w-30">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="email" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="email" name="username">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" name="password" id="password">
+                </div>
+                <div>
+                    <a style="text-decoration:none;" href="{%url 'password_reset'%}"> Forgot Password? </a>
+                </div>
+                <button type="submit" class="btn btn-primary z-w-but-login my-3">Login</button>
+                <a class="btn btn-primary z-w-but-creat" href="{% url 'signup' %}">Create Account</a>
+            </form>
+        </div>
     </div>
-</div>
     {% include 'footer.html' %}
 </main>
 

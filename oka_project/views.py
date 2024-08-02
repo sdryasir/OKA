@@ -26,8 +26,8 @@ def log_inUser(request):
             username = request.POST["username"]
             password = request.POST["password"]
             if not username or not password:
-                messages.error(request,"Please Fill All The Fields!")
-                return redirect('login')
+                messages.error(request, "Please Fill All The Fields!")
+                return redirect("login")
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 messages.success(request, "Login Successful!")
