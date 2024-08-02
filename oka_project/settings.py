@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'categories',
     'products',
-    'carousel'
+    'carousel',
+    'contact',
 ]
 
 
