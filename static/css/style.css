@@ -1196,10 +1196,24 @@ input:-internal-autofill-selected {
   }
 }
 
-@media (min-width: 500px) and (max-width: 575.98px) {
+@media (min-width: 300px) and (max-width: 575.98px) {
   .u-card-adjusting {
     flex: 0 0 auto;
     width: 50%;
+    padding: 0 !important;
+  }
+  .u-card-adjusting .u_card_hover .card-body p span{
+    font-size: 13px !important;
+  }
+  .u-card-adjusting .u_card_hover .card-body a{
+    font-size: 11px !important;
+    padding: 6px;
+  }
+  .u_card_hover{
+    margin: 6px;
+  }
+  .sales img{
+    height: 280px;
   }
 
 }
