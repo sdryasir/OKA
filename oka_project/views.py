@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.sessions.models import Session
 from django.contrib.auth import authenticate, login as auth_login, logout
+from django.core.paginator import Paginator
 from faq.models import Faq
 
 
@@ -75,22 +76,44 @@ def signup(request):
         return render(request, "signup.html")
 
 
-def productDetails(request):
-    return render(request, "productdetail.html")
-
-
-def fashion(request):
-    productdata = Products.objects.all()
+def productDetails(request , id):
+    productsdetails = Products.objects.get(id__exact = id)
 
     data = {
-        "products": productdata,
+        'products': productsdetails,
+    }
+
+    return render(request, "productdetail.html" , data)
+
+
+def products(request):
+    productdata = Products.objects.all()
+    productdata = Paginator(productdata , 4)
+    if 'page' in request.GET:
+        page_number = request.GET["page"]
+    else :
+        page_number = 1
+    page_obj = productdata.get_page(page_number)
+    totalpage = [x+1 for x in range(productdata.num_pages)]
+    data = {
+        "products": page_obj,
+        "totalpages": totalpage,
+       
     }
 
     return render(request, "products.html", data)
 
 
 def searchResult(request):
-    return render(request, "search_results.html")
+    searchresults = request.GET['search']
+    searchterm = Products.objects.filter(title__icontains = searchresults)
+    data = {
+        'searchterm' : searchterm
+    }
+    return render(request, "search_results.html" , data)
+
+
+
 
 
 def productResult(request, category):

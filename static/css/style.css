@@ -723,7 +723,7 @@ main {
 #fashion-pg-h1::after {
   content: "";
   height: 2px;
-  width: 60%;
+  width: 70%;
   background: #000;
   position: absolute;
   left: calc(10% - 0%);
@@ -751,6 +751,19 @@ main {
   color: white;
   font-size: 20px;
   font-weight: 700;
+}
+input:-internal-autofill-selected {
+  background-color: light-dark(rgb(255, 255, 255), rgb(255, 255, 255)) !important;
+}
+
+
+.u-bg-pg{
+  background-color: #F85606;
+  color: white !important;
+  border-color: #F85606 !important;
+}
+.nav-item{
+  padding:6px 0;
 }
 
 
@@ -790,7 +803,6 @@ main {
 .u-price {
   display: flex;
   align-items: center;
-  height: 100vh;
   flex-direction: column;
   margin: 0;
 }
@@ -1158,6 +1170,9 @@ main {
   .u-img-card img {
     height: 200px;
   }
+  .u-img-lining{
+    width: 50%;
+  }
 
   .category-wrapper .container-fluid .row .col-sm-6 {
     flex: 0 0 auto;
@@ -1170,9 +1185,18 @@ main {
   .u-btn-style{
     top: 200px;
   }
+  .u-lining{
+    font-size: 16px;
+  }
+  .mb-cl::before{
+    background: black;
+  }
+  .mb-cl{
+    display: inline;
+  }
 }
 
-@media (min-width: 480px) and (max-width: 575.98px) {
+@media (min-width: 500px) and (max-width: 575.98px) {
   .u-card-adjusting {
     flex: 0 0 auto;
     width: 50%;
@@ -1216,6 +1240,12 @@ main {
   .carousel-inner .carousel-item img {
     height: 380px;
   }
+  .mb-cl::before{
+    background: black;
+  }
+  .mb-cl{
+    display: inline;
+  }
 }
 
 @media (min-width: 768px) and (max-width: 991.98px) {
@@ -1237,6 +1267,12 @@ main {
   .dropdown-content {
     top: 6px;
     left: 103%;
+  }
+  .mb-cl::before{
+    background: black !important;
+  }
+  .mb-cl{
+    display: inline;
   }
 }
 
@@ -1264,6 +1300,9 @@ main {
 
   .carousel-item img {
     height: 600px;
+  }
+  .mb-cl{
+    display: inline;
   }
 }
 
