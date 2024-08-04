@@ -43,8 +43,9 @@ INSTALLED_APPS = [
     'contact',
     'footer',
     'faq',
-    'navbar'
+    'navbar',
 ]
+
 
 
 
