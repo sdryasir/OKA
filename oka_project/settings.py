@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     'products',
     'carousel',
     'contact',
+    'footer',
+    'faq',
+    'navbar'
 ]
 
 
@@ -132,31 +135,16 @@ else:
 
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+    
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-]
-
-MEDIA_ROOT = BASE_DIR / 'media'
-MEDIA_URL = '/media/'
-
-
-
-
-
-
-
-
-
-MESSAGE_TAGS = {
-    messages.ERROR: 'danger'
-}
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'mail.nullxcoder.xyz'
