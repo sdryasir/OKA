@@ -154,3 +154,7 @@ EMAIL_USE_TLS = False  # or True if you switch to port 587  # or False if you sw
 EMAIL_USE_SSL = True  # or True if you switch to port 587  # or False if you switch to port 587
 EMAIL_HOST_USER = 'info@nullxcoder.xyz'
 EMAIL_HOST_PASSWORD = 'Pq-?C@6TH27Z'
+
+RECAPTCHA_SITEKEY = '6LdG8xoqAAAAABjDxfEmCW9bQ4HPoSJkEXWuSCGJ'
+
+RECAPTCHA_SECRETKEY = '6LdG8xoqAAAAAP4IU6KwAJIIuQiuJgiU3BcJiGUB'
