@@ -58,326 +58,56 @@
       <h2 class="u-par-underline-2">Best Sellers</h2>
     </div><!-- /.category -->
     <div class="owl-carousel owl-theme ">
-      <div class="item">
+      {% for product in products %}
+      <div class="item u-card-adjusting-2">
         <div class="card u_card_hover">
-          <img src="{% static 'images/product-2.webp' %}" class="card-img-top" alt="...">
+          <img src="/media/{{product.image}}" class="card-img-top u-img-lining" alt="..." />
           <div class="card-body" style="text-align: center;">
-            <h5 class="card-title u-lining">SY Baby Vest White
+            <h5 class="card-title u-lining">{{product.title}}
             </h5>
             <p style="margin: 0;"><span
-                style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span
-                style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
-            <a style="margin-top: 1rem;" href="{% url 'product-details' %}" class="btn btn-primary u_btn_color">Add to
-              cart</a>
-            <a style="margin-top: 1rem;" href="#" class="btn btn-primary u_btn_color">Details</a>
+                style="color: #858585; text-decoration: line-through; font-size: 14px;">Rs.{{product.Orignal_price}}</span>
+              <span style="color: #FF6F00; font-size: 17px;">Rs.{{product.price_that_you_sell}}</span>
+            </p>
+            <a style="margin-top: 1rem;" href="" class="btn btn-primary u_btn_color">Add to cart </a>
+            <a style="margin-top: 1rem;" href="{% url 'product-details' product.id %}"
+              class="btn btn-primary u_btn_color">Details</a>
           </div>
         </div>
       </div>
-      <div class="item">
-        <div class="card u_card_hover">
-          <img src="{% static 'images/product-2.webp' %}" class="card-img-top" alt="...">
-          <div class="card-body" style="text-align: center;">
-            <h5 class="card-title">SY Baby Vest White
-            </h5>
-            <p style="margin: 0;"><span
-                style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span
-                style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
-            <a style="margin-top: 1rem;" href="{% url 'product-details' %}" class="btn btn-primary u_btn_color">Add to
-              cart</a>
-            <a style="margin-top: 1rem;" href="#" class="btn btn-primary u_btn_color">Details</a>
-          </div>
-        </div>
-      </div>
-      <div class="item">
-        <div class="card u_card_hover">
-          <img src="{% static 'images/product-2.webp' %}" class="card-img-top" alt="...">
-          <div class="card-body" style="text-align: center;">
-            <h5 class="card-title">SY Baby Vest White
-            </h5>
-            <p style="margin: 0;"><span
-                style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span
-                style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
-            <a style="margin-top: 1rem;" href="{% url 'product-details' %}" class="btn btn-primary u_btn_color">Add to
-              cart</a>
-            <a style="margin-top: 1rem;" href="#" class="btn btn-primary u_btn_color">Details</a>
-          </div>
-        </div>
-      </div>
-      <div class="item">
-        <div class="card u_card_hover">
-          <img src="{% static 'images/product-2.webp' %}" class="card-img-top" alt="...">
-          <div class="card-body" style="text-align: center;">
-            <h5 class="card-title">SY Baby Vest White
-            </h5>
-            <p style="margin: 0;"><span
-                style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span
-                style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
-            <a style="margin-top: 1rem;" href="{% url 'product-details' %}" class="btn btn-primary u_btn_color">Add to
-              cart</a>
-            <a style="margin-top: 1rem;" href="#" class="btn btn-primary u_btn_color">Details</a>
-          </div>
-        </div>
-      </div>
-      <div class="item">
-        <div class="card u_card_hover">
-          <img src="{% static 'images/product-2.webp' %}" class="card-img-top" alt="...">
-          <div class="card-body" style="text-align: center;">
-            <h5 class="card-title">SY Baby Vest White
-            </h5>
-            <p style="margin: 0;"><span
-                style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span
-                style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
-            <a style="margin-top: 1rem;" href="{% url 'product-details' %}" class="btn btn-primary u_btn_color">Add to
-              cart</a>
-            <a style="margin-top: 1rem;" href="#" class="btn btn-primary u_btn_color">Details</a>
-          </div>
-        </div>
-      </div>
-      <div class="item">
-        <div class="card u_card_hover">
-          <img src="{% static 'images/product-2.webp' %}" class="card-img-top" alt="...">
-          <div class="card-body" style="text-align: center;">
-            <h5 class="card-title">SY Baby Vest White
-            </h5>
-            <p><span style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span
-                style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
-            <a href="#" class="btn btn-primary u_btn_color">Add to cart</a>
-            <a href="#" class="btn btn-primary u_btn_color">Details</a>
-          </div>
-        </div>
-      </div>
-      <div class="item">
-        <div class="card u_card_hover">
-          <img src="{% static 'images/product-2.webp' %}" class="card-img-top" alt="...">
-          <div class="card-body" style="text-align: center;">
-            <h5 class="card-title">SY Baby Vest White
-            </h5>
-            <p><span style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span
-                style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
-            <a href="#" class="btn btn-primary u_btn_color">Add to cart</a>
-            <a href="#" class="btn btn-primary u_btn_color">Details</a>
-          </div>
-        </div>
-      </div>
-      <div class="item">
-        <div class="card u_card_hover">
-          <img src="{% static 'images/product-2.webp' %}" class="card-img-top" alt="...">
-          <div class="card-body" style="text-align: center;">
-            <h5 class="card-title">SY Baby Vest White
-            </h5>
-            <p><span style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span
-                style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
-            <a href="#" class="btn btn-primary u_btn_color">Add to cart</a>
-            <a href="#" class="btn btn-primary u_btn_color">Details</a>
-          </div>
-        </div>
-      </div>
-      <div class="item">
-        <div class="card u_card_hover">
-          <img src="{% static 'images/product-2.webp' %}" class="card-img-top" alt="...">
-          <div class="card-body" style="text-align: center;">
-            <h5 class="card-title">SY Baby Vest White
-            </h5>
-            <p><span style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span
-                style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
-            <a href="#" class="btn btn-primary u_btn_color">Add to cart</a>
-            <a href="#" class="btn btn-primary u_btn_color">Details</a>
-          </div>
-        </div>
-      </div>
-      <div class="item">
-        <div class="card">
-          <img src="{% static 'images/product-2.webp' %}" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p>RS . 699</p>
-            <a href="#" class="btn btn-primary">Add to cart</a>
-            <a href="#" class="btn btn-primary">Details</a>
-          </div>
-        </div>
-      </div>
-      <div class="item">
-        <div class="card">
-          <img src="{% static 'images/product-1.webp' %}" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p>RS . 699</p>
-            <a href="#" class="btn btn-primary">Add to cart</a>
-            <a href="#" class="btn btn-primary">Details</a>
-          </div>
-        </div>
-      </div>
-      <div class="item">
-        <div class="card">
-          <img src="{% static 'images/product-2.webp' %}" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>5
-            <p>RS . 699</p>
-            <a href="#" class="btn btn-primary">Add to cart</a>
-            <a href="#" class="btn btn-primary">Details</a>
-          </div>
-        </div>
-      </div>
+      {% endfor %}
     </div>
   </div><!-- /.product-wrapper -->
   <div class="sales">
-    <img src="{% static 'images/saleimage.png' %}" width="100%" alt="">
+    {% for offers in offer %}
+
+    <img src="/media/{{offers.image}}" width="100%" alt="">
+    {% endfor %}
+
   </div><!-- /.sales -->
   <div class="product-wrapper container-fluid">
     <div class="category mb-5">
       <h2 class="u-par-underline-2">For You</h2>
     </div><!-- /.category -->
     <div class="owl-carousel owl-theme ">
-      <div class="item">
+      {% for product in products %}
+      <div class="item u-card-adjusting-2">
         <div class="card u_card_hover">
-          <img src="{% static 'images/product-2.webp' %}" class="card-img-top" alt="...">
+          <img src="/media/{{product.image}}" class="card-img-top u-img-lining" alt="..." />
           <div class="card-body" style="text-align: center;">
-            <h5 class="card-title">SY Baby Vest White
+            <h5 class="card-title u-lining">{{product.title}}
             </h5>
-            <p><span style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span
-                style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
-            <a href="#" class="btn btn-primary u_btn_color">Add to cart</a>
-            <a href="#" class="btn btn-primary u_btn_color">Details</a>
+            <p style="margin: 0;"><span
+                style="color: #858585; text-decoration: line-through; font-size: 14px;">Rs.{{product.Orignal_price}}</span>
+              <span style="color: #FF6F00; font-size: 17px;">Rs.{{product.price_that_you_sell}}</span>
+            </p>
+            <a style="margin-top: 1rem;" href="" class="btn btn-primary u_btn_color">Add to cart </a>
+            <a style="margin-top: 1rem;" href="{% url 'product-details' product.id %}"
+              class="btn btn-primary u_btn_color">Details</a>
           </div>
         </div>
       </div>
-      <div class="item">
-        <div class="card u_card_hover">
-          <img src="{% static 'images/product-2.webp' %}" class="card-img-top" alt="...">
-          <div class="card-body" style="text-align: center;">
-            <h5 class="card-title">SY Baby Vest White
-            </h5>
-            <p><span style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span
-                style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
-            <a href="#" class="btn btn-primary u_btn_color">Add to cart</a>
-            <a href="#" class="btn btn-primary u_btn_color">Details</a>
-          </div>
-        </div>
-      </div>
-      <div class="item">
-        <div class="card u_card_hover">
-          <img src="{% static 'images/product-2.webp' %}" class="card-img-top" alt="...">
-          <div class="card-body" style="text-align: center;">
-            <h5 class="card-title">SY Baby Vest White
-            </h5>
-            <p><span style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span
-                style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
-            <a href="#" class="btn btn-primary u_btn_color">Add to cart</a>
-            <a href="#" class="btn btn-primary u_btn_color">Details</a>
-          </div>
-        </div>
-      </div>
-      <div class="item">
-        <div class="card u_card_hover">
-          <img src="{% static 'images/product-2.webp' %}" class="card-img-top" alt="...">
-          <div class="card-body" style="text-align: center;">
-            <h5 class="card-title">SY Baby Vest White
-            </h5>
-            <p><span style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span
-                style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
-            <a href="#" class="btn btn-primary u_btn_color">Add to cart</a>
-            <a href="#" class="btn btn-primary u_btn_color">Details</a>
-          </div>
-        </div>
-      </div>
-      <div class="item">
-        <div class="card u_card_hover">
-          <img src="{% static 'images/product-2.webp' %}" class="card-img-top" alt="...">
-          <div class="card-body" style="text-align: center;">
-            <h5 class="card-title">SY Baby Vest White
-            </h5>
-            <p><span style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span
-                style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
-            <a href="#" class="btn btn-primary u_btn_color">Add to cart</a>
-            <a href="#" class="btn btn-primary u_btn_color">Details</a>
-          </div>
-        </div>
-      </div>
-      <div class="item">
-        <div class="card u_card_hover">
-          <img src="{% static 'images/product-2.webp' %}" class="card-img-top" alt="...">
-          <div class="card-body" style="text-align: center;">
-            <h5 class="card-title">SY Baby Vest White
-            </h5>
-            <p><span style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span
-                style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
-            <a href="#" class="btn btn-primary u_btn_color">Add to cart</a>
-            <a href="#" class="btn btn-primary u_btn_color">Details</a>
-          </div>
-        </div>
-      </div>
-      <div class="item">
-        <div class="card u_card_hover">
-          <img src="{% static 'images/product-2.webp' %}" class="card-img-top" alt="...">
-          <div class="card-body" style="text-align: center;">
-            <h5 class="card-title">SY Baby Vest White
-            </h5>
-            <p><span style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span
-                style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
-            <a href="#" class="btn btn-primary u_btn_color">Add to cart</a>
-            <a href="#" class="btn btn-primary u_btn_color">Details</a>
-          </div>
-        </div>
-      </div>
-      <div class="item">
-        <div class="card u_card_hover">
-          <img src="{% static 'images/product-2.webp' %}" class="card-img-top" alt="...">
-          <div class="card-body" style="text-align: center;">
-            <h5 class="card-title">SY Baby Vest White
-            </h5>
-            <p><span style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span
-                style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
-            <a href="#" class="btn btn-primary u_btn_color">Add to cart</a>
-            <a href="#" class="btn btn-primary u_btn_color">Details</a>
-          </div>
-        </div>
-      </div>
-      <div class="item">
-        <div class="card u_card_hover">
-          <img src="{% static 'images/product-2.webp' %}" class="card-img-top" alt="...">
-          <div class="card-body" style="text-align: center;">
-            <h5 class="card-title">SY Baby Vest White
-            </h5>
-            <p><span style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.699</span> <span
-                style="color: #FF6F00; font-size: 17px;">Rs.499</span></p>
-            <a href="#" class="btn btn-primary u_btn_color">Add to cart</a>
-            <a href="#" class="btn btn-primary u_btn_color">Details</a>
-          </div>
-        </div>
-      </div>
-      <div class="item">
-        <div class="card">
-          <img src="{% static 'images/product-2.webp' %}" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p>RS . 699</p>
-            <a href="#" class="btn btn-primary">Add to cart</a>
-            <a href="#" class="btn btn-primary">Details</a>
-          </div>
-        </div>
-      </div>
-      <div class="item">
-        <div class="card">
-          <img src="{% static 'images/product-1.webp' %}" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p>RS . 699</p>
-            <a href="#" class="btn btn-primary">Add to cart</a>
-            <a href="#" class="btn btn-primary">Details</a>
-          </div>
-        </div>
-      </div>
-      <div class="item">
-        <div class="card">
-          <img src="{% static 'images/product-2.webp' %}" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p>RS . 699</p>
-            <a href="#" class="btn btn-primary">Add to cart</a>
-            <a href="#" class="btn btn-primary">Details</a>
-          </div>
-        </div>
-      </div>
+      {% endfor %}
     </div>
   </div><!-- /.product-wrapper -->
 

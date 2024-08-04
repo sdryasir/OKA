@@ -8,18 +8,21 @@ from django.contrib import messages
 from django.contrib.sessions.models import Session
 from django.contrib.auth import authenticate, login as auth_login, logout
 from faq.models import Faq
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator , EmptyPage
+from offer.models import Offer
 
 
 def home(request):
     productdata = Products.objects.all()
     categorydata = Category.objects.all()
     carouseldata = Carousel.objects.all()
+    offerdata = Offer.objects.all()
 
     data = {
         "products": productdata,
         "categories": categorydata,
         "carousels": carouseldata,
+        "offer": offerdata,
     }
     return render(request, "index.html", data)
 
@@ -88,7 +91,8 @@ def productDetails(request, id):
 
 def products(request):
     productdata = Products.objects.all()
-    productdata = Paginator(productdata, 4)
+    productdata = Paginator(productdata, 8)
+    
     if "page" in request.GET:
         page_number = request.GET["page"]
     else:
