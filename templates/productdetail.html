@@ -1,5 +1,62 @@
 {% include 'header.html' %}
 {% load static %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700">
+<style>
+  .review-container {
+    margin-top: 3%;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+  }
+
+  .stars {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .star {
+    font-size: 30px;
+    color: #ccc;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+
+  .star:hover,
+  .star.selected {
+    color: #ff5a49;
+  }
+
+  .review-input {
+    display: none;
+    margin-bottom: 20px;
+  }
+
+  .review-input textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    resize: none;
+  }
+
+  .submit-btn {
+    background-color: #ff5a49;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .submit-btn:disabled {
+    background-color: #ff9b95;
+  }
+</style>
 
 <main>
   <div class="container-fluid">
@@ -7,10 +64,10 @@
       <div class="col-md-6 col-lg-6 col-xl-4 mt-5">
         <div class="container">
           <div class="mySlides">
-            <div class="numbertext" style = "color:black;" >1 / 6</div>
+            <div class="numbertext" style="color:black;">1 / 6</div>
             <img src="/media/{{products.image}}" style="width:100%">
           </div>
-         
+
 
 
 
@@ -23,11 +80,10 @@
 
           <div class="row">
             <div class="column">
-              <img class="demo cursor" src="/media/{{products.image}}" style="width:100%"
-                onclick="currentSlide(1)">
+              <img class="demo cursor" src="/media/{{products.image}}" style="width:100%" onclick="currentSlide(1)">
             </div>
-           
-          
+
+
           </div>
         </div>
       </div>
@@ -70,9 +126,13 @@
             </div>
             <div class="card-text d-flex align-items-baseline mt-4" style="font-size: 14px; color: #696969;">
               <form action="">
-                <button style="font-size: 20px; border-radius: 20px; height: 40px; width: 40px; background-color: #ffa560; color: white; font-weight: 700; border: 0;" id="minus">−</button>
+                <button
+                  style="font-size: 20px; border-radius: 20px; height: 40px; width: 40px; background-color: #ffa560; color: white; font-weight: 700; border: 0;"
+                  id="minus">−</button>
                 <input type="number" value="1" min="1" max="50" style="width: 50px; padding: 6px;" id="input" />
-                <button style="font-size: 20px; border-radius: 20px; height: 40px; width: 40px; background-color: #ffa560; color: white; font-weight: 700; border: 0;" id="plus">+</button>
+                <button
+                  style="font-size: 20px; border-radius: 20px; height: 40px; width: 40px; background-color: #ffa560; color: white; font-weight: 700; border: 0;"
+                  id="plus">+</button>
               </form>
               <a class="u-cart-adjust ms-4" href=""><i class="bi bi-cart"></i> ADD TO CART</a>
             </div>
@@ -81,37 +141,37 @@
         </div>
       </div>
       <div class="u_last col-md-6 col-lg-3 col-xxl-4 mt-5">
-      <div class="u_last_inner container">
-        <h5 class="mb-3 u-par-underline">Shipping & Delivery</h3>
-          <div class="d-flex mt-4" style="align-items:  end;">
-            <div><i class="bi bi-truck" style="font-size: 38px; color: #696969;"></i></div>
-            <div class="ms-3">
-              <div>
-                <h6 style="color: #696969; font-size: 14px; font-weight: 600;">FREE SHIPPING</h6>
+        <div class="u_last_inner container">
+          <h5 class="mb-3 u-par-underline">Shipping & Delivery</h3>
+            <div class="d-flex mt-4" style="align-items:  end;">
+              <div><i class="bi bi-truck" style="font-size: 38px; color: #696969;"></i></div>
+              <div class="ms-3">
+                <div>
+                  <h6 style="color: #696969; font-size: 14px; font-weight: 600;">FREE SHIPPING</h6>
+                </div>
+                <div style="color: #696969; font-size: 14px;">Free shipping over Rs. 1500</div>
               </div>
-              <div style="color: #696969; font-size: 14px;">Free shipping over Rs. 1500</div>
             </div>
-          </div>
-          <div class="d-flex mt-4" style="align-items:  end;">
-            <div><i class="bi bi-headset" style="font-size: 38px; color: #696969;"></i></div>
-            <div class="ms-3">
-              <div>
-                <h6 style="color: #696969; font-size: 14px; font-weight: 600;">
-                  SUPPORT 24/7</h6>
+            <div class="d-flex mt-4" style="align-items:  end;">
+              <div><i class="bi bi-headset" style="font-size: 38px; color: #696969;"></i></div>
+              <div class="ms-3">
+                <div>
+                  <h6 style="color: #696969; font-size: 14px; font-weight: 600;">
+                    SUPPORT 24/7</h6>
+                </div>
+                <div style="color: #696969; font-size: 14px;">We support 24 hours a day</div>
               </div>
-              <div style="color: #696969; font-size: 14px;">We support 24 hours a day</div>
             </div>
-          </div>
-          <div class="d-flex mt-4" style="align-items:  end;">
-            <div><i class="bi bi-arrow-left-right" style="font-size: 38px; color: #696969;"></i></div>
-            <div class="ms-3">
-              <div>
-                <h6 style="color: #696969; font-size: 14px; font-weight: 600;">EASY RETURN</h6>
+            <div class="d-flex mt-4" style="align-items:  end;">
+              <div><i class="bi bi-arrow-left-right" style="font-size: 38px; color: #696969;"></i></div>
+              <div class="ms-3">
+                <div>
+                  <h6 style="color: #696969; font-size: 14px; font-weight: 600;">EASY RETURN</h6>
+                </div>
+                <div style="color: #696969; font-size: 14px;">Simple and easy return and refund policy.</div>
               </div>
-              <div style="color: #696969; font-size: 14px;">Simple and easy return and refund policy.</div>
             </div>
-          </div>
-      </div><!-- /.u_last_inner -->
+        </div><!-- /.u_last_inner -->
       </div>
     </div><!-- /.row -->
   </div><!-- /.container -->
@@ -119,22 +179,75 @@
     <div class="container">
       <ul class="nav nav-pills mb-3" style="justify-content: space-evenly;" id="pills-tab" role="tablist">
         <li class="nav-item" role="presentation">
-          <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Description</button>
+          <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home"
+            type="button" role="tab" aria-controls="pills-home" aria-selected="true">Description</button>
         </li>
         <li class="nav-item" role="presentation">
-          <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">More Information</button>
+          <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile"
+            type="button" role="tab" aria-controls="pills-profile" aria-selected="false">More Information</button>
         </li>
         <li class="nav-item" role="presentation">
-          <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Reviews</button>
+          <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact"
+            type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Reviews</button>
         </li>
       </ul>
       <div class="tab-content" id="pills-tabContent">
-        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">{{products.description}}</div>
-        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">...</div>
-        <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">...</div>
+        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab"
+          tabindex="0">{{products.description}}</div>
+        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
+          ...</div>
+        <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">
+          <div class="container d-flex justify-content-center">
+            <div class="review-container">
+              <h1>Rate Our Product</h1>
+              <div class="stars">
+                <i class="star fa fa-star" data-value="1"></i>
+                <i class="star fa fa-star" data-value="2"></i>
+                <i class="star fa fa-star" data-value="3"></i>
+                <i class="star fa fa-star" data-value="4"></i>
+                <i class="star fa fa-star" data-value="5"></i>
+              </div>
+              <div class="review-input">
+                <textarea placeholder="Write your review here..."></textarea>
+              </div>
+              <button class="submit-btn" disabled>Submit Review</button>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div><!-- /.u-tab-wrapper -->
 </main>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const stars = document.querySelectorAll('.star');
+    const reviewInput = document.querySelector('.review-input');
+    const submitBtn = document.querySelector('.submit-btn');
+    let selectedRating = 0;
 
+    stars.forEach(star => {
+      star.addEventListener('mouseover', function () {
+        highlightStars(this.dataset.value);
+      });
+
+      star.addEventListener('mouseout', function () {
+        highlightStars(selectedRating);
+      });
+
+      star.addEventListener('click', function () {
+        selectedRating = this.dataset.value;
+        highlightStars(selectedRating);
+        reviewInput.style.display = 'block';
+        submitBtn.disabled = false;
+      });
+    });
+
+    function highlightStars(rating) {
+      stars.forEach(star => {
+        star.classList.toggle('selected', star.dataset.value <= rating);
+      });
+    }
+  });
+</script>
 {% include 'footer.html' %}
