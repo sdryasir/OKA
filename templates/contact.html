@@ -5,9 +5,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Contact Us</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
     {% include 'header.html' %}
     <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -52,6 +53,14 @@
                             <label for="formGroupExampleInput4" class="form-label">Your Message</label>
                             <textarea name="message" class="form-control" id="formGroupExampleInput4" rows="9"
                                 cols="6"></textarea>
+                        </div>
+                        <div style="display:none;">
+                            <label for="honeypot_name">Leave this field empty:</label>
+                            <input type="text" id="honeypot_name" name="honeypot_name">
+                        </div>
+                        <div style="display:none;">
+                            <label for="honeypot_email">Leave this field empty:</label>
+                            <input type="email" id="honeypot_email" name="honeypot_email">
                         </div>
                         <button style="margin-bottom: 2%;" type="submit" class="btn btn-outline-light"
                             id="button-send-styles"><b>Send</b></button>

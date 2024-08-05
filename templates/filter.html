@@ -1,33 +1,61 @@
 <div class="u-filter-wrapper">
-    <button class="btn u-btn-style" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop"
-      aria-controls="staticBackdrop">
-      <i class="bi bi-funnel"></i>
-    </button>
+  <button class="btn u-btn-style" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop"
+    aria-controls="staticBackdrop">
+    <i class="bi bi-funnel"></i>
+  </button>
 
-    <div class="offcanvas offcanvas-start" style="width: 260px;" data-bs-backdrop="static" tabindex="-1"
-      id="staticBackdrop" aria-labelledby="staticBackdropLabel">
-      <div class="offcanvas-header">
-        <button type="button" class="btn-close"
-          data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      </div>
-      <div class="offcanvas-body">
-        <div class="u-price-wrapper">
-          <div class="u-price-heading">
-            <h3 style="text-align: center;">Price</h3>
-          </div>
-          <div class="u-price">
-            <div class="range-slider">
-              <div class="slider-track"></div>
-              <div class="slider-range" id="slider-range"></div>
-              <input type="range" class="min-range" min="0" max="8000" value="0">
-              <input type="range" class="max-range" min="0" max="8000" value="5000">
+  <div class="offcanvas offcanvas-start" style="width: 260px;" data-bs-backdrop="static" tabindex="-1"
+    id="staticBackdrop" aria-labelledby="staticBackdropLabel">
+    <div class="offcanvas-header">
+      <h3>Filter</h3>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <div class="u-price-wrapper">
+        <div style="display: flex;" class="u-price-heading mb-4">
+          <h5 class=" u-par-underline-2">Price :</h5>
+        </div>
+        <div class="u-price">
+          <div class="range-slider">
+            <div class="slider-track"></div>
+            <div class="slider-range" id="slider-range"></div>
+            <input type="range" class="min-range" min="0" max="8000" value="0">
+            <input type="range" class="max-range" min="0" max="8000" value="5000">
           </div>
           <div class="price-range">
-              <div style="font-size: 14px;">Min: Rs . <span id="min-price">100</span></div>
-              <div style="font-size: 14px;">Max: Rs . <span id="max-price">5000</span></div>
+            <div style="font-size: 14px;">Min: Rs . <span id="min-price">100</span></div>
+            <div style="font-size: 14px;">Max: Rs . <span id="max-price">5000</span></div>
           </div>
+        </div>
+      </div><!-- /.u-price-wrapper -->
+      <div class="u-color-wrapper mt-5">
+        <div class="u-color-inner">
+          <div class="u-color-head">
+            <div style="display: flex;" class="u-price-heading mb-2">
+              <h5 class=" u-par-underline-2">Colours :</h5>
+            </div>
           </div>
-        </div><!-- /.u-price-wrapper -->
-      </div>
+          <div class="u-color-body row">
+            <label class="col-sm-6"><input type="checkbox" class="color-filter" value="red"> Red</label>
+            <label class="col-sm-6"><input type="checkbox" class="color-filter" value="blue"> Blue</label>
+            <label class="col-sm-6"><input type="checkbox" class="color-filter" value="green"> Green</label>
+          </div>
+        </div><!-- /.u-color-inner -->
+      </div><!-- /.u-color-wrapper -->
+      <div class="u-size-wrapper mt-5">
+        <div class="u-size-inner">
+          <div class="u-size-head">
+            <div style="display: flex;" class="u-price-heading mb-2">
+              <h5 class=" u-par-underline-2">Size :</h5>
+            </div>
+          </div>
+          <div class="u-size-body row">
+            <label class="col-sm-6"><input type="checkbox" value="red"> Small </label>
+            <label class="col-sm-6"><input type="checkbox" value="blue"> Medium </label>
+            <label class="col-sm-6"><input type="checkbox" value="green"> Large </label>
+          </div>
+        </div><!-- /.u-color-inner -->
+      </div><!-- /.u-size-wrapper -->
     </div>
-  </div><!-- /.u-filter-wrapper -->
+  </div>
+</div><!-- /.u-filter-wrapper -->
