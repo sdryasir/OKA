@@ -8,14 +8,14 @@
       <div class="category mb-5">
         <h2 id="fashion-pg-h1"> Products </h2>
       </div><!-- /.category -->
-        <div class="dropdown" style="display: flex;justify-content: end;" id="dropdwnbtn">
-          <button style=" border: 1px solid #FF6F00 !important;" class="btn btn-secondary dropdown-toggle"  type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-funnel"></i></box-icon> Filter</button>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Low to High</a></li>
-            <li><a class="dropdown-item" href="#">High to Low</a></li>
-            <li><a class="dropdown-item" href="#">Color Filter</a></li>
-          </ul>
-        </div>
+      <div class="u-sorting" style="display : flex; align-items: baseline; justify-content: end;">
+        <p>Sort : </p>
+        <select style=" border-radius: 4px; outline: none; font-size: 14px;">
+          <option value="1">------</option>
+          <option value="1">Ascending</option>
+          <option value="1">Descending</option>
+        </select>
+      </div><!-- /.u-sorting -->
         {% for product in productsbycat %}
         <div class="col-sm-6 u-card-adjusting col-md-4 col-lg-3 col-xl-3 my-2">
           <div class="card u_card_hover">
@@ -24,8 +24,8 @@
               <h5 class="card-title u-lining">{{product.title}}
               </h5>
               <p style="margin: 0;"><span
-                  style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.{{product.compare_price}}</span>
-                <span style="color: #FF6F00; font-size: 17px;">Rs.{{product.price}}</span>
+                  style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.{{product.Orignal_price}}</span>
+                <span style="color: #FF6F00; font-size: 17px;">Rs.{{product.price_that_you_sell}}</span>
               </p>
               <a style="margin-top: 1rem;" href="" class="btn btn-primary u_btn_color">Add to cart</a>
               <a style="margin-top: 1rem;" href="{% url 'product-details' product.id %}"
@@ -38,5 +38,6 @@
   </div>
  </div><!-- /.u_category_inner_wrapper -->
 
+  {% include 'filter.html' %}
   {% include 'footer.html' %}
 </main>
