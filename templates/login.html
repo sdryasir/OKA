@@ -16,7 +16,7 @@
         {% endfor %}
     </div>
     <div class="container">
-        <div class="d-flex justify-content-center mb-3">
+        <div class="pc-mode">
             <form method="POST" action="{% url 'loginuser' %}" id="z-mob-responsive" class="z-w-30">
                 {% csrf_token %}
                 <div class="mb-3">
@@ -31,7 +31,10 @@
                     <a style="text-decoration:none;" href="{%url 'password_reset'%}"> Forgot Password? </a>
                 </div>
                 <button type="submit" class="btn btn-primary z-w-but-login my-3">Login</button>
-                <a class="btn btn-primary z-w-but-creat" href="{% url 'signup' %}">Create Account</a>
+                <a style="    margin-left: 10%;
+    width: 24vw;
+    background-color: #f85606;
+    border: none;" class="btn btn-primary z-w-but-creat" href="{% url 'signup' %}">Create Account</a>
             </form>
         </div>
     </div>
