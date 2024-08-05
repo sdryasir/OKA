@@ -865,6 +865,10 @@ input:-internal-autofill-selected {
 }
 
 
+.u_card_hover_2 .card-body{
+  padding-bottom: 30px !important;
+  padding: 35px 6px;
+}
 
 
 
