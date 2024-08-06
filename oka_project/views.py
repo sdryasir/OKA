@@ -8,7 +8,7 @@ from django.contrib import messages
 from django.contrib.sessions.models import Session
 from django.contrib.auth import authenticate, login as auth_login, logout
 from faq.models import Faq
-from django.core.paginator import Paginator , EmptyPage
+from django.core.paginator import Paginator, EmptyPage
 from offer.models import Offer
 
 
@@ -92,7 +92,7 @@ def productDetails(request, id):
 def products(request):
     productdata = Products.objects.all()
     productdata = Paginator(productdata, 8)
-    
+
     if "page" in request.GET:
         page_number = request.GET["page"]
     else:
@@ -116,6 +116,16 @@ def searchResult(request):
 
 def productResult(request, category):
     productsbycat = Products.objects.filter(category_id=category)
+    sort_data = request.GET.get("sort_order")
+    if sort_data == "ascending":
+        productsbycat = Products.objects.filter(category_id=category).order_by("id")
+        print('asss')
+    elif sort_data == "descending":
+        productsbycat = Products.objects.filter(category_id=category).order_by("-id")
+        print('dessss')
+    else:
+        productsbycat = Products.objects.filter(category_id=category)
+        print('none')
 
     data = {
         "productsbycat": productsbycat,
@@ -157,12 +167,10 @@ def register_user(request):
         return redirect("home")
 
 
-
 # Create your views here.
+
 
 def faq(request):
     faq = Faq.objects.all()
-    data = {
-        "faq" : faq
-    }
+    data = {"faq": faq}
     return render(request, "faq.html", data)
