@@ -1,4 +1,5 @@
 from django.shortcuts import render
+import random
 from Product.models import Products
 from categories.models import Category
 from carousel.models import Carousel
@@ -13,10 +14,11 @@ from offer.models import Offer
 
 
 def home(request):
-    productdata = Products.objects.all()
+    productdata = list(Products.objects.all())
     categorydata = Category.objects.all()
     carouseldata = Carousel.objects.all()
     offerdata = Offer.objects.all()
+    random.shuffle(productdata)
 
     data = {
         "products": productdata,
@@ -92,15 +94,16 @@ def productDetails(request, id):
 def products(request):
     productdata = Products.objects.all()
     productdata = Paginator(productdata, 8)
-
     if "page" in request.GET:
         page_number = request.GET["page"]
     else:
         page_number = 1
     page_obj = productdata.get_page(page_number)
+    prod = list(page_obj)
+    random.shuffle(prod)
     totalpage = [x + 1 for x in range(productdata.num_pages)]
     data = {
-        "products": page_obj,
+        "products": prod,
         "totalpages": totalpage,
     }
 
@@ -110,7 +113,9 @@ def products(request):
 def searchResult(request):
     searchresults = request.GET["search"]
     searchterm = Products.objects.filter(title__icontains=searchresults)
-    data = {"searchterm": searchterm}
+    searchprodUct = list(searchterm)
+    random.shuffle(searchprodUct)
+    data = {"searchterm": searchprodUct}
     return render(request, "search_results.html", data)
 
 
@@ -123,6 +128,9 @@ def productResult(request, category):
         productsbycat = Products.objects.filter(category_id=category).order_by("-id")
     else:
         productsbycat = Products.objects.filter(category_id=category)
+
+    productsbycat = list(productsbycat)
+    random.shuffle(productsbycat)
 
     data = {
         "productsbycat": productsbycat,
