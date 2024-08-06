@@ -231,6 +231,64 @@
 
     updateRange();
 </script>
+
+
+
+
+<script>
+  let currentIndex = 0;
+
+  function showSlide(index) {
+      const slides = document.querySelector('.slides');
+      const totalSlides = document.querySelectorAll('.slide').length;
+      const thumbnails = document.querySelectorAll('.thumbnail');
+      if (index >= totalSlides) {
+          currentIndex = 0;
+      } else if (index < 0) {
+          currentIndex = totalSlides - 1;
+      } else {
+          currentIndex = index;
+      }
+      slides.style.transform = `translateX(${-currentIndex * 100}%)`;
+      thumbnails.forEach((thumbnail, i) => {
+          if (i === currentIndex) {
+              thumbnail.classList.add('active');
+          } else {
+              thumbnail.classList.remove('active');
+          }
+      });
+  }
+
+  function nextSlide() {
+      showSlide(currentIndex + 1);
+  }
+
+  function prevSlide() {
+      showSlide(currentIndex - 1);
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+      showSlide(currentIndex);
+  });
+
+  document.querySelectorAll('.zoom').forEach(zoom => {
+      zoom.addEventListener('mousemove', function(e) {
+          const img = this.querySelector('img');
+          const rect = this.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const xPercent = (x / rect.width) * 100;
+          const yPercent = (y / rect.height) * 100;
+          img.style.transformOrigin = `${xPercent}% ${yPercent}%`;
+          img.style.transform = 'scale(2)'; /* Adjust the scale value for desired zoom level */
+      });
+      zoom.addEventListener('mouseleave', function() {
+          const img = this.querySelector('img');
+          img.style.transform = 'scale(1)';
+          img.style.transformOrigin = 'center center';
+      });
+  });
+</script>
 </body>
 
 </html>
