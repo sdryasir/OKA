@@ -1,91 +1,113 @@
-{% load static %}
-{% include 'header.html' %}
+{% load static %} {% include 'header.html' %}
+
+<style>
+  .u-sorting {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    font-family: Arial, sans-serif;
+  }
+
+  .u-sorting p {
+    margin: 0;
+    font-weight: bold;
+  }
+
+  #sortForm {
+    display: flex;
+    align-items: center;
+  }
+
+  #sortOrder {
+    border-radius: 4px;
+    outline: none;
+    font-size: 14px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s, border-color 0.3s;
+  }
+
+  #sortOrder:focus {
+    background-color: #fff;
+    border-color: #007bff;
+  }
+
+  #sortOrder option {
+    font-size: 14px;
+    padding: 5px;
+  }
+</style>
 
 <main>
   <div class="u_category_inner_wrapper">
     <div class="container-fluid">
       <div class="row">
         <div class="category mb-5">
-          <h2 id="fashion-pg-h1"> Products </h2>
-        </div><!-- /.category -->
+          <h2 id="fashion-pg-h1">Products</h2>
+        </div>
+        <!-- /.category -->
         <div name="sorting" class="u-sorting">
           <p>Sort:</p>
           <form id="sortForm" method="GET" action="">
-              <select name="sort_order" id="sortOrder">
-                  <option value="none">------</option>
-                  <option value="ascending">Ascending</option>
-                  <option value="descending">Descending</option>
-              </select>
+            <select name="sort_order" id="sortOrder">
+              <option value="none" {% if sort_data == 'none'  %} selected {% endif %}>------</option>
+              <option value="ascending" {% if sort_data == 'ascending'  %} selected {% endif %} >Ascending</option>
+              <option value="descending" {% if sort_data == 'descending'  %} selected {% endif %} >Descending</option>
+            </select>
           </form>
-      </div>
-      
-      <style>
-      .u-sorting {
-          display: flex;
-          align-items: center;
-          justify-content: flex-end;
-          gap: 10px;
-          font-family: Arial, sans-serif;
-      }
-      
-      .u-sorting p {
-          margin: 0;
-          font-weight: bold;
-      }
-      
-      #sortForm {
-          display: flex;
-          align-items: center;
-      }
-      
-      #sortOrder {
-          border-radius: 4px;
-          outline: none;
-          font-size: 14px;
-          padding: 5px;
-          border: 1px solid #ccc;
-          background-color: #f9f9f9;
-          transition: background-color 0.3s, border-color 0.3s;
-      }
-      
-      #sortOrder:focus {
-          background-color: #fff;
-          border-color: #007bff;
-      }
-      
-      #sortOrder option {
-          font-size: 14px;
-          padding: 5px;
-      }
-      </style>
-      
+        </div>
 
         {% for product in productsbycat %}
         <div class="col-sm-6 u-card-adjusting col-md-4 col-lg-3 col-xl-3 my-2">
           <div class="card u_card_hover">
-            <img src="/media/{{product.image}}" class="card-img-top u-img-lining" alt="..." />
-            <div class="card-body" style="text-align: center;">
-              <h5 class="card-title u-lining">{{product.title}}
-              </h5>
-              <p style="margin: 0;"><span
-                  style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.{{product.Orignal_price}}</span>
-                <span style="color: #FF6F00; font-size: 17px;">Rs.{{product.price_that_you_sell}}</span>
+            <img
+              src="/media/{{product.image}}"
+              class="card-img-top u-img-lining"
+              alt="..."
+            />
+            <div class="card-body" style="text-align: center">
+              <h5 class="card-title u-lining">{{product.title}}</h5>
+              <p style="margin: 0">
+                <span
+                  style="
+                    color: #858585;
+                    text-decoration: line-through;
+                    font-size: 15px;
+                  "
+                  >Rs.{{product.Orignal_price}}</span
+                >
+                <span style="color: #ff6f00; font-size: 17px"
+                  >Rs.{{product.price_that_you_sell}}</span
+                >
               </p>
-              <a style="margin-top: 1rem;" href="" class="btn btn-primary u_btn_color">Add to cart</a>
-              <a style="margin-top: 1rem;" href="{% url 'product-details' product.id %}"
-                class="btn btn-primary u_btn_color">Details</a>
+              <a
+                style="margin-top: 1rem"
+                href=""
+                class="btn btn-primary u_btn_color"
+                >Add to cart</a
+              >
+              <a
+                style="margin-top: 1rem"
+                href="{% url 'product-details' product.id %}"
+                class="btn btn-primary u_btn_color"
+                >Details</a
+              >
             </div>
           </div>
         </div>
         {% endfor %}
       </div>
     </div>
-  </div><!-- /.u_category_inner_wrapper -->
+  </div>
+  <!-- /.u_category_inner_wrapper -->
   <script>
-    document.getElementById('sortOrder').addEventListener('change', function () {
-      document.getElementById('sortForm').submit();
-    });
+    document
+      .getElementById("sortOrder")
+      .addEventListener("change", function () {
+        document.getElementById("sortForm").submit();
+      });
   </script>
-  {% include 'filter.html' %}
-  {% include 'footer.html' %}
+  {% include 'filter.html' %} {% include 'footer.html' %}
 </main>
