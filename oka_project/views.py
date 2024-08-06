@@ -119,16 +119,14 @@ def productResult(request, category):
     sort_data = request.GET.get("sort_order")
     if sort_data == "ascending":
         productsbycat = Products.objects.filter(category_id=category).order_by("id")
-        print('asss')
     elif sort_data == "descending":
         productsbycat = Products.objects.filter(category_id=category).order_by("-id")
-        print('dessss')
     else:
         productsbycat = Products.objects.filter(category_id=category)
-        print('none')
 
     data = {
         "productsbycat": productsbycat,
+        "sort_data": sort_data,
     }
 
     return render(request, "product_results.html", data)
