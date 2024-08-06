@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from products.models import Products
+from Product.models import Products
 from categories.models import Category
 from carousel.models import Carousel
 from django.shortcuts import render, redirect, HttpResponse
