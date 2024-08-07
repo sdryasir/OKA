@@ -169,6 +169,7 @@ RECAPTCHA_SECRETKEY = "6LdG8xoqAAAAAP4IU6KwAJIIuQiuJgiU3BcJiGUB"
 JAZZMIN_SETTINGS = {
     "site_title": "My Admin",
     "site_header": "My Admin",
+    "site_icon": "images/fav.png",
     "site_logo": "images/logo.png",
     'copyright': 'Baby Planet',
     "icons": {
