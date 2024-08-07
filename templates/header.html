@@ -20,69 +20,7 @@
     integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-    }
 
-    .popup {
-      display: none;
-      position: fixed;
-      z-index: 1;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-    }
-
-    .popup-content {
-      margin-top: 21% !important;
-      background-color: white;
-      margin: 15% auto;
-      padding: 20px;
-      border: 1px solid #888;
-      width: 80%;
-      max-width: 300px;
-      text-align: center;
-      border-radius: 10px;
-    }
-
-    .popup-content a {
-      display: block;
-      width: 100%;
-      margin: 10px 0;
-      padding: 10px;
-      text-decoration: none;
-      color: white;
-      background-color: #FF6F00;
-      border: none;
-      border-radius: 5px;
-      text-align: center;
-      cursor: pointer;
-    }
-
-    .popup-content a:hover {
-      background-color: transparent;
-      color: black;
-      border: 2px solid black;
-      border-color: black !important;
-    }
-
-    .close {
-      position: absolute;
-      top: 10px;
-      right: 25px;
-      color: #aaa;
-      font-size: 28px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    #person-icon {
-      cursor: pointer;
-    }
-  </style>
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 
@@ -113,7 +51,7 @@
                         </button>
                       </form>
                       <button class="u_search_button">
-                        <i style="font-size: 102%;" class="ph-bold ph-magnifying-glass"></i>
+                        <i  class="ph-bold ph-magnifying-glass"></i>
                       </button>
                       <button class="u_close_button">
                         <i class="ph-bold ph-x"></i>
@@ -127,10 +65,10 @@
 
                   </li>
 
-                  <li class="nav-item sizing me-3">
+                  <li class="nav-item sizing me-3 u-view-upper">
                     <i class="bi bi-cart" style="color: black; font-weight: 700; font-size: 102%;"></i>
                   </li>
-                  <li class="nav-item sizing">
+                  <li class="nav-item sizing u-view-upper">
                     <i class="bi bi-heart" style="color: black; font-weight: 700; font-size: 102%;"></i>
                   </li>
                 </ul>
@@ -156,14 +94,7 @@
                   <a href="{% url 'products' %}" class="nav-link active nav-bottom-cl mb-cl">All Products </a>
 
                 </li>
-                <li class="nav-item nav-bt-cetr">
-                  <a class="nav-link active nav-bottom-cl mb-cl" aria-current="page" href="{% url 'contact' %}">Contact
-                    Us</a>
-                </li>
-                <li class="nav-item nav-bt-cetr">
-                  <a class="nav-link active nav-bottom-cl mb-cl" aria-current="page" href="{% url 'faq' %}">FAQ's</a>
-                </li>
-                <li class="nav-item nav-bt-cetr">
+                <!-- <li class="nav-item nav-bt-cetr">
 
                   <a href="" class="nav-link active nav-bottom-cl mb-cl">GEAR </i></a>
 
@@ -180,14 +111,41 @@
                 <li class="nav-item nav-bt-cetr">
                   <a href="" class="nav-link active nav-bottom-cl mb-cl">BIRTHDAY </a>
 
+                </li> -->
+                <li class="nav-item nav-bt-cetr">
+                  <a class="nav-link active nav-bottom-cl mb-cl" aria-current="page" href="{% url 'contact' %}">Contact
+                    Us</a>
                 </li>
-                
+                <li class="nav-item nav-bt-cetr">
+                  <a class="nav-link active nav-bottom-cl mb-cl" aria-current="page" href="{% url 'faq' %}">FAQ's</a>
+                </li>
 
               </ul>
             </div>
           </div>
         </nav>
       </div><!-- /.nav-bottom -->
+      <div class="u-mobile-nav d-none" style="position: fixed; bottom: 0; background-color: #fff; width: 100%;">
+        <div class="container">
+          <ul class="inner navbar-nav justify-content-between"  style="flex-direction: row;">
+            <li class="nav-item" style="margin: 0;
+            display: contents;
+            padding: 0;">
+              <a class="nav-link active nav-bottom-cl" style="margin: 10px !important; padding: 0; color: #000 !important; font-size: 17px;" aria-current="page" href="#"><i class="bi bi-cart"></i></a>
+            </li>
+            <li class="nav-item" style="margin: 0;
+            display: contents;
+            padding: 0;">
+              <a class="nav-link active nav-bottom-cl" style="margin: 10px !important; padding: 0; color: #000 !important; font-size: 17px;" aria-current="page" href="{% url 'home' %}"><i class="bi bi-house-door"></i></a>
+            </li>
+            <li class="nav-item" style="margin: 0;
+            display: contents;
+            padding: 0;">
+              <a class="nav-link active nav-bottom-cl" style="margin: 10px !important; padding: 0; color: #000 !important; font-size: 17px;" aria-current="page" href="#"><i class="bi bi-heart"></i></a>
+            </li>
+          </ul>
+        </div><!-- /.container -->
+      </div><!-- /.u-mobile-nav -->
     </div><!-- /.head-wrapper -->
   </header>
   <div id="popup" class="popup">
@@ -206,26 +164,6 @@
   </div>
 
   <footer>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const popup = document.getElementById("popup");
-        const personIcon = document.getElementById("person-icon");
-        const closeBtn = document.querySelector(".close");
 
-        personIcon.onclick = function () {
-          popup.style.display = "block";
-        }
-
-        closeBtn.onclick = function () {
-          popup.style.display = "none";
-        }
-
-        window.onclick = function (event) {
-          if (event.target == popup) {
-            popup.style.display = "none";
-          }
-        }
-      });
-    </script>
 
 </body>
