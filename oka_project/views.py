@@ -146,7 +146,6 @@ def register_user(request):
                 messages.error(request, "Username Already Register")
                 return render(request, "signup.html")
             elif User.objects.filter(email=email).exists():
-                print("email reg")
                 messages.error(request, "Email Already Register!")
                 return render(request, "signup.html")
             elif len(password) < 8:
