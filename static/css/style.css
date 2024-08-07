@@ -325,7 +325,7 @@ footer {
 }
 
 main {
-  margin-top: 12%;
+  margin-top: 11%;
 }
 
 .logo-size {
@@ -842,6 +842,71 @@ input:-internal-autofill-selected {
 
 
 
+/* popup starts */
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+.popup {
+  display: none;
+  position: fixed;
+  z-index: 4;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.popup-content {
+  margin-top: 21% !important;
+  background-color: white;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 300px;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.popup-content a {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+  text-decoration: none;
+  color: white;
+  background-color: #FF6F00;
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.popup-content a:hover {
+  background-color: transparent;
+  color: black;
+  border: 2px solid black;
+  border-color: black !important;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 25px;
+  color: #aaa;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#person-icon {
+  cursor: pointer;
+}
+
+/* popup ends */
 /* slider starts */
 .slider {
   position: relative;
@@ -1356,6 +1421,9 @@ input:-internal-autofill-selected {
   .u_card_hover img{
     object-fit: contain;
       height: 150px;
+  }
+  .cpy-adjustment{
+    font-size: 12px;
   }
 
 }
