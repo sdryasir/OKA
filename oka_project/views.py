@@ -15,10 +15,13 @@ from offer.models import Offer
 
 def home(request):
     productdata = list(Products.objects.all())
-    categorydata = Category.objects.all()
-    carouseldata = Carousel.objects.all()
-    offerdata = Offer.objects.all()
+    categorydata = list(Category.objects.all())
+    carouseldata = list(Carousel.objects.all())
+    offerdata = list(Offer.objects.all())
     random.shuffle(productdata)
+    random.shuffle(categorydata)
+    random.shuffle(carouseldata)
+    random.shuffle(offerdata)
 
     data = {
         "products": productdata,
@@ -93,18 +96,29 @@ def productDetails(request, id):
 
 def products(request):
     productdata = Products.objects.all()
+    sort_order = request.GET.get("sort_order")
+    if sort_order == "ascending":
+        prod = Products.objects.all().order_by("id")
+    elif sort_order == "descending":
+        prod = Products.objects.all().order_by("-id")
+    else:
+        prod = Products.objects.all()
+        prod = list(prod)
+        random.shuffle(prod)
+
     productdata = Paginator(productdata, 8)
     if "page" in request.GET:
         page_number = request.GET["page"]
     else:
         page_number = 1
     page_obj = productdata.get_page(page_number)
-    prod = list(page_obj)
-    random.shuffle(prod)
+
     totalpage = [x + 1 for x in range(productdata.num_pages)]
+
     data = {
         "products": prod,
         "totalpages": totalpage,
+        "sort_data": sort_order,
     }
 
     return render(request, "products.html", data)
