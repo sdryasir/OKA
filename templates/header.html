@@ -51,7 +51,7 @@
                         </button>
                       </form>
                       <button class="u_search_button">
-                        <i style="font-size: 102%;" class="ph-bold ph-magnifying-glass"></i>
+                        <i  class="ph-bold ph-magnifying-glass"></i>
                       </button>
                       <button class="u_close_button">
                         <i class="ph-bold ph-x"></i>
@@ -65,10 +65,10 @@
 
                   </li>
 
-                  <li class="nav-item sizing me-3">
+                  <li class="nav-item sizing me-3 u-view-upper">
                     <i class="bi bi-cart" style="color: black; font-weight: 700; font-size: 102%;"></i>
                   </li>
-                  <li class="nav-item sizing">
+                  <li class="nav-item sizing u-view-upper">
                     <i class="bi bi-heart" style="color: black; font-weight: 700; font-size: 102%;"></i>
                   </li>
                 </ul>
@@ -125,9 +125,14 @@
           </div>
         </nav>
       </div><!-- /.nav-bottom -->
-      <div class="u-mobile-nav" style="position: fixed; bottom: 0; background-color: #E2E2E2; width: 100%;">
+      <div class="u-mobile-nav d-none" style="position: fixed; bottom: 0; background-color: #fff; width: 100%;">
         <div class="container">
           <ul class="inner navbar-nav justify-content-between"  style="flex-direction: row;">
+            <li class="nav-item" style="margin: 0;
+            display: contents;
+            padding: 0;">
+              <a class="nav-link active nav-bottom-cl" style="margin: 10px !important; padding: 0; color: #000 !important; font-size: 17px;" aria-current="page" href="#"><i class="bi bi-cart"></i></a>
+            </li>
             <li class="nav-item" style="margin: 0;
             display: contents;
             padding: 0;">
@@ -136,12 +141,7 @@
             <li class="nav-item" style="margin: 0;
             display: contents;
             padding: 0;">
-              <a class="nav-link active nav-bottom-cl" style="margin: 10px !important; padding: 0; color: #000 !important;" aria-current="page" href="{% url 'home' %}">home</a>
-            </li>
-            <li class="nav-item" style="margin: 0;
-            display: contents;
-            padding: 0;">
-              <a class="nav-link active nav-bottom-cl" style="margin: 10px !important; padding: 0; color: #000 !important;" aria-current="page" href="{% url 'home' %}">home</a>
+              <a class="nav-link active nav-bottom-cl" style="margin: 10px !important; padding: 0; color: #000 !important; font-size: 17px;" aria-current="page" href="#"><i class="bi bi-heart"></i></a>
             </li>
           </ul>
         </div><!-- /.container -->

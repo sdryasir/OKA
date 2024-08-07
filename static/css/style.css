@@ -829,6 +829,9 @@ input:-internal-autofill-selected {
   object-fit: contain;
     height: 220px;
 }
+.ph-bold{
+  font-size: 102%;
+}
 
 
 
@@ -1127,7 +1130,8 @@ body {
   width: auto;
   padding: 16px;
   margin-top: -50px;
-  color: white;
+  color: black;
+  background: transparent;
   font-weight: bold;
   font-size: 20px;
   border-radius: 3px;
@@ -1150,6 +1154,7 @@ body {
 .prev:hover,
 .next:hover {
   color: #000;
+  background: transparent;
 }
 
 /* Number text (1/3 etc) */
@@ -1356,7 +1361,7 @@ body {
 
   .u_sizing {
     position: absolute;
-    right: 103px;
+    right: 45px;
     top: 3px;
   }
 
@@ -1367,7 +1372,15 @@ body {
   .u-img-card img {
     height: 200px;
   }
-
+  .u-view-upper{
+    display: none !important;
+  }
+  .u-mobile-nav{
+    display: block !important;
+  }
+  .div-last{
+    display: block !important;
+  }
 
 
   .category-wrapper .container-fluid .row .col-sm-6 {
@@ -1425,6 +1438,12 @@ body {
   .cpy-adjustment{
     font-size: 12px;
   }
+  .ph-bold{
+    font-size: 90%;
+  }
+  .zoom :hover{
+    transform: scale(1) !important;
+}
 
 }
 
@@ -1498,6 +1517,10 @@ body {
   .mb-cl {
     display: inline;
   }
+  .ph-bold{
+    font-size: 91%;
+  }
+  
 }
 
 @media (min-width: 768px) and (max-width: 991.98px) {
