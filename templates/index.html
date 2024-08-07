@@ -80,9 +80,10 @@
     </div>
   </div><!-- /.product-wrapper -->
   <div class="sales">
-    {% for offers in offer %}
+    {% for offers in offer|slice:":1" %}
 
     <img src="/media/{{offers.image}}" width="100%" alt="">
+
     {% endfor %}
 
   </div><!-- /.sales -->

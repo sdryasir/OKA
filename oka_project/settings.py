@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-o6)v^=#%mw105c45tst@am0ay4hd26iy7zuv@=37nhq@$crhgu"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -169,6 +169,7 @@ RECAPTCHA_SECRETKEY = "6LdG8xoqAAAAAP4IU6KwAJIIuQiuJgiU3BcJiGUB"
 JAZZMIN_SETTINGS = {
     "site_title": "My Admin",
     "site_header": "My Admin",
+    "site_icon": "images/fav.png",
     "site_logo": "images/logo.png",
     'copyright': 'Baby Planet',
     "icons": {
