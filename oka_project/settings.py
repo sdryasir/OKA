@@ -167,10 +167,12 @@ RECAPTCHA_SITEKEY = "6LdG8xoqAAAAABjDxfEmCW9bQ4HPoSJkEXWuSCGJ"
 RECAPTCHA_SECRETKEY = "6LdG8xoqAAAAAP4IU6KwAJIIuQiuJgiU3BcJiGUB"
 
 JAZZMIN_SETTINGS = {
-    "site_title": "My Admin",
-    "site_header": "My Admin",
+    "custom_css": "css/custom_admin.css",
+    "site_title": "Admin Panel",
+    "site_header": "Admin Panel",
     "site_icon": "images/fav.png",
     "site_logo": "images/logo.png",
+    "welcome_sign": "Welcome to Admin Dashboard",
     'copyright': 'Baby Planet',
     "icons": {
         'user_avatar': 'avatar',
@@ -183,6 +185,6 @@ JAZZMIN_SETTINGS = {
         "carousel.Carousel":"fas fa-image",
         "categories.Category":"fas fa-list",
         "offer.Offer":"fas fa-tag",
-        "products.Products":"fas fa-notes-medical", 
+        "Product.Products":"fas fa-plus", 
     }
 }
