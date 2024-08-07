@@ -38,6 +38,13 @@
     font-size: 14px;
     padding: 5px;
   }
+  .meSa{
+    text-align: center;
+    font-size: x-large;
+    font-weight: bolder;
+    margin-top: 5%;
+    margin-bottom: 5%;
+  }
 </style>
 
 <main>
@@ -101,6 +108,11 @@
       </div>
     </div>
   </div>
+  {% if messages %}
+  {% for mess in messages %}
+  <div class="meSa">{{mess}}</div>
+  {% endfor %}
+  {% endif %}
   <!-- /.u_category_inner_wrapper -->
   <script>
     document

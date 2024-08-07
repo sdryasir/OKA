@@ -132,21 +132,24 @@ def searchResult(request):
 
 
 def productResult(request, category):
-    productsbycat = Products.objects.filter(category_id=category)
-    sort_data = request.GET.get("sort_order")
-    if sort_data == "ascending":
-        productsbycat = Products.objects.filter(category_id=category).order_by("id")
-    elif sort_data == "descending":
-        productsbycat = Products.objects.filter(category_id=category).order_by("-id")
-    else:
-        productsbycat = list(Products.objects.filter(category_id=category))
-        random.shuffle(productsbycat)
-    data = {
-        "productsbycat": productsbycat,
-        "sort_data": sort_data,
-    }
+        productsbycat = Products.objects.filter(category_id=category)
+        sort_data = request.GET.get("sort_order")
+        if sort_data == "ascending":
+            productsbycat = Products.objects.filter(category_id=category).order_by("id")
+        elif sort_data == "descending":
+            productsbycat = Products.objects.filter(category_id=category).order_by("-id")
+        else:
+            productsbycat = list(Products.objects.filter(category_id=category))
+            random.shuffle(productsbycat)
+        if not productsbycat:
+            messages.error(request,'No Product Found!')
+            return render(request, "product_results.html")
+        data = {
+                "productsbycat": productsbycat,
+                "sort_data": sort_data,
+            }
 
-    return render(request, "product_results.html", data)
+        return render(request, "product_results.html", data)
 
 
 def register_user(request):
