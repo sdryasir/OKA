@@ -325,7 +325,7 @@ footer {
 }
 
 main {
-  margin-top: 12%;
+  margin-top: 11%;
 }
 
 .logo-size {
@@ -829,6 +829,9 @@ input:-internal-autofill-selected {
   object-fit: contain;
     height: 220px;
 }
+.ph-bold{
+  font-size: 102%;
+}
 
 
 
@@ -842,6 +845,71 @@ input:-internal-autofill-selected {
 
 
 
+/* popup starts */
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+.popup {
+  display: none;
+  position: fixed;
+  z-index: 4;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.popup-content {
+  margin-top: 21% !important;
+  background-color: white;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 300px;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.popup-content a {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+  text-decoration: none;
+  color: white;
+  background-color: #FF6F00;
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.popup-content a:hover {
+  background-color: transparent;
+  color: black;
+  border: 2px solid black;
+  border-color: black !important;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 25px;
+  color: #aaa;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#person-icon {
+  cursor: pointer;
+}
+
+/* popup ends */
 /* slider starts */
 .slider {
   position: relative;
@@ -1062,7 +1130,8 @@ input:-internal-autofill-selected {
   width: auto;
   padding: 16px;
   margin-top: -50px;
-  color: white;
+  color: black;
+  background: transparent;
   font-weight: bold;
   font-size: 20px;
   border-radius: 3px;
@@ -1085,6 +1154,7 @@ input:-internal-autofill-selected {
 .prev:hover,
 .next:hover {
   color: #000;
+  background: transparent;
 }
 
 /* Number text (1/3 etc) */
@@ -1291,7 +1361,7 @@ input:-internal-autofill-selected {
 
   .u_sizing {
     position: absolute;
-    right: 103px;
+    right: 45px;
     top: 3px;
   }
 
@@ -1302,7 +1372,15 @@ input:-internal-autofill-selected {
   .u-img-card img {
     height: 200px;
   }
-
+  .u-view-upper{
+    display: none !important;
+  }
+  .u-mobile-nav{
+    display: block !important;
+  }
+  .div-last{
+    display: block !important;
+  }
 
 
   .category-wrapper .container-fluid .row .col-sm-6 {
@@ -1357,6 +1435,15 @@ input:-internal-autofill-selected {
     object-fit: contain;
       height: 150px;
   }
+  .cpy-adjustment{
+    font-size: 12px;
+  }
+  .ph-bold{
+    font-size: 90%;
+  }
+  .zoom :hover{
+    transform: scale(1) !important;
+}
 
 }
 
@@ -1430,6 +1517,10 @@ input:-internal-autofill-selected {
   .mb-cl {
     display: inline;
   }
+  .ph-bold{
+    font-size: 91%;
+  }
+  
 }
 
 @media (min-width: 768px) and (max-width: 991.98px) {
