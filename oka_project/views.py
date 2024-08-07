@@ -124,6 +124,9 @@ def products(request):
 def searchResult(request):
     searchresults = request.GET["search"]
     searchterm = Products.objects.filter(title__icontains=searchresults)
+    if not searchterm.exists():
+        messages.error(request,"No Product Found!")
+        return render(request, "search_results.html")
     data = {"searchterm": searchterm}
     return render(request, "search_results.html", data)
 
@@ -136,8 +139,8 @@ def productResult(request, category):
     elif sort_data == "descending":
         productsbycat = Products.objects.filter(category_id=category).order_by("-id")
     else:
-        productsbycat = Products.objects.filter(category_id=category)
-
+        productsbycat = list(Products.objects.filter(category_id=category))
+        random.shuffle(productsbycat)
     data = {
         "productsbycat": productsbycat,
         "sort_data": sort_data,
