@@ -51,9 +51,9 @@
         <p>Sort:</p>
         <form id="sortForm" method="GET" action="">
           <select name="sort_order" id="sortOrder">
-            <option value="none" {% if sort_data == 'none'  %} selected {% endif %}>------</option>
-            <option value="ascending" {% if sort_data == 'ascending'  %} selected {% endif %} >Ascending</option>
-            <option value="descending" {% if sort_data == 'descending'  %} selected {% endif %} >Descending</option>
+            <option value="none" {% if sort_order == 'none'  %} selected {% endif %}>------</option>
+            <option value="ascending" {% if sort_order == 'ascending'  %} selected {% endif %} >Ascending</option>
+            <option value="descending" {% if sort_order == 'descending'  %} selected {% endif %} >Descending</option>
           </select>
         </form>
       </div>

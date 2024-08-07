@@ -8,16 +8,21 @@ from django.contrib import messages
 from django.contrib.sessions.models import Session
 from django.contrib.auth import authenticate, login as auth_login, logout
 from faq.models import Faq
+import random
 from django.core.paginator import Paginator, EmptyPage
 from offer.models import Offer
 
 
 def home(request):
-    productdata = Products.objects.all()
-    categorydata = Category.objects.all()
-    carouseldata = Carousel.objects.all()
-    offerdata = Offer.objects.all()
-
+    productdata = list(Products.objects.all())
+    categorydata = list(Category.objects.all())
+    carouseldata = list(Carousel.objects.all())
+    offerdata = list(Offer.objects.all())
+    random.shuffle(productdata)
+    random.shuffle(categorydata)
+    random.shuffle(carouseldata)
+    random.shuffle(offerdata)
+    
     data = {
         "products": productdata,
         "categories": categorydata,
@@ -91,6 +96,14 @@ def productDetails(request, id):
 
 def products(request):
     productdata = Products.objects.all()
+    sort_order = request.GET.get('sort_order')
+    if sort_order == 'ascending':
+        productdata = Products.objects.all().order_by('id')
+    elif sort_order == 'descending':
+        productdata = Products.objects.all().order_by('-id')
+    else:
+        productdata = list(Products.objects.all())
+        random.shuffle(productdata)
     productdata = Paginator(productdata, 8)
 
     if "page" in request.GET:
@@ -102,6 +115,7 @@ def products(request):
     data = {
         "products": page_obj,
         "totalpages": totalpage,
+        "sort_order":sort_order
     }
 
     return render(request, "products.html", data)
