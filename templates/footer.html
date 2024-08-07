@@ -63,6 +63,7 @@
         reserved.</p>
     </div>
   </div>
+  <div class="div-last d-none" style="height: 75px;"></div>
 </footer>
 <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 
@@ -287,6 +288,29 @@
           img.style.transform = 'scale(1)';
           img.style.transformOrigin = 'center center';
       });
+  });
+</script>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const popup = document.getElementById("popup");
+    const personIcon = document.getElementById("person-icon");
+    const closeBtn = document.querySelector(".close");
+
+    personIcon.onclick = function () {
+      popup.style.display = "block";
+    }
+
+    closeBtn.onclick = function () {
+      popup.style.display = "none";
+    }
+
+    window.onclick = function (event) {
+      if (event.target == popup) {
+        popup.style.display = "none";
+      }
+    }
   });
 </script>
 </body>

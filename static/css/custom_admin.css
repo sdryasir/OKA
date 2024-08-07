@@ -1,0 +1,14 @@
+
+.brand-image {
+  display: none;
+}
+
+
+/* Insert custom text using pseudo-element */
+.brand-text::after {
+  content: "Welcome! Admin";
+  display: block;
+  color: #ffffff; /* Customize text color */
+  /* Customize font size */
+  font-weight: bold; /* Customize font weight */
+}

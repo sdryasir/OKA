@@ -18,12 +18,12 @@ class Products(models.Model):
     More_information = models.TextField(blank=True , null=True)
     availability = models.CharField(max_length=20, choices=COLOR_CHOICES, default='----' , null=True)
     category = models.ForeignKey(Category , on_delete=models.CASCADE , null=True)
-    image = models.FileField(upload_to= "products/" , null=True , help_text='Image size must be 500 X 500 pixels and add all images. If you dont have enough images then you can add 1 image 6 times')
-    image2 = models.FileField(upload_to= "products/" , null=True , blank=True , help_text='Image size must be 500 X 500 pixels and add all images. If you dont have enough images then you can add 1 image 6 times')
-    image3 = models.FileField(upload_to= "products/" , null=True , blank=True , help_text='Image size must be 500 X 500 pixels and add all images. If you dont have enough images then you can add 1 image 6 times')
-    image4 = models.FileField(upload_to= "products/" , null=True , blank=True , help_text='Image size must be 500 X 500 pixels and add all images. If you dont have enough images then you can add 1 image 6 times')
-    image5 = models.FileField(upload_to= "products/" , null=True , blank=True , help_text='Image size must be 500 X 500 pixels and add all images. If you dont have enough images then you can add 1 image 6 times')
-    image6 = models.FileField(upload_to= "products/" , null=True , blank=True , help_text='Image size must be 500 X 500 pixels and add all images. If you dont have enough images then you can add 1 image 6 times')
+    image = models.FileField(upload_to= "products/" , max_length=200 , null=True , help_text='Image size must be 500 X 500 pixels and add all images. If you dont have enough images then you can add 1 image 6 times')
+    image2 = models.FileField(upload_to= "products/" , max_length=200 , null=True , help_text='Image size must be 500 X 500 pixels and add all images. If you dont have enough images then you can add 1 image 6 times')
+    image3 = models.FileField(upload_to= "products/" , max_length=200 , null=True , help_text='Image size must be 500 X 500 pixels and add all images. If you dont have enough images then you can add 1 image 6 times')
+    image4 = models.FileField(upload_to= "products/" , max_length=200 , null=True , help_text='Image size must be 500 X 500 pixels and add all images. If you dont have enough images then you can add 1 image 6 times')
+    image5 = models.FileField(upload_to= "products/" , max_length=200 , null=True , help_text='Image size must be 500 X 500 pixels and add all images. If you dont have enough images then you can add 1 image 6 times')
+    image6 = models.FileField(upload_to= "products/" , max_length=200 , null=True , help_text='Image size must be 500 X 500 pixels and add all images. If you dont have enough images then you can add 1 image 6 times')
 
  
 

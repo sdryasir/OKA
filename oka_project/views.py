@@ -1,5 +1,4 @@
 from django.shortcuts import render
-import random
 from Product.models import Products
 from categories.models import Category
 from carousel.models import Carousel
@@ -14,14 +13,10 @@ from offer.models import Offer
 
 
 def home(request):
-    productdata = list(Products.objects.all())
-    categorydata = list(Category.objects.all())
-    carouseldata = list(Carousel.objects.all())
-    offerdata = list(Offer.objects.all())
-    random.shuffle(productdata)
-    random.shuffle(categorydata)
-    random.shuffle(carouseldata)
-    random.shuffle(offerdata)
+    productdata = Products.objects.all()
+    categorydata = Category.objects.all()
+    carouseldata = Carousel.objects.all()
+    offerdata = Offer.objects.all()
 
     data = {
         "products": productdata,
@@ -96,29 +91,17 @@ def productDetails(request, id):
 
 def products(request):
     productdata = Products.objects.all()
-    sort_order = request.GET.get("sort_order")
-    if sort_order == "ascending":
-        prod = Products.objects.all().order_by("id")
-    elif sort_order == "descending":
-        prod = Products.objects.all().order_by("-id")
-    else:
-        prod = Products.objects.all()
-        prod = list(prod)
-        random.shuffle(prod)
-
     productdata = Paginator(productdata, 8)
+
     if "page" in request.GET:
         page_number = request.GET["page"]
     else:
         page_number = 1
     page_obj = productdata.get_page(page_number)
-
     totalpage = [x + 1 for x in range(productdata.num_pages)]
-
     data = {
-        "products": prod,
+        "products": page_obj,
         "totalpages": totalpage,
-        "sort_data": sort_order,
     }
 
     return render(request, "products.html", data)
@@ -127,9 +110,7 @@ def products(request):
 def searchResult(request):
     searchresults = request.GET["search"]
     searchterm = Products.objects.filter(title__icontains=searchresults)
-    searchprodUct = list(searchterm)
-    random.shuffle(searchprodUct)
-    data = {"searchterm": searchprodUct}
+    data = {"searchterm": searchterm}
     return render(request, "search_results.html", data)
 
 
@@ -142,9 +123,6 @@ def productResult(request, category):
         productsbycat = Products.objects.filter(category_id=category).order_by("-id")
     else:
         productsbycat = Products.objects.filter(category_id=category)
-
-    productsbycat = list(productsbycat)
-    random.shuffle(productsbycat)
 
     data = {
         "productsbycat": productsbycat,
