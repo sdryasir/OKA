@@ -94,31 +94,49 @@ def productDetails(request, id):
     return render(request, "productdetail.html", data)
 
 
+from django.core.paginator import Paginator
+import random
+
 def products(request):
     productdata = Products.objects.all()
+    
+    # Apply price filtering if provided
+    minprice = request.GET.get('min_price')
+    maxprice = request.GET.get('max_price')
+    if minprice or maxprice:
+        productdata = productdata.filter(price_that_you_sell__gte=minprice, price_that_you_sell__lte=maxprice)
+    
+    # Apply sorting if provided
     sort_order = request.GET.get('sort_order')
     if sort_order == 'ascending':
-        productdata = Products.objects.all().order_by('id')
+        productdata = productdata.order_by('price_that_you_sell')
     elif sort_order == 'descending':
-        productdata = Products.objects.all().order_by('-id')
+        productdata = productdata.order_by('-price_that_you_sell')
+    elif sort_order == 'lth':
+        productdata = productdata.order_by('price_that_you_sell')
+    elif sort_order == 'htl':
+        productdata = productdata.order_by('-price_that_you_sell')
     else:
-        productdata = list(Products.objects.all())
+        productdata = list(productdata)
         random.shuffle(productdata)
-    productdata = Paginator(productdata, 8)
-
-    if "page" in request.GET:
-        page_number = request.GET["page"]
-    else:
-        page_number = 1
-    page_obj = productdata.get_page(page_number)
-    totalpage = [x + 1 for x in range(productdata.num_pages)]
+    
+    # Paginate the results
+    paginator = Paginator(productdata, 8)
+    page_number = request.GET.get("page", 1)
+    page_obj = paginator.get_page(page_number)
+    
+    totalpage = [x + 1 for x in range(paginator.num_pages)]
+    
     data = {
         "products": page_obj,
         "totalpages": totalpage,
-        "sort_order":sort_order
+        "sort_order": sort_order,
+        "minprice": minprice,
+        "maxprice": maxprice,
     }
-
+    
     return render(request, "products.html", data)
+
 
 
 def searchResult(request):
@@ -132,21 +150,24 @@ def searchResult(request):
 
 
 def productResult(request, category):
-    productsbycat = Products.objects.filter(category_id=category)
-    sort_data = request.GET.get("sort_order")
-    if sort_data == "ascending":
-        productsbycat = Products.objects.filter(category_id=category).order_by("id")
-    elif sort_data == "descending":
-        productsbycat = Products.objects.filter(category_id=category).order_by("-id")
-    else:
-        productsbycat = list(Products.objects.filter(category_id=category))
-        random.shuffle(productsbycat)
-    data = {
-        "productsbycat": productsbycat,
-        "sort_data": sort_data,
-    }
+        productsbycat = Products.objects.filter(category_id=category)
+        sort_data = request.GET.get("sort_order")
+        if sort_data == "ascending":
+            productsbycat = Products.objects.filter(category_id=category).order_by("id")
+        elif sort_data == "descending":
+            productsbycat = Products.objects.filter(category_id=category).order_by("-id")
+        else:
+            productsbycat = list(Products.objects.filter(category_id=category))
+            random.shuffle(productsbycat)
+        if not productsbycat:
+            messages.error(request,'No Product Found!')
+            return render(request, "product_results.html")
+        data = {
+                "productsbycat": productsbycat,
+                "sort_data": sort_data,
+            }
 
-    return render(request, "product_results.html", data)
+        return render(request, "product_results.html", data)
 
 
 def register_user(request):
