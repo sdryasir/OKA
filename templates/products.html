@@ -54,6 +54,8 @@
             <option value="none" {% if sort_order == 'none'  %} selected {% endif %}>------</option>
             <option value="ascending" {% if sort_order == 'ascending'  %} selected {% endif %} >Ascending</option>
             <option value="descending" {% if sort_order == 'descending'  %} selected {% endif %} >Descending</option>
+            <option value="lth" {% if sort_order == 'lth'  %} selected {% endif %} >Low To High</option>
+            <option value="htl" {% if sort_order == 'htl'  %} selected {% endif %} >High To Low</option>
           </select>
         </form>
       </div>
