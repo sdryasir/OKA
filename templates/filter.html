@@ -11,7 +11,7 @@
       <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-      <form id="filter-form" method="GET" action="">
+      <form id="filter-form" method="GET">
         <div class="u-price-wrapper">
           <div style="display: flex;" class="u-price-heading mb-4">
             <h5 class="u-par-underline-2">Price :</h5>
@@ -20,18 +20,25 @@
             <div class="range-slider">
               <div class="slider-track"></div>
               <div class="slider-range" id="slider-range"></div>
-              <input type="range" name="min_price" class="min-range" min="0" max="8000" value="0"
+              <input type="range" name="min_price" class="min-range" min="0" max="8000" value="{{ minprice|default:0 }}"
                 oninput="updatePrice()">
-              <input type="range" name="max_price" class="max-range" min="0" max="8000" value="5000"
+              <input type="range" name="max_price" class="max-range" min="0" max="8000" value="{{ maxprice|default:5000 }}"
                 oninput="updatePrice()">
             </div>
             <div class="price-range">
-              <div style="font-size: 14px;">Min: Rs. <span id="min-price">0</span></div>
-              <div style="font-size: 14px;">Max: Rs. <span id="max-price">5000</span></div>
+              <div style="font-size: 14px;">Min: Rs. <span id="min-price">{{ minprice|default:0 }}</span></div>
+              <div style="font-size: 14px;">Max: Rs. <span id="max-price">{{ maxprice|default:5000 }}</span></div>
             </div>
           </div>
         </div><!-- /.u-price-wrapper -->
+
+        <!-- Hidden Inputs to Store Slider Values -->
+        <input type="hidden" name="min_price" id="hidden-min-price" value="{{ minprice|default:0 }}">
+        <input type="hidden" name="max_price" id="hidden-max-price" value="{{ maxprice|default:5000 }}">
+
         <button type="submit" class="btn btn-primary mt-3">Apply Filter</button>
+        
+        <!-- Color and Size Filters -->
         <div class="u-color-wrapper mt-5">
           <div class="u-color-inner">
             <div class="u-color-head">
@@ -40,12 +47,13 @@
               </div>
             </div>
             <div class="u-color-body row">
-              <label class="col-sm-6"><input type="checkbox" class="color-filter" value="red"> Red</label>
-              <label class="col-sm-6"><input type="checkbox" class="color-filter" value="blue"> Blue</label>
-              <label class="col-sm-6"><input type="checkbox" class="color-filter" value="green"> Green</label>
+              <label class="col-sm-6"><input type="checkbox" name="color" class="color-filter" value="red"> Red</label>
+              <label class="col-sm-6"><input type="checkbox" name="color" class="color-filter" value="blue"> Blue</label>
+              <label class="col-sm-6"><input type="checkbox" name="color" class="color-filter" value="green"> Green</label>
             </div>
           </div><!-- /.u-color-inner -->
         </div><!-- /.u-color-wrapper -->
+
         <div class="u-size-wrapper mt-5">
           <div class="u-size-inner">
             <div class="u-size-head">
@@ -54,24 +62,29 @@
               </div>
             </div>
             <div class="u-size-body row">
-              <label class="col-sm-6"><input type="checkbox" value="red"> Small </label>
-              <label class="col-sm-6"><input type="checkbox" value="blue"> Medium </label>
-              <label class="col-sm-6"><input type="checkbox" value="green"> Large </label>
+              <label class="col-sm-6"><input type="checkbox" name="size" value="small"> Small </label>
+              <label class="col-sm-6"><input type="checkbox" name="size" value="medium"> Medium </label>
+              <label class="col-sm-6"><input type="checkbox" name="size" value="large"> Large </label>
             </div>
-          </div><!-- /.u-color-inner -->
+          </div><!-- /.u-size-inner -->
         </div><!-- /.u-size-wrapper -->
+      </form>
     </div>
   </div>
-  </form>
 </div><!-- /.u-filter-wrapper -->
-</div>
-</div>
-</div>
+
 <script>
   function updatePrice() {
     var minPrice = document.querySelector('.min-range').value;
     var maxPrice = document.querySelector('.max-range').value;
     document.getElementById('min-price').innerText = minPrice;
     document.getElementById('max-price').innerText = maxPrice;
+    document.getElementById('hidden-min-price').value = minPrice;
+    document.getElementById('hidden-max-price').value = maxPrice;
   }
+
+  // Initialize price display
+  document.addEventListener('DOMContentLoaded', function() {
+    updatePrice(); // Set initial values
+  });
 </script>
