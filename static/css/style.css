@@ -610,7 +610,7 @@ main {
 }
 
 .u_card_hover:hover {
-  padding: 6px 6px 0 6px;
+  padding: 0px 6px 0 6px;
   border: 1px solid rgba(0, 0, 0, 0.597);
   box-shadow: 0 1px 15px #262b5e;
 }
@@ -838,6 +838,10 @@ input:-internal-autofill-selected {
 .u-btn-hover:hover{
   transform: rotate(180deg);
 }
+
+
+
+
 
 
 
@@ -1459,6 +1463,26 @@ body {
     transform: scale(1) !important;
 }
 
+.u-cart-body .row .col-md-2 p{
+  margin-left: 100px !important;
+  border-top: 1px dashed rgb(0, 0, 0 , 0.2);
+  padding: 12px;
+
+}
+.u-cart-body .row .col-md-2 form{
+  margin-left: 100px !important;
+  border-top: 1px dashed rgb(0, 0, 0 , 0.2);
+  padding: 12px;
+
+}
+.u-cart-body .row {
+  display: flex;
+  justify-content: space-between;
+}
+.u-cart-body{
+  border-bottom: 1px solid rgb(0, 0, 0 , 0.2);
+}
+
 }
 
 @media (min-width: 300px) and (max-width: 575.98px) {
@@ -1534,7 +1558,26 @@ body {
   .ph-bold{
     font-size: 91%;
   }
+  .u-cart-body .row .col-md-2 p{
+    margin-left: 100px !important;
+    border-top: 1px dashed rgb(0, 0, 0 , 0.2);
+    padding: 12px;
   
+  }
+  .u-cart-body .row .col-md-2 form{
+    margin-left: 100px !important;
+    border-top: 1px dashed rgb(0, 0, 0 , 0.2);
+    padding: 12px;
+  
+  }
+  .u-cart-body .row {
+    display: flex;
+    justify-content: space-between;
+  }
+  .u-cart-body{
+    border-bottom: 1px solid rgb(0, 0, 0 , 0.2);
+  }
+
 }
 
 @media (min-width: 768px) and (max-width: 991.98px) {
@@ -1564,6 +1607,23 @@ body {
 
   .mb-cl {
     display: inline;
+  }
+  .u-cart-body .row .col-md-2 {
+    margin-top: 15px !important;
+    margin-bottom: 15px !important;
+  }
+  .u-cart-body {
+
+    border: 1px rgb(0, 0, 0 , 0.2) dotted;
+  }
+  .u-padding-adjust{
+    padding: 0 !important;
+  }
+  .u-cart-body .row .col-md-12 .card{
+    border-bottom: 1px rgb(0, 0, 0, 0.2) dotted !important;
+    border-radius: 0 !important;
+
+    /* margin-left: 12px; */
   }
 }
 
@@ -1595,6 +1655,18 @@ body {
 
   .mb-cl {
     display: inline;
+  }
+  .u-cart-head{
+    display: flex !important;
+  }
+  .u-cart-head{
+    border-bottom: 1px solid rgb(0, 0, 0 , 0.2);
+  }
+  .u-cart-body{
+    margin-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgb(0, 0, 0 , 0.2);
+
   }
 
 }

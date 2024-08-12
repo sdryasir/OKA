@@ -142,7 +142,7 @@ def products(request):
 
 def searchResult(request):
     searchresults = request.GET["search"]
-    searchterm = Products.objects.filter(title__icontains=searchresults)
+    searchterm = Products.objects.filter(name__icontains=searchresults)
     if not searchterm.exists():
         messages.error(request,"No Product Found!")
         return render(request, "search_results.html")

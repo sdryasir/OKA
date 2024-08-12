@@ -10,7 +10,7 @@ COLOR_CHOICES = (
 )
 
 class Products(models.Model):
-    title = models.CharField(max_length=50 , null=True)
+    name = models.CharField(max_length=50 , null=True)
     sub_title = models.TextField(max_length=250 , null=True)
     description = models.TextField(null=True)
     price_that_you_sell = models.IntegerField(help_text='the price that you sell' , null=True) 
