@@ -94,9 +94,6 @@ def productDetails(request, id):
     return render(request, "productdetail.html", data)
 
 
-from django.core.paginator import Paginator
-import random
-
 def products(request):
     productdata = Products.objects.all()
     
