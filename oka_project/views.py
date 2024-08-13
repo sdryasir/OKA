@@ -1,4 +1,6 @@
 from django.shortcuts import render
+import requests
+import json
 from Product.models import Products
 from categories.models import Category
 from carousel.models import Carousel
@@ -55,6 +57,17 @@ def log_inUser(request):
                 return redirect("login")
             user = authenticate(request, username=username, password=password)
             if user is not None:
+                Captcha_token = request.POST["g-recaptcha-response"]
+                google_api = "https://www.google.com/recaptcha/api/siteverify"
+                Captcha_secrete = "6LdG8xoqAAAAAP4IU6KwAJIIuQiuJgiU3BcJiGUB"
+                client_data = {"secret": Captcha_secrete, "response": Captcha_token}
+                Captcha_Server_response = requests.post(
+                    url=google_api, data=client_data
+                )
+                Captcha_Server_response_parse = json.loads(Captcha_Server_response.text)
+                if Captcha_Server_response_parse["success"] == False:
+                    messages.error(request, "Invalid Captcha Try Again!")
+                    return redirect("login")
                 messages.success(request, "Login Successful!")
                 auth_login(request, user)
                 request.session["username"] = user.username
@@ -135,7 +148,7 @@ def products(request):
 
 
 def searchResult(request):
-    searchresults = request.GET.get('search')
+    searchresults = request.GET.get("search")
     searchterm = Products.objects.filter(name__icontains=searchresults)
     if not searchterm.exists():
         messages.error(request, "No Product Found!")
@@ -191,8 +204,20 @@ def register_user(request):
                     email=email,
                     password=password,
                 )
-                messages.success(request, "Account created successfully!")
-        return render(request, "signup.html")
+                Captcha_token = request.POST["g-recaptcha-response"]
+                google_api = "https://www.google.com/recaptcha/api/siteverify"
+                Captcha_secrete = "6LdG8xoqAAAAAP4IU6KwAJIIuQiuJgiU3BcJiGUB"
+                client_data = {"secret": Captcha_secrete, "response": Captcha_token}
+                Captcha_Server_response = requests.post(
+                    url=google_api, data=client_data
+                )
+                Captcha_Server_response_parse = json.loads(Captcha_Server_response.text)
+                if Captcha_Server_response_parse["success"] == False:
+                    messages.error(request, "Invalid Captcha Try Again!")
+                    return render(request, "signup.html")
+                else:
+                    messages.success(request, "Account created successfully!")
+                    return render(request, "login.html")
     else:
         return redirect("home")
 
