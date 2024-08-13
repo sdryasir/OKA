@@ -97,20 +97,20 @@
         <div class="thumbnail" onclick="showSlide(0)"><img src="/media/{{products.image}}" alt="Thumbnail"></div>
         <div class="thumbnail {% if products.image2 == '' %} d-none {% endif %}" onclick="showSlide(1)"><img src="/media/{{products.image2}}" alt="Thumbnail"></div>
         <div class="thumbnail {% if products.image3 == '' %} d-none {% endif %}" onclick="showSlide(2)"><img src="/media/{{products.image3}}" alt="Thumbnail"></div>
-        <div class="thumbnail {% if products.image4 == '' %} d-none {% endif %}" onclick="showSlide(3)"><img src="/media/{{products.image4}}" alt="Thumbnail"></div>
-        <div class="thumbnail {% if products.image5 == '' %} d-none {% endif %}" onclick="showSlide(4)"><img src="/media/{{products.image5}}" alt="Thumbnail"></div>
-        <div class="thumbnail {% if products.image6 == '' %} d-none {% endif %}" onclick="showSlide(5)"><img src="/media/{{products.image6}}" alt="Thumbnail"></div>
+        <div class="thumbnail {% if products.image4 == '' %} d-none bg-dark {% endif %}" onclick="showSlide(3)"><img src="/media/{{products.image4}}" alt="Thumbnail"></div>
+        <div class="thumbnail {% if products.image5 == '' %} d-none bg-dark {% endif %}" onclick="showSlide(4)"><img src="/media/{{products.image5}}" alt="Thumbnail"></div>
+        <div class="thumbnail {% if products.image6 == '' %} d-none bg-dark {% endif %}" onclick="showSlide(5)"><img src="/media/{{products.image6}}" alt="Thumbnail"></div>
     </div>
         </div>
       </div>
       <div class="col-md-6 u-product-middle col-lg-6 col-xl-4 mt-5">
         <div class="card container" style="background: transparent;">
           <div class="card-body">
-            <h5 class="card-title" style="font-size: 18px; font-weight: 600;">{{products.title}}</h5>
+            <h5 class="card-title" style="font-size: 18px; font-weight: 600;">{{products.name}}</h5>
             <div class="card-subtitle mb-2 text-body-secondary mt-2 d-flex align-items-center"><span
                 style="text-decoration: line-through; color: #696969;">Rs.{{products.Orignal_price}}</span>
               <spa style="color: #ff6f00; font-weight: 600;">
-                <h5 class="d-inline ms-2">Rs.{{products.price_that_you_sell}}</h5>
+                <h5 class="d-inline ms-2">Rs.{{products.price}}</h5>
               </spa><span class="ms-2"
                 style="background-color: #ff6f00; border-radius: 2px; font-weight: 600; color: white; font-size: 13px; padding: 2px 4px;">
                 SAVE 34%</span>
@@ -154,7 +154,7 @@
                 </form>
 
               <div class="u-add-to-cart d-flex align-items-center mt-3">
-                <a style="text-align: center;" class="u-cart-adjust ms-2" href=""><i class="bi bi-cart me-1"> </i> ADD TO CART</a>
+                <a style="text-align: center;" class="u-cart-adjust ms-2" href="{% url 'cart_add' products.id %}"><i class="bi bi-cart me-1"> </i> ADD TO CART</a>
               </div><!-- /.u-add-to-cart -->
             </div>
 
@@ -213,9 +213,9 @@
         </li>
       </ul>
       <div class="tab-content" id="pills-tabContent">
-        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab"
+        <div class="tab-pane fade show active" style="white-space: pre-line;" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab"
           tabindex="0">{{products.description}}</div>
-        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
+        <div class="tab-pane fade" id="pills-profile" style="white-space: pre-line;" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
           {{products.More_information}}</div>
         <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">
           <div class="container d-flex justify-content-center">
