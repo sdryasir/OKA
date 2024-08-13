@@ -100,13 +100,10 @@ def products(request):
     sort_order = request.GET.get("sort_order")
     minprice = request.GET.get("min_price")
     maxprice = request.GET.get("max_price")
-
     productdata = Products.objects.all()
 
     if minprice or maxprice:
         productdata = productdata.filter(price__gte=minprice, price__lte=maxprice)
-    else:
-        return
 
     if sort_order == "ascending":
         productdata = productdata.order_by("price")
@@ -138,7 +135,7 @@ def products(request):
 
 
 def searchResult(request):
-    searchresults = request.GET["search"]
+    searchresults = request.GET.get('search')
     searchterm = Products.objects.filter(name__icontains=searchresults)
     if not searchterm.exists():
         messages.error(request, "No Product Found!")
@@ -210,10 +207,16 @@ def faq(request):
 
 
 def cart_add(request, id):
-    cart = Cart(request)
-    product = Products.objects.get(id=id)
-    cart.add(product=product)
-    return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
+    if request.user.is_authenticated:
+        cart = Cart(request)
+        product = Products.objects.get(id=id)
+        cart.add(product=product)
+        return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
+    else:
+        cart = Cart(request)
+        product = Products.objects.get(id=id)
+        cart.add(product=product)
+        return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
 
 
 def item_clear(request, id):
