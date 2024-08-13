@@ -38,7 +38,8 @@
     font-size: 14px;
     padding: 5px;
   }
-  .meSa{
+
+  .meSa {
     text-align: center;
     font-size: x-large;
     font-weight: bolder;
@@ -59,9 +60,9 @@
           <p>Sort:</p>
           <form id="sortForm" method="GET" action="">
             <select name="sort_order" id="sortOrder">
-              <option value="none" {% if sort_data == 'none'  %} selected {% endif %}>------</option>
-              <option value="ascending" {% if sort_data == 'ascending'  %} selected {% endif %} >Ascending</option>
-              <option value="descending" {% if sort_data == 'descending'  %} selected {% endif %} >Descending</option>
+              <option value="none" {% if sort_data=='none' %} selected {% endif %}>------</option>
+              <option value="ascending" {% if sort_data=='ascending' %} selected {% endif %}>Ascending</option>
+              <option value="descending" {% if sort_data=='descending' %} selected {% endif %}>Descending</option>
             </select>
           </form>
         </div>
@@ -69,38 +70,20 @@
         {% for product in productsbycat %}
         <div class="col-sm-6 u-card-adjusting col-md-4 col-lg-3 col-xl-3 my-2">
           <div class="card u_card_hover">
-            <img
-              src="/media/{{product.image}}"
-              class="card-img-top u-img-lining"
-              alt="..."
-            />
+            <img src="/media/{{product.image}}" class="card-img-top u-img-lining" alt="..." />
             <div class="card-body" style="text-align: center">
-              <h5 class="card-title u-lining">{{product.title}}</h5>
+              <h5 class="card-title u-lining">{{product.name}}</h5>
               <p style="margin: 0">
-                <span
-                  style="
+                <span style="
                     color: #858585;
                     text-decoration: line-through;
                     font-size: 15px;
-                  "
-                  >Rs.{{product.Orignal_price}}</span
-                >
-                <span style="color: #ff6f00; font-size: 17px"
-                  >Rs.{{product.price_that_you_sell}}</span
-                >
+                  ">Rs.{{product.Orignal_price}}</span>
+                <span style="color: #ff6f00; font-size: 17px">Rs.{{product.price}}</span>
               </p>
-              <a
-                style="margin-top: 1rem"
-                href=""
-                class="btn btn-primary u_btn_color"
-                >Add to cart</a
-              >
-              <a
-                style="margin-top: 1rem"
-                href="{% url 'product-details' product.id %}"
-                class="btn btn-primary u_btn_color"
-                >Details</a
-              >
+              <a style="margin-top: 1rem" href="{% url 'cart_add' product.id %}" class="btn btn-primary u_btn_color">Add to cart</a>
+              <a style="margin-top: 1rem" href="{% url 'product-details' product.id %}"
+                class="btn btn-primary u_btn_color">Details</a>
             </div>
           </div>
         </div>

@@ -397,23 +397,21 @@ main {
 
 .owl-nav .owl-next span {
   position: absolute !important;
-  top: 26% !important;
+  top: 24% !important;
   font-size: 62px !important;
   left: 92% !important;
-  font-size: 40px !important;
-  color: white;
-  background-color: #f85606;
+  font-size: 55px !important;
+  color: black;
   width: 27px;
   border-radius: 4px;
 }
 
 .owl-nav .owl-prev span {
   position: absolute !important;
-  background-color: #f85606;
   left: 5% !important;
-  top: 26% !important;
-  font-size: 40px !important;
-  color: white;
+  top: 24% !important;
+  font-size: 55px !important;
+  color: black;
   width: 27px;
   border-radius: 4px;
 }
@@ -615,7 +613,7 @@ main {
 }
 
 .u_card_hover:hover {
-  padding: 6px 6px 0 6px;
+  padding: 0px 6px 0 6px;
   border: 1px solid rgba(0, 0, 0, 0.597);
   box-shadow: 0 1px 15px #262b5e;
 }
@@ -835,6 +833,72 @@ input:-internal-autofill-selected {
 .ph-bold{
   font-size: 102%;
 }
+.u-btn-hover{
+ transition: .3s;
+ --bs-btn-close-color: #000;
+ box-shadow: none !important;
+}
+.u-btn-hover:hover{
+  transform: rotate(180deg);
+}
+.u-shopping-btn{
+  color: white;
+  background-color: #f85606;
+  border: 1px #f85606 solid;
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: .35s;
+}
+.u-shopping-btn:hover{
+  color: black;
+  background-color: #eee;
+  border: 1px #f85606 solid;
+}
+.u-cart-price{
+  text-decoration: none;
+  color: white;
+  background-color: #ff8800;
+  padding: 6px 13px;
+  border-radius: 40px;
+  padding-bottom: 8px;
+  transition: .25s;
+}
+.u-cart-price:hover{
+  background-color: #f85606;
+}
+.u-cart-price-2{
+  text-decoration: none;
+  color: white;
+  background-color: #ff8800;
+  padding: 6px 11px;
+  border-radius: 40px;
+  transition: .25s;
+}
+.u-cart-price-2:hover{
+  background-color: #f85606;
+}
+.u-cart-price-3{
+  text-decoration: none;
+  color: white;
+  background-color: #ff8800;
+  padding: 7px 11px;
+  border-radius: 40px;
+  transition: .25s;
+}
+.u-cart-price-3:hover{
+  background-color: #f85606;
+}
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -998,7 +1062,7 @@ body {
   border-color: orange;
 }
 
-/* price ends */
+/* slider ends */
 
 
 /* price starts */
@@ -1448,6 +1512,36 @@ body {
     transform: scale(1) !important;
 }
 
+.u-cart-body .row .col-md-2 p{
+  margin-left: 100px !important;
+  border-top: 1px dashed rgb(0, 0, 0 , 0.2);
+  padding: 12px;
+
+}
+.u-cart-body .row .col-md-2 .u-form{
+  margin-left: 100px !important;
+  border-top: 1px dashed rgb(0, 0, 0 , 0.2);
+  padding: 12px;
+
+}
+.u-cart-body .row {
+  display: flex;
+  justify-content: space-between;
+}
+.u-cart-body{
+  border-bottom: 1px solid rgb(0, 0, 0 , 0.2);
+}
+.u-shopping-clear-btn-mview{
+  margin-top: 16px;
+  display: table;
+}
+.u-shopping-btn{
+  font-size: 12px;
+}
+.u-shipping-inner-2{
+  font-size: 12px;
+}
+
 }
 
 @media (min-width: 300px) and (max-width: 575.98px) {
@@ -1523,7 +1617,26 @@ body {
   .ph-bold{
     font-size: 91%;
   }
+  .u-cart-body .row .col-md-2 p{
+    margin-left: 100px !important;
+    border-top: 1px dashed rgb(0, 0, 0 , 0.2);
+    padding: 12px;
   
+  }
+  .u-cart-body .row .col-md-2 form{
+    margin-left: 100px !important;
+    border-top: 1px dashed rgb(0, 0, 0 , 0.2);
+    padding: 12px;
+  
+  }
+  .u-cart-body .row {
+    display: flex;
+    justify-content: space-between;
+  }
+  .u-cart-body{
+    border-bottom: 1px solid rgb(0, 0, 0 , 0.2);
+  }
+
 }
 
 @media (min-width: 768px) and (max-width: 991.98px) {
@@ -1553,6 +1666,23 @@ body {
 
   .mb-cl {
     display: inline;
+  }
+  .u-cart-body .row .col-md-2 {
+    margin-top: 15px !important;
+    margin-bottom: 15px !important;
+  }
+  .u-cart-body {
+
+    border: 1px rgb(0, 0, 0 , 0.2) dotted;
+  }
+  .u-padding-adjust{
+    padding: 0 !important;
+  }
+  .u-cart-body .row .col-md-12 .card{
+    border-bottom: 1px rgb(0, 0, 0, 0.2) dotted !important;
+    border-radius: 0 !important;
+
+    /* margin-left: 12px; */
   }
 }
 
@@ -1584,6 +1714,18 @@ body {
 
   .mb-cl {
     display: inline;
+  }
+  .u-cart-head{
+    display: flex !important;
+  }
+  .u-cart-head{
+    border-bottom: 1px solid rgb(0, 0, 0 , 0.2);
+  }
+  .u-cart-body{
+    margin-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgb(0, 0, 0 , 0.2);
+
   }
 
 }
