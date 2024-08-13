@@ -65,16 +65,16 @@
           <div class="card u_card_hover">
             <img src="/media/{{product.image}}" class="card-img-top u-img-lining" alt="..." />
             <div class="card-body" style="text-align: center">
-              <h5 class="card-title u-lining">{{product.title}}</h5>
+              <h5 class="card-title u-lining">{{product.name}}</h5>
               <p style="margin: 0">
                 <span style="
                     color: #858585;
                     text-decoration: line-through;
                     font-size: 14px;
                   ">Rs.{{product.Orignal_price}}</span>
-                <span style="color: #ff6f00; font-size: 17px">Rs.{{product.price_that_you_sell}}</span>
+                <span style="color: #ff6f00; font-size: 17px">Rs.{{product.price}}</span>
               </p>
-              <a style="margin-top: 1rem" href="" class="btn btn-primary u_btn_color">Add to cart
+              <a style="margin-top: 1rem" href="{% url 'cart_add' product.id %}" class="btn btn-primary u_btn_color">Add to cart
               </a>
               <a style="margin-top: 1rem" href="{% url 'product-details' product.id %}"
                 class="btn btn-primary u_btn_color">Details</a>
