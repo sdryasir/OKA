@@ -110,7 +110,7 @@
             <div class="card-subtitle mb-2 text-body-secondary mt-2 d-flex align-items-center"><span
                 style="text-decoration: line-through; color: #696969;">Rs.{{products.Orignal_price}}</span>
               <spa style="color: #ff6f00; font-weight: 600;">
-                <h5 class="d-inline ms-2">Rs.{{products.price_that_you_sell}}</h5>
+                <h5 class="d-inline ms-2">Rs.{{products.price}}</h5>
               </spa><span class="ms-2"
                 style="background-color: #ff6f00; border-radius: 2px; font-weight: 600; color: white; font-size: 13px; padding: 2px 4px;">
                 SAVE 34%</span>
@@ -154,7 +154,7 @@
                 </form>
 
               <div class="u-add-to-cart d-flex align-items-center mt-3">
-                <a style="text-align: center;" class="u-cart-adjust ms-2" href=""><i class="bi bi-cart me-1"> </i> ADD TO CART</a>
+                <a style="text-align: center;" class="u-cart-adjust ms-2" href="{% url 'cart_add' products.id %}"><i class="bi bi-cart me-1"> </i> ADD TO CART</a>
               </div><!-- /.u-add-to-cart -->
             </div>
 

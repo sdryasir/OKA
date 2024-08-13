@@ -67,12 +67,12 @@
                   </li>
 
                   <li class="nav-item sizing me-3 u-view-upper">
-                    <div class="bi bi-cart" style="color: black; font-weight: 700; font-size: 102%;">
+                    <a class="bi bi-cart" href="{% url 'cart_detail' %}" style="color: black; font-weight: 700; font-size: 102%; text-decoration: none;">
                       <span class="position-absolute translate-middle badge rounded-pill bg-danger" style="width: 16px; height: 16px; font-size: 9px; top: 38%;">
-                        2
+                        {{request.session.cart|length}}
                         <span class="visually-hidden">unread messages</span>
                       </span>
-                    </div>
+                    </a>
                   </li>
                   <li class="nav-item sizing u-view-upper">
                     <i class="bi bi-heart" style="color: black; font-weight: 700; font-size: 102%;"></i>
@@ -144,9 +144,9 @@
             padding: 0;">
               <a class="nav-link active nav-bottom-cl"
                 style="margin: 10px !important; padding: 0; color: #000 !important; font-size: 17px;"
-                aria-current="page" href="#"><i class="bi bi-cart">
+                aria-current="page" href="{% url 'cart_detail' %}"><i class="bi bi-cart">
                   <span class="position-absolute translate-middle badge rounded-pill bg-danger" style="width: 16px; height: 16px; font-size: 9px; top: 38%; padding: 0; padding-top: 4px;">
-                    2
+                    {{request.session.cart|length}}
                     <span class="visually-hidden">unread messages</span>
                   </span>
                 </i></a>

@@ -838,8 +838,54 @@ input:-internal-autofill-selected {
 .u-btn-hover:hover{
   transform: rotate(180deg);
 }
-
-
+.u-shopping-btn{
+  color: white;
+  background-color: #f85606;
+  border: 1px #f85606 solid;
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: .35s;
+}
+.u-shopping-btn:hover{
+  color: black;
+  background-color: #eee;
+  border: 1px #f85606 solid;
+}
+.u-cart-price{
+  text-decoration: none;
+  color: white;
+  background-color: #ff8800;
+  padding: 6px 13px;
+  border-radius: 40px;
+  padding-bottom: 8px;
+  transition: .25s;
+}
+.u-cart-price:hover{
+  background-color: #f85606;
+}
+.u-cart-price-2{
+  text-decoration: none;
+  color: white;
+  background-color: #ff8800;
+  padding: 6px 11px;
+  border-radius: 40px;
+  transition: .25s;
+}
+.u-cart-price-2:hover{
+  background-color: #f85606;
+}
+.u-cart-price-3{
+  text-decoration: none;
+  color: white;
+  background-color: #ff8800;
+  padding: 7px 11px;
+  border-radius: 40px;
+  transition: .25s;
+}
+.u-cart-price-3:hover{
+  background-color: #f85606;
+}
 
 
 
@@ -1469,7 +1515,7 @@ body {
   padding: 12px;
 
 }
-.u-cart-body .row .col-md-2 form{
+.u-cart-body .row .col-md-2 .u-form{
   margin-left: 100px !important;
   border-top: 1px dashed rgb(0, 0, 0 , 0.2);
   padding: 12px;
@@ -1481,6 +1527,16 @@ body {
 }
 .u-cart-body{
   border-bottom: 1px solid rgb(0, 0, 0 , 0.2);
+}
+.u-shopping-clear-btn-mview{
+  margin-top: 16px;
+  display: table;
+}
+.u-shopping-btn{
+  font-size: 12px;
+}
+.u-shipping-inner-2{
+  font-size: 12px;
 }
 
 }

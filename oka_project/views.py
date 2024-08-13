@@ -12,6 +12,8 @@ import random
 from django.core.paginator import Paginator, EmptyPage
 from offer.models import Offer
 from cart.cart import Cart
+from django.http import HttpResponseRedirect
+
 
 
 def home(request):
@@ -105,18 +107,18 @@ def products(request):
     minprice = request.GET.get('min_price')
     maxprice = request.GET.get('max_price')
     if minprice or maxprice:
-        productdata = productdata.filter(price_that_you_sell__gte=minprice, price_that_you_sell__lte=maxprice)
+        productdata = productdata.filter(price__gte=minprice, price__lte=maxprice)
     
     # Apply sorting if provided
     sort_order = request.GET.get('sort_order')
     if sort_order == 'ascending':
-        productdata = productdata.order_by('price_that_you_sell')
+        productdata = productdata.order_by('price')
     elif sort_order == 'descending':
-        productdata = productdata.order_by('-price_that_you_sell')
+        productdata = productdata.order_by('-price')
     elif sort_order == 'lth':
-        productdata = productdata.order_by('price_that_you_sell')
+        productdata = productdata.order_by('price')
     elif sort_order == 'htl':
-        productdata = productdata.order_by('-price_that_you_sell')
+        productdata = productdata.order_by('-price')
     else:
         productdata = list(productdata)
         random.shuffle(productdata)
@@ -216,28 +218,28 @@ def faq(request):
 
 def cart_add(request, id):
     cart = Cart(request)
-    product = Product.objects.get(id=id)
+    product = Products.objects.get(id=id)
     cart.add(product=product)
-    return redirect("home")
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 def item_clear(request, id):
     cart = Cart(request)
-    product = Product.objects.get(id=id)
+    product = Products.objects.get(id=id)
     cart.remove(product)
     return redirect("cart_detail")
 
 
 def item_increment(request, id):
     cart = Cart(request)
-    product = Product.objects.get(id=id)
+    product = Products.objects.get(id=id)
     cart.add(product=product)
     return redirect("cart_detail")
 
 
 def item_decrement(request, id):
     cart = Cart(request)
-    product = Product.objects.get(id=id)
+    product = Products.objects.get(id=id)
     cart.decrement(product=product)
     return redirect("cart_detail")
 
