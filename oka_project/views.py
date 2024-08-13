@@ -15,7 +15,6 @@ from cart.cart import Cart
 from django.http import HttpResponseRedirect
 
 
-
 def home(request):
     productdata = list(Products.objects.all())
     categorydata = list(Category.objects.all())
@@ -25,7 +24,7 @@ def home(request):
     random.shuffle(categorydata)
     random.shuffle(carouseldata)
     random.shuffle(offerdata)
-    
+
     data = {
         "products": productdata,
         "categories": categorydata,
@@ -98,34 +97,35 @@ def productDetails(request, id):
 
 
 def products(request):
-    sort_order = request.GET.get('sort_order')
-    minprice = request.GET.get('min_price')
-    maxprice = request.GET.get('max_price')
-    
+    sort_order = request.GET.get("sort_order")
+    minprice = request.GET.get("min_price")
+    maxprice = request.GET.get("max_price")
+
     productdata = Products.objects.all()
-    
+
     if minprice or maxprice:
         productdata = productdata.filter(price__gte=minprice, price__lte=maxprice)
-    
+    else:
+        return
 
-    if sort_order == 'ascending':
-        productdata = productdata.order_by('price')
-    elif sort_order == 'descending':
-        productdata = productdata.order_by('-price')
-    elif sort_order == 'lth':
-        productdata = productdata.order_by('price')
-    elif sort_order == 'htl':
-        productdata = productdata.order_by('-price')
+    if sort_order == "ascending":
+        productdata = productdata.order_by("price")
+    elif sort_order == "descending":
+        productdata = productdata.order_by("-price")
+    elif sort_order == "lth":
+        productdata = productdata.order_by("price")
+    elif sort_order == "htl":
+        productdata = productdata.order_by("-price")
     else:
         productdata = list(productdata)
         random.shuffle(productdata)
-    
+
     paginator = Paginator(productdata, 8)
     page_number = request.GET.get("page", 1)
     page_obj = paginator.get_page(page_number)
-    
+
     totalpage = [x + 1 for x in range(paginator.num_pages)]
-    
+
     data = {
         "products": page_obj,
         "totalpages": totalpage,
@@ -133,40 +133,39 @@ def products(request):
         "minprice": minprice,
         "maxprice": maxprice,
     }
-    
-    return render(request, "products.html", data)
 
+    return render(request, "products.html", data)
 
 
 def searchResult(request):
     searchresults = request.GET["search"]
     searchterm = Products.objects.filter(name__icontains=searchresults)
     if not searchterm.exists():
-        messages.error(request,"No Product Found!")
+        messages.error(request, "No Product Found!")
         return render(request, "search_results.html")
     data = {"searchterm": searchterm}
     return render(request, "search_results.html", data)
 
 
 def productResult(request, category):
-        productsbycat = Products.objects.filter(category_id=category)
-        sort_data = request.GET.get("sort_order")
-        if sort_data == "ascending":
-            productsbycat = Products.objects.filter(category_id=category).order_by("id")
-        elif sort_data == "descending":
-            productsbycat = Products.objects.filter(category_id=category).order_by("-id")
-        else:
-            productsbycat = list(Products.objects.filter(category_id=category))
-            random.shuffle(productsbycat)
-        if not productsbycat:
-            messages.error(request,'No Product Found!')
-            return render(request, "product_results.html")
-        data = {
-                "productsbycat": productsbycat,
-                "sort_data": sort_data,
-            }
+    productsbycat = Products.objects.filter(category_id=category)
+    sort_data = request.GET.get("sort_order")
+    if sort_data == "ascending":
+        productsbycat = Products.objects.filter(category_id=category).order_by("id")
+    elif sort_data == "descending":
+        productsbycat = Products.objects.filter(category_id=category).order_by("-id")
+    else:
+        productsbycat = list(Products.objects.filter(category_id=category))
+        random.shuffle(productsbycat)
+    if not productsbycat:
+        messages.error(request, "No Product Found!")
+        return render(request, "product_results.html")
+    data = {
+        "productsbycat": productsbycat,
+        "sort_data": sort_data,
+    }
 
-        return render(request, "product_results.html", data)
+    return render(request, "product_results.html", data)
 
 
 def register_user(request):
@@ -210,13 +209,11 @@ def faq(request):
     return render(request, "faq.html", data)
 
 
-
-
 def cart_add(request, id):
     cart = Cart(request)
     product = Products.objects.get(id=id)
     cart.add(product=product)
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
 
 
 def item_clear(request, id):
@@ -247,4 +244,4 @@ def cart_clear(request):
 
 
 def cart_detail(request):
-    return render(request, 'cart_detail.html')
+    return render(request, "cart_detail.html")
