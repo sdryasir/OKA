@@ -1,4 +1,6 @@
 from django.shortcuts import render
+import requests
+import json
 from Product.models import Products
 from categories.models import Category
 from carousel.models import Carousel
@@ -15,7 +17,6 @@ from cart.cart import Cart
 from django.http import HttpResponseRedirect
 
 
-
 def home(request):
     productdata = list(Products.objects.all())
     categorydata = list(Category.objects.all())
@@ -25,7 +26,7 @@ def home(request):
     random.shuffle(categorydata)
     random.shuffle(carouseldata)
     random.shuffle(offerdata)
-    
+
     data = {
         "products": productdata,
         "categories": categorydata,
@@ -56,6 +57,17 @@ def log_inUser(request):
                 return redirect("login")
             user = authenticate(request, username=username, password=password)
             if user is not None:
+                Captcha_token = request.POST["g-recaptcha-response"]
+                google_api = "https://www.google.com/recaptcha/api/siteverify"
+                Captcha_secrete = "6LdG8xoqAAAAAP4IU6KwAJIIuQiuJgiU3BcJiGUB"
+                client_data = {"secret": Captcha_secrete, "response": Captcha_token}
+                Captcha_Server_response = requests.post(
+                    url=google_api, data=client_data
+                )
+                Captcha_Server_response_parse = json.loads(Captcha_Server_response.text)
+                if Captcha_Server_response_parse["success"] == False:
+                    messages.error(request, "Invalid Captcha Try Again!")
+                    return redirect("login")
                 messages.success(request, "Login Successful!")
                 auth_login(request, user)
                 request.session["username"] = user.username
@@ -97,39 +109,33 @@ def productDetails(request, id):
     return render(request, "productdetail.html", data)
 
 
-from django.core.paginator import Paginator
-import random
-
 def products(request):
+    sort_order = request.GET.get("sort_order")
+    minprice = request.GET.get("min_price")
+    maxprice = request.GET.get("max_price")
     productdata = Products.objects.all()
-    
-    # Apply price filtering if provided
-    minprice = request.GET.get('min_price')
-    maxprice = request.GET.get('max_price')
+
     if minprice or maxprice:
         productdata = productdata.filter(price__gte=minprice, price__lte=maxprice)
-    
-    # Apply sorting if provided
-    sort_order = request.GET.get('sort_order')
-    if sort_order == 'ascending':
-        productdata = productdata.order_by('price')
-    elif sort_order == 'descending':
-        productdata = productdata.order_by('-price')
-    elif sort_order == 'lth':
-        productdata = productdata.order_by('price')
-    elif sort_order == 'htl':
-        productdata = productdata.order_by('-price')
+
+    if sort_order == "ascending":
+        productdata = productdata.order_by("price")
+    elif sort_order == "descending":
+        productdata = productdata.order_by("-price")
+    elif sort_order == "lth":
+        productdata = productdata.order_by("price")
+    elif sort_order == "htl":
+        productdata = productdata.order_by("-price")
     else:
         productdata = list(productdata)
         random.shuffle(productdata)
-    
-    # Paginate the results
+
     paginator = Paginator(productdata, 8)
     page_number = request.GET.get("page", 1)
     page_obj = paginator.get_page(page_number)
-    
+
     totalpage = [x + 1 for x in range(paginator.num_pages)]
-    
+
     data = {
         "products": page_obj,
         "totalpages": totalpage,
@@ -137,40 +143,39 @@ def products(request):
         "minprice": minprice,
         "maxprice": maxprice,
     }
-    
+
     return render(request, "products.html", data)
 
 
-
 def searchResult(request):
-    searchresults = request.GET["search"]
+    searchresults = request.GET.get("search")
     searchterm = Products.objects.filter(name__icontains=searchresults)
     if not searchterm.exists():
-        messages.error(request,"No Product Found!")
+        messages.error(request, "No Product Found!")
         return render(request, "search_results.html")
     data = {"searchterm": searchterm}
     return render(request, "search_results.html", data)
 
 
 def productResult(request, category):
-        productsbycat = Products.objects.filter(category_id=category)
-        sort_data = request.GET.get("sort_order")
-        if sort_data == "ascending":
-            productsbycat = Products.objects.filter(category_id=category).order_by("id")
-        elif sort_data == "descending":
-            productsbycat = Products.objects.filter(category_id=category).order_by("-id")
-        else:
-            productsbycat = list(Products.objects.filter(category_id=category))
-            random.shuffle(productsbycat)
-        if not productsbycat:
-            messages.error(request,'No Product Found!')
-            return render(request, "product_results.html")
-        data = {
-                "productsbycat": productsbycat,
-                "sort_data": sort_data,
-            }
+    productsbycat = Products.objects.filter(category_id=category)
+    sort_data = request.GET.get("sort_order")
+    if sort_data == "ascending":
+        productsbycat = Products.objects.filter(category_id=category).order_by("id")
+    elif sort_data == "descending":
+        productsbycat = Products.objects.filter(category_id=category).order_by("-id")
+    else:
+        productsbycat = list(Products.objects.filter(category_id=category))
+        random.shuffle(productsbycat)
+    if not productsbycat:
+        messages.error(request, "No Product Found!")
+        return render(request, "product_results.html")
+    data = {
+        "productsbycat": productsbycat,
+        "sort_data": sort_data,
+    }
 
-        return render(request, "product_results.html", data)
+    return render(request, "product_results.html", data)
 
 
 def register_user(request):
@@ -199,8 +204,20 @@ def register_user(request):
                     email=email,
                     password=password,
                 )
-                messages.success(request, "Account created successfully!")
-        return render(request, "signup.html")
+                Captcha_token = request.POST["g-recaptcha-response"]
+                google_api = "https://www.google.com/recaptcha/api/siteverify"
+                Captcha_secrete = "6LdG8xoqAAAAAP4IU6KwAJIIuQiuJgiU3BcJiGUB"
+                client_data = {"secret": Captcha_secrete, "response": Captcha_token}
+                Captcha_Server_response = requests.post(
+                    url=google_api, data=client_data
+                )
+                Captcha_Server_response_parse = json.loads(Captcha_Server_response.text)
+                if Captcha_Server_response_parse["success"] == False:
+                    messages.error(request, "Invalid Captcha Try Again!")
+                    return render(request, "signup.html")
+                else:
+                    messages.success(request, "Account created successfully!")
+                    return render(request, "login.html")
     else:
         return redirect("home")
 
@@ -214,13 +231,17 @@ def faq(request):
     return render(request, "faq.html", data)
 
 
-
-
 def cart_add(request, id):
-    cart = Cart(request)
-    product = Products.objects.get(id=id)
-    cart.add(product=product)
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    if request.user.is_authenticated:
+        cart = Cart(request)
+        product = Products.objects.get(id=id)
+        cart.add(product=product)
+        return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
+    else:
+        cart = Cart(request)
+        product = Products.objects.get(id=id)
+        cart.add(product=product)
+        return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
 
 
 def item_clear(request, id):
@@ -251,4 +272,4 @@ def cart_clear(request):
 
 
 def cart_detail(request):
-    return render(request, 'cart_detail.html')
+    return render(request, "cart_detail.html")
