@@ -1,4 +1,9 @@
 from django.shortcuts import render
+from django.core.mail import send_mail, BadHeaderError
+from django.core.mail import EmailMessage
+from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
+from smtplib import SMTPException
 import requests
 import json
 from Product.models import Products
@@ -204,6 +209,22 @@ def register_user(request):
                     email=email,
                     password=password,
                 )
+                try:
+                    validate_email(email)
+                    email_msg = EmailMessage(
+                        f"Welcome! {first_name}",
+                        "<h1>Welcome To Baby Planet Project Website!</h1>",
+                        "info@nullxcoder.xyz",
+                        to=[email],
+                    )
+                    email_msg.content_subtype = "html"  # Set the email content to HTML
+                    email_msg.send()
+                except ValidationError:
+                    return HttpResponse("Invalid email address.")
+                except BadHeaderError:
+                    return HttpResponse("Invalid header found.")
+                except SMTPException:
+                    return HttpResponse("There was an error sending the email.")
                 Captcha_token = request.POST["g-recaptcha-response"]
                 google_api = "https://www.google.com/recaptcha/api/siteverify"
                 Captcha_secrete = "6LdG8xoqAAAAAP4IU6KwAJIIuQiuJgiU3BcJiGUB"
