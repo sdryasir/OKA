@@ -124,20 +124,20 @@ def products(request):
     if sort_order == "ascending":
         productdata = productdata.order_by("price")
 
-    # if minprice or maxprice:
-    #     productdata = productdata.filter(price__gte=minprice, price__lte=maxprice)
+    if minprice or maxprice:
+        productdata = productdata.filter(price__gte=minprice, price__lte=maxprice)
 
-    # if sort_order == "ascending":
-    #     productdata = productdata.order_by("price")
-    # elif sort_order == "descending":
-    #     productdata = productdata.order_by("-price")
-    # elif sort_order == "lth":
-    #     productdata = productdata.order_by("price")
-    # elif sort_order == "htl":
-    #     productdata = productdata.order_by("-price")
-    # else:
-    #     productdata = list(productdata)
-    #     random.shuffle(productdata)
+    if sort_order == "ascending":
+        productdata = productdata.order_by("price")
+    elif sort_order == "descending":
+        productdata = productdata.order_by("-price")
+    elif sort_order == "lth":
+        productdata = productdata.order_by("price")
+    elif sort_order == "htl":
+        productdata = productdata.order_by("-price")
+    else:
+        productdata = list(productdata)
+        random.shuffle(productdata)
 
     paginator = Paginator(productdata, 8)
     page_number = request.GET.get("page", 1)
