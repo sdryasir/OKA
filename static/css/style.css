@@ -25,7 +25,8 @@ body {
 
 .media-footer-mobile li a {
   text-decoration: none;
-  color: #ffffff;
+  transition: .3s;
+  color: #b3b2b2;
 }
 
 
@@ -35,7 +36,7 @@ body {
 }
 
 .media-footer-mobile li {
-  margin-bottom: 7%;
+  margin-bottom: 3%;
   list-style-type: none;
 }
 

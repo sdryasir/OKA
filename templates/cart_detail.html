@@ -26,7 +26,7 @@
                             <img src="{{product.image}}" class="card-img-top u-img-lining"
                                 style="width: 90px; height: 90px; border-radius: 0;" alt="..." />
                             <div class="card-body" style="padding: 0 24px; color: #444;">
-                                <a class="card-title" style="text-decoration: none; color: #444;">{{product.name}}
+                                <a class="card-title" href="{% url 'product-details' key %}" style="text-decoration: none; color: #444;">{{product.name}}
                                 </a>
                                 <p>'In Stock'</p>
                            
@@ -74,7 +74,7 @@
             <div class="u-shipping-inner-2">
                 <p style="white-space: break-spaces; font-weight: 600; color: #333;">SUBTOTAL :    Rs.2000</p>
                 <p style="white-space: break-spaces; font-weight: 600; color: #f40000; text-align: end;">TOTAL :    Rs.2000</p>
-                <p style="text-align: end;"><a class="u-shopping-btn" style="text-align: end;" href="{% url 'products' %}">Check Out</a>
+                <p style="text-align: end;"><a class="u-shopping-btn" style="text-align: end;" href="">Check Out</a>
                 </p>
 
             </div>
