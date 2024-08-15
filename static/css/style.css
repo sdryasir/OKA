@@ -10,7 +10,11 @@
   --black: black;
 }
 
-
+body::-webkit-scrollbar {
+  width: 0px;
+  overflow-y: hidden !important;
+  background: transparent; 
+}
 
 body {
   margin: 0;
