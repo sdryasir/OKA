@@ -3,9 +3,22 @@
 {% load cart_tag %}
 
 <style>
-  .main{
+  .main {
     overflow-y: hidden !important;
   }
+  .star::before {
+    content: "\2605"; /* Unicode star character */
+    position: absolute;
+    left: 0;
+    width: 50%; /* Half width for half-filled star */
+    overflow: hidden;
+    color: #FFD700;
+}
+
+.star::after {
+    content: "\2605";
+    color: #ddd; /* Light gray for unfilled star */
+}
 </style>
 <main class="main-wrapper">
   <div class="carousel-wrapper">
@@ -40,8 +53,8 @@
   <div class="category-wrapper pt-5 pb-5" style="background-color: #f36e2d;">
     <div class="container-fluid">
       <div class="u-category-hd d-flex justify-content-center" style="color: white;">
-      <h2 class="u-par-underline-3">All Categories</h2>
-    </div><!-- /.u-category-hd -->
+        <h2 class="u-par-underline-3">All Categories</h2>
+      </div><!-- /.u-category-hd -->
       <div class="owl-carousel owl-theme mt-4">
         {% for category in categories %}
         <div class="item d-flex justify-content-center mt-4">
@@ -55,7 +68,7 @@
             </div><!-- /.u-img-card-body -->
           </div><!-- /.img-card -->
         </div><!-- /.item -->
-    {% endfor %}
+        {% endfor %}
       </div><!-- /.owl-carousel -->
     </div><!-- /.container-fluid -->
   </div><!-- /.category-wrapper -->
@@ -66,20 +79,28 @@
     <div class="owl-carousel owl-theme ">
       {% for product in products %}
       <div class="item u-card-adjusting-2">
-        <div class="card u_card_hover u_card_hover_2">
-          <img src="/media/{{product.image}}" class="card-img-top u-img-lining" alt="..." />
-          <div class="card-body" style="text-align: center;">
-            <h5 class="card-title u-lining">{{product.name}}
-            </h5>
-            <p style="margin: 0;"><span
-                style="color: #858585; text-decoration: line-through; font-size: 14px;">Rs.{{product.Orignal_price}}</span>
-              <span style="color: #FF6F00; font-size: 17px;">Rs.{{product.price}}</span>
-            </p>
-            <a style="margin-top: 1rem;" href="{% url 'cart_add' product.id %}" class="btn btn-primary u_btn_color">Add to cart </a>
-            <a style="margin-top: 1rem;" href="{% url 'product-details' product.id %}"
-              class="btn btn-primary u_btn_color">Details</a>
+        <a style="text-decoration: none; list-style-type:none; color:black;"
+          href="{% url 'product-details' product.id %}">
+          <div class="card u_card_hover u_card_hover_2">
+            <img src="/media/{{product.image}}" class="card-img-top u-img-lining" alt="..." />
+            <div class="card-body" style="text-align: center;">
+              <h5 class="card-title u-lining">{{product.name}}
+              </h5>
+              <div style="font-size: 2rem;
+            color: gold;" class="stars">
+                &#9733;&#9733;&#9733;&#9733;&#9733;
+              </div>
+              <p style="margin: 0;"><span
+                  style="color: #858585; text-decoration: line-through; font-size: 14px;">Rs.{{product.Orignal_price}}</span>
+                <span style="color: #FF6F00; font-size: 17px;">Rs.{{product.price}}</span>
+              </p>
+              <!-- <a style="margin-top: 1rem;" href="{% url 'cart_add' product.id %}"
+                class="btn btn-primary u_btn_color">Add to cart </a>
+              <a style="margin-top: 1rem;" href="{% url 'product-details' product.id %}"
+                class="btn btn-primary u_btn_color">Details</a> -->
+            </div>
           </div>
-        </div>
+        </a>
       </div>
       {% endfor %}
     </div>
@@ -108,7 +129,8 @@
                 style="color: #858585; text-decoration: line-through; font-size: 14px;">Rs.{{product.Orignal_price}}</span>
               <span style="color: #FF6F00; font-size: 17px;">Rs.{{product.price}}</span>
             </p>
-            <a style="margin-top: 1rem;" href="{% url 'cart_add' product.id %}" class="btn btn-primary u_btn_color">Add to cart </a>
+            <a style="margin-top: 1rem;" href="{% url 'cart_add' product.id %}" class="btn btn-primary u_btn_color">Add
+              to cart </a>
             <a style="margin-top: 1rem;" href="{% url 'product-details' product.id %}"
               class="btn btn-primary u_btn_color">Details</a>
           </div>
