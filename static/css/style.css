@@ -1,5 +1,6 @@
 /* ZAIN CSS STARTS */
 
+
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
 
 :root {
@@ -8,6 +9,8 @@
   --font-style: normal;
   --black: black;
 }
+
+
 
 body {
   margin: 0;
@@ -206,12 +209,13 @@ iframe {
 }
 
 .z-w-but-login {
-  width: 30vw;
+  width: 26vw;
+  margin-top: 20% !important;
 }
 
 .z-w-but-creat {
   margin-left: 10%;
-  width: 12vw;
+  width: 20vw !important;
   background-color: #f85606;
   border: none;
 }
@@ -294,6 +298,7 @@ justify-content: left;
   }
 
   .z-w-but-login {
+    margin-top: 30% !important;
     width: 85vw !important;
   }
 

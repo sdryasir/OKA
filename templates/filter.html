@@ -11,7 +11,7 @@
       <button type="button" class="btn-close u-btn-hover" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-      <form id="filter-form" method="GET">
+      <form id="filterform" method="GET">
         <div class="u-price-wrapper">
           <div style="display: flex;" class="u-price-heading mb-4">
             <h5 class="u-par-underline-2">Price :</h5>
@@ -32,7 +32,6 @@
           </div>
         </div><!-- /.u-price-wrapper -->
 
-        <!-- Hidden Inputs to Store Slider Values -->
         <input type="hidden" name="min_price" id="hidden-min-price" value="{{ minprice|default:0 }}">
         <input type="hidden" name="max_price" id="hidden-max-price" value="{{ maxprice|default:5000 }}">
 
