@@ -1,4 +1,9 @@
 from django.shortcuts import render
+from django.core.mail import send_mail, BadHeaderError
+from django.core.mail import EmailMessage
+from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
+from smtplib import SMTPException
 import requests
 import json
 from Product.models import Products
@@ -111,24 +116,28 @@ def productDetails(request, id):
 
 def products(request):
     sort_order = request.GET.get("sort_order")
-    minprice = request.GET.get("min_price")
-    maxprice = request.GET.get("max_price")
+    minprice = request.GET.get("min_price", 0)
+    maxprice = request.GET.get("max_price", 5000)
     productdata = Products.objects.all()
-
     if minprice or maxprice:
         productdata = productdata.filter(price__gte=minprice, price__lte=maxprice)
-
     if sort_order == "ascending":
         productdata = productdata.order_by("price")
-    elif sort_order == "descending":
-        productdata = productdata.order_by("-price")
-    elif sort_order == "lth":
-        productdata = productdata.order_by("price")
-    elif sort_order == "htl":
-        productdata = productdata.order_by("-price")
-    else:
-        productdata = list(productdata)
-        random.shuffle(productdata)
+
+    # if minprice or maxprice:
+    #     productdata = productdata.filter(price__gte=minprice, price__lte=maxprice)
+
+    # if sort_order == "ascending":
+    #     productdata = productdata.order_by("price")
+    # elif sort_order == "descending":
+    #     productdata = productdata.order_by("-price")
+    # elif sort_order == "lth":
+    #     productdata = productdata.order_by("price")
+    # elif sort_order == "htl":
+    #     productdata = productdata.order_by("-price")
+    # else:
+    #     productdata = list(productdata)
+    #     random.shuffle(productdata)
 
     paginator = Paginator(productdata, 8)
     page_number = request.GET.get("page", 1)
@@ -204,6 +213,22 @@ def register_user(request):
                     email=email,
                     password=password,
                 )
+                try:
+                    validate_email(email)
+                    email_msg = EmailMessage(
+                        f"Welcome! {first_name}",
+                        "<h1>Welcome To Baby Planet Project Website!</h1>",
+                        "info@nullxcoder.xyz",
+                        to=[email],
+                    )
+                    email_msg.content_subtype = "html"  # Set the email content to HTML
+                    email_msg.send()
+                except ValidationError:
+                    return HttpResponse("Invalid email address.")
+                except BadHeaderError:
+                    return HttpResponse("Invalid header found.")
+                except SMTPException:
+                    return HttpResponse("There was an error sending the email.")
                 Captcha_token = request.POST["g-recaptcha-response"]
                 google_api = "https://www.google.com/recaptcha/api/siteverify"
                 Captcha_secrete = "6LdG8xoqAAAAAP4IU6KwAJIIuQiuJgiU3BcJiGUB"
