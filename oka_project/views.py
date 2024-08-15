@@ -121,11 +121,6 @@ def products(request):
     productdata = Products.objects.all()
     if minprice or maxprice:
         productdata = productdata.filter(price__gte=minprice, price__lte=maxprice)
-    if sort_order == "ascending":
-        productdata = productdata.order_by("price")
-
-    if minprice or maxprice:
-        productdata = productdata.filter(price__gte=minprice, price__lte=maxprice)
 
     if sort_order == "ascending":
         productdata = productdata.order_by("price")
