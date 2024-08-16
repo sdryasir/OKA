@@ -163,20 +163,24 @@ def searchResult(request):
 
 def productResult(request, category):
     productsbycat = Products.objects.filter(category_id=category)
-    sort_data = request.GET.get("sort_order")
-    if sort_data == "ascending":
-        productsbycat = Products.objects.filter(category_id=category).order_by("id")
-    elif sort_data == "descending":
-        productsbycat = Products.objects.filter(category_id=category).order_by("-id")
+    sort_order = request.GET.get("sort_order")
+    if sort_order == "ascending":
+        productsbycat = productsbycat.order_by("price")
+    elif sort_order == "descending":
+        productsbycat = productsbycat.order_by("-price")
+    elif sort_order == "lth":
+        productsbycat = productsbycat.order_by("price")
+    elif sort_order == "htl":
+        productsbycat = productsbycat.order_by("-price")
     else:
-        productsbycat = list(Products.objects.filter(category_id=category))
+        productsbycat = list(productsbycat)
         random.shuffle(productsbycat)
     if not productsbycat:
         messages.error(request, "No Product Found!")
         return render(request, "product_results.html")
     data = {
         "productsbycat": productsbycat,
-        "sort_data": sort_data,
+        "sort_order": sort_order,
     }
 
     return render(request, "product_results.html", data)
