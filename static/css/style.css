@@ -788,6 +788,9 @@ input:-internal-autofill-selected {
   color: white !important;
   border-color: #f85606 !important;
 }
+.u-bg-pg:hover{
+  color: #f85606 !important;
+}
 
 .nav-item {
   padding: 6px 0;
