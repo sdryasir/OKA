@@ -60,9 +60,11 @@
           <p>Sort:</p>
           <form id="sortForm" method="GET" action="">
             <select name="sort_order" id="sortOrder">
-              <option value="none" {% if sort_data=='none' %} selected {% endif %}>------</option>
-              <option value="ascending" {% if sort_data=='ascending' %} selected {% endif %}>Ascending</option>
-              <option value="descending" {% if sort_data=='descending' %} selected {% endif %}>Descending</option>
+              <option value="none" {% if sort_order == 'none'  %} selected {% endif %}>------</option>
+              <option value="ascending" {% if sort_order == 'ascending'  %} selected {% endif %} >Ascending</option>
+              <option value="descending" {% if sort_order == 'descending'  %} selected {% endif %} >Descending</option>
+              <option value="lth" {% if sort_order == 'lth'  %} selected {% endif %} >Low To High</option>
+              <option value="htl" {% if sort_order == 'htl'  %} selected {% endif %} >High To Low</option>
             </select>
           </form>
         </div>
@@ -73,6 +75,9 @@
             <img src="/media/{{product.image}}" class="card-img-top u-img-lining" alt="..." />
             <div class="card-body" style="text-align: center">
               <h5 class="card-title u-lining">{{product.name}}</h5>
+              <div class="stars u-star-adjusting">
+                &#9733;&#9733;&#9733;&#9733;&#9733;
+              </div>
               <p style="margin: 0">
                 <span style="
                     color: #858585;
@@ -81,9 +86,9 @@
                   ">Rs.{{product.Orignal_price}}</span>
                 <span style="color: #ff6f00; font-size: 17px">Rs.{{product.price}}</span>
               </p>
-              <a style="margin-top: 1rem" href="{% url 'cart_add' product.id %}" class="btn btn-primary u_btn_color">Add to cart</a>
+              <!-- <a style="margin-top: 1rem" href="{% url 'cart_add' product.id %}" class="btn btn-primary u_btn_color">Add to cart</a>
               <a style="margin-top: 1rem" href="{% url 'product-details' product.id %}"
-                class="btn btn-primary u_btn_color">Details</a>
+                class="btn btn-primary u_btn_color">Details</a> -->
             </div>
           </div>
         </div>
