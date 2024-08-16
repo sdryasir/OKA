@@ -212,7 +212,7 @@ def register_user(request):
                     validate_email(email)
                     email_msg = EmailMessage(
                         f"Welcome! {first_name}",
-                        "<h1>Welcome To Baby Planet Project Website!</h1>",
+                        "<h1>Welcome To Baby Planet Thankx For Account Creation!</h1>",
                         "info@nullxcoder.xyz",
                         to=[email],
                     )
