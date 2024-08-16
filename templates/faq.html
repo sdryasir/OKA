@@ -10,7 +10,17 @@
     <style>
         @import url("https://fonts.googleapis.com/css?family=Lato:400,400i,700");
 
+        body::-webkit-scrollbar {
+            width: 0px;
+            /* Remove scrollbar space */
+            overflow-y: hidden !important;
+            background: transparent;
+            /* Optional: just to avoid scrollbar space */
+        }
+
         main#faq-main {
+            overflow-y: hidden !important;
+            background: transparent;
             overflow-y: scroll;
             background-color: #F5F5F5;
             display: flex;
