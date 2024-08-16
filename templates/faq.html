@@ -1,152 +1,157 @@
+{% include 'header.html' %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    {% include 'header.html' %}
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Beautiful FAQ</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQs</title>
     <style>
-        @import url("https://fonts.googleapis.com/css?family=Lato:400,700&display=swap");
-        @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap");
+        @import url("https://fonts.googleapis.com/css?family=Lato:400,400i,700");
 
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: "Lato", sans-serif;
-            background-color: #f5f5f5;
+        body::-webkit-scrollbar {
+            width: 0px;
+            /* Remove scrollbar space */
+            overflow-y: hidden !important;
+            background: transparent;
+            /* Optional: just to avoid scrollbar space */
+        }
+
+        main#faq-main {
+            overflow-y: hidden !important;
+            background: transparent;
+            overflow-y: scroll;
+            background-color: #F5F5F5;
             display: flex;
+            justify-content: center;
+            align-items: center;
             flex-direction: column;
-            min-height: 100vh;
+            margin: 50px 0;
+        }
+
+        .faq-wrapper {
+            width: 60%;
+            min-width: 300px;
+        }
+
+        h1#faq-title {
+            margin-bottom: 20px;
         }
 
         .faq-container {
-            max-width: 1000px;
-            margin: 20px auto;
-            background: white;
-            border-radius: 8px;
-            border: 1px solid #e1e1e1;
-            overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #F5F5F5;
+            color: black;
+            border-radius: 20px;
+            box-shadow: 0 5px 10px 0 rgb(0, 0, 0, 0.25);
+            margin: 20px 0;
+            width: 100%;
         }
 
-        .faq {
-            padding: 20px;
-        }
-
-        .faq-item {
-            border-bottom: 1px solid #e1e1e1;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .faq-item:last-of-type {
-            border-bottom: none;
-        }
-
-        .faq-item:hover {
-            background-color: #f0f0f0;
-        }
-
-        .faq-header {
+        .faq-question {
+            font-size: 1.2rem;
+            font-weight: 600;
+            padding: 20px 80px 20px 20px;
+            position: relative;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: 15px;
-            font-weight: bold;
-            color: #333;
+            cursor: pointer;
         }
 
-        .faq-content {
+        .faq-question::after {
+            content: "\002B";
+            font-size: 2.2rem;
+            position: absolute;
+            right: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-question.active::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer-cont {
             max-height: 0;
             overflow: hidden;
-            padding: 0 15px;
-            color: #919191;
-            transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+            transition: max-height 0.5s ease;
         }
 
-        .faq-content.open {
-            max-height: 200px;
-            padding: 15px;
+        .faq-answer {
+            padding: 0 20px 20px;
+            line-height: 1.5rem;
         }
 
-        .arrow {
-            width: 10px;
-            height: 10px;
-            border-left: 2px solid #333;
-            border-bottom: 2px solid #333;
-            transform: rotate(45deg);
-            transition: transform 0.4s ease;
+        .faq-question.active+.faq-answer-cont {
+            max-height: none;
         }
 
-        .arrow.rotate {
-            transform: rotate(-135deg);
-        }
 
-        @media (max-width: 600px) {
-            .faq-header {
-                font-size: 16px;
+
+        @media screen and (max-width: 790px) {
+            html {
+                font-size: 14px;
             }
 
-            .faq-content {
-                font-size: 14px;
+            #faq-main {
+                margin-top: 17% !important;
+            }
+
+            .bg-cl {
+                background-color: #F5F5F5;
+            }
+
+            .faq-wrapper {
+                width: 80%;
             }
         }
     </style>
 </head>
 
-<body>
-    <header>
-        <h1>Header Content</h1>
-    </header>
-{% if faq %}
-    <main>
-        <h1 style="text-align: center">FAQ</h1>
-        <div class="faq-container">
-            {% for faqs in faq %}
-            <div class="faq-item">
-                <div class="faq-header">
-                    <span>{{faqs.Question}}</span>
-                    <div class="arrow"></div>
+<body style="background-color: #F5F5F5;">
+    <main style="margin-top: 13%;" id="faq-main">
+        <h1 id="faq-title">FAQs</h1>
+        {% if faq %}
+        {% for faqs in faq %}
+        <div class="faq-wrapper">
+            <div class="faq-container">
+                <div class="faq-question">
+                    {{faqs.Question}}
                 </div>
-                <div class="faq-content">
-                    <p>
-                        {{faqs.Answer}}
-                    </p>
+                <div class="faq-answer-cont">
+                    <div class="faq-answer">
+                        {{faqs.Answer}}<br><br>
+                    </div>
                 </div>
             </div>
-            {% endfor %}
         </div>
-    </main>
-    {% else %}
-    <h2>Faq Not Found!</h2>
-    <p>If you are owner please add faq from admin panel!</p>
-    {% endif %}
+        {% endfor %}
+        {% else %}
+        <h2>Faq Not Found!</h2>
+        <p>If you are the owner, please add faqs from the admin panel!</p>
+        {% endif %}
+        <script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script>
+        <script>
+            let faqQuestions = document.querySelectorAll(".faq-question");
 
-    <footer>{% include 'footer.html' %}</footer>
-
-    <script>
-        document.querySelectorAll(".faq-item").forEach((item) => {
-            item.addEventListener("click", () => {
-                const content = item.querySelector(".faq-content");
-                const arrow = item.querySelector(".arrow");
-                const isOpen = content.classList.contains("open");
-
-                document.querySelectorAll(".faq-content").forEach((c) => {
-                    c.classList.remove("open");
+            faqQuestions.forEach(faqQuestion => {
+                faqQuestion.addEventListener("click", event => {
+                    const activeFaq = document.querySelector(".faq-question.active");
+                    if (activeFaq && activeFaq !== faqQuestion) {
+                        activeFaq.classList.toggle("active");
+                        activeFaq.nextElementSibling.style.maxHeight = 0;
+                    }
+                    faqQuestion.classList.toggle("active");
+                    const faqAnswer = faqQuestion.nextElementSibling;
+                    if (faqQuestion.classList.contains("active")) {
+                        faqAnswer.style.maxHeight = faqAnswer.scrollHeight + "px";
+                    } else {
+                        faqAnswer.style.maxHeight = 0;
+                    }
                 });
-
-                document.querySelectorAll(".arrow").forEach((a) => {
-                    a.classList.remove("rotate");
-                });
-
-                if (!isOpen) {
-                    content.classList.add("open");
-                    arrow.classList.add("rotate");
-                }
             });
-        });
-    </script>
+        </script>
+    </main>
 </body>
 
 </html>
+{% include 'footer.html' %}
