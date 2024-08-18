@@ -163,6 +163,7 @@ def searchResult(request):
 
 def productResult(request, category):
     productsbycat = Products.objects.filter(category_id=category)
+
     sort_order = request.GET.get("sort_order")
     if sort_order == "ascending":
         productsbycat = productsbycat.order_by("price")
@@ -178,9 +179,20 @@ def productResult(request, category):
     if not productsbycat:
         messages.error(request, "No Product Found!")
         return render(request, "product_results.html")
+    
+    paginator = Paginator(productsbycat, 4)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+
+    totalpage = [x + 1 for x in range(paginator.num_pages)]
+
     data = {
+        "products": page_obj,
+        "totalpages": totalpage,
         "productsbycat": productsbycat,
         "sort_order": sort_order,
+        "category": category,
+
     }
 
     return render(request, "product_results.html", data)
