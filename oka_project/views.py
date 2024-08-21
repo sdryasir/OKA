@@ -333,9 +333,8 @@ def register_user(request):
     else:
         return redirect("home")
 
-
-# Create your views here.
-
+def checkout(request):
+    return render(request, "checkout.html")
 
 def faq(request):
     faq = Faq.objects.all()
