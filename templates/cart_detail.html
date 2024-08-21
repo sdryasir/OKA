@@ -72,8 +72,9 @@
                 <a class="u-shopping-btn u-shopping-clear-btn-mview" href="{% url 'cart_clear' %}">Clear Cart</a>
             </div>
             <div class="u-shipping-inner-2">
-                <p style="white-space: break-spaces; font-weight: 600; color: #333;">SUBTOTAL :    Rs.2000</p>
-                <p style="white-space: break-spaces; font-weight: 600; color: #f40000; text-align: end;">TOTAL :    Rs.2000</p>
+                <p style=" font-weight: 600; color: #333; text-align: end;">SUBTOTAL :    Rs.{{subtotal}}</p>
+                <p style=" font-weight: 600; color: #333; text-align: end;">SHIPPING :    Rs.200</p>
+                <p style=" font-weight: 600; color: #f40000; text-align: end;">TOTAL :    Rs.{{subtotal|add:200}}</p>
                 <p style="text-align: end;"><a class="u-shopping-btn" style="text-align: end;" href="">Check Out</a>
                 </p>
 

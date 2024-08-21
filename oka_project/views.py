@@ -20,12 +20,69 @@ from django.core.paginator import Paginator, EmptyPage
 from offer.models import Offer
 from cart.cart import Cart
 from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
+
+
+@login_required(login_url="/users/login")
+def cart_add(request, id):
+    if request.user.is_authenticated:
+        cart = Cart(request)
+        product = Products.objects.get(id=id)
+        cart.add(product=product)
+        return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
+    else:
+        cart = Cart(request)
+        product = Products.objects.get(id=id)
+        cart.add(product=product)
+        return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
+
+@login_required(login_url="/users/login")
+def item_clear(request, id):
+    cart = Cart(request)
+    product = Products.objects.get(id=id)
+    cart.remove(product)
+    return redirect("cart_detail")
+
+@login_required(login_url="/users/login")
+def item_increment(request, id):
+    cart = Cart(request)
+    product = Products.objects.get(id=id)
+    cart.add(product=product)
+    return redirect("cart_detail")
+
+@login_required(login_url="/users/login")
+def item_decrement(request, id):
+    cart = Cart(request)
+    product = Products.objects.get(id=id)
+    cart.decrement(product=product)
+    return redirect("cart_detail")
+
+@login_required(login_url="/users/login")
+def cart_clear(request):
+    cart = Cart(request)
+    cart.clear()
+    return redirect("cart_detail")
+
+
+@login_required(login_url="/users/login")
+def cart_detail(request):
+    cart = Cart(request)
+    subtotal = 0
+    items = list(cart.session.values())[0]
+    for item in items:
+        subtotal = subtotal + int(items[item]['price']) * int(items[item]['quantity'])
+    data = {
+        'subtotal' : subtotal,
+    }
+    return render(request, "cart_detail.html" , data)
+
 
 
 def home(request):
     productdata = list(Products.objects.all())
     categorydata = list(Category.objects.all())
     carouseldata = list(Carousel.objects.all())
+
     offerdata = list(Offer.objects.all())
     random.shuffle(productdata)
     random.shuffle(categorydata)
@@ -267,45 +324,3 @@ def faq(request):
     return render(request, "faq.html", data)
 
 
-def cart_add(request, id):
-    if request.user.is_authenticated:
-        cart = Cart(request)
-        product = Products.objects.get(id=id)
-        cart.add(product=product)
-        return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
-    else:
-        cart = Cart(request)
-        product = Products.objects.get(id=id)
-        cart.add(product=product)
-        return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
-
-
-def item_clear(request, id):
-    cart = Cart(request)
-    product = Products.objects.get(id=id)
-    cart.remove(product)
-    return redirect("cart_detail")
-
-
-def item_increment(request, id):
-    cart = Cart(request)
-    product = Products.objects.get(id=id)
-    cart.add(product=product)
-    return redirect("cart_detail")
-
-
-def item_decrement(request, id):
-    cart = Cart(request)
-    product = Products.objects.get(id=id)
-    cart.decrement(product=product)
-    return redirect("cart_detail")
-
-
-def cart_clear(request):
-    cart = Cart(request)
-    cart.clear()
-    return redirect("cart_detail")
-
-
-def cart_detail(request):
-    return render(request, "cart_detail.html")

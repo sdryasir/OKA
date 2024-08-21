@@ -250,6 +250,7 @@ iframe {
   margin-bottom: 3%;
 }
 
+
 @media (max-width: 991.98px) {
   .input-box-email {
     width: 65vw;
@@ -1600,6 +1601,7 @@ body {
     color: black !important;
     padding: 1px 6px;
   }
+  
 
   .logo-size {
     width: 95px !important;
