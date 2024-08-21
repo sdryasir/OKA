@@ -14,7 +14,8 @@ class Products(models.Model):
     sub_title = models.TextField(max_length=250 , null=True)
     description = models.TextField(null=True)
     price = models.IntegerField(help_text='the price that you sell' , null=True) 
-    Orignal_price = models.IntegerField(help_text='this price is to attract the costumer and this is higher than price that you sell' , null=True)
+    discount_price = models.IntegerField(blank = True , help_text='this price is to attract the costumer and this is higher than price that you sell' , null=True)
+    shipping_charges = models.IntegerField(null=True)
     More_information = models.TextField(blank=True , null=True)
     availability = models.CharField(max_length=20, choices=COLOR_CHOICES, default='----' , null=True)
     category = models.ForeignKey(Category , on_delete=models.CASCADE , null=True)
@@ -29,4 +30,5 @@ class Products(models.Model):
 
     def __str__(self):
         return self.name
+
 
