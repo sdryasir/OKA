@@ -23,79 +23,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 
 
-@login_required(login_url="/login")
-def cart_add(request, id):
-    if request.user.is_authenticated:
-        cart = Cart(request)
-        product = Products.objects.get(id=id)
-        cart.add(product=product)
-        return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
-    else:
-        cart = Cart(request)
-        product = Products.objects.get(id=id)
-        cart.add(product=product)
-        return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
 
-
-@login_required(login_url="/login")
-def item_clear(request, id):
-    cart = Cart(request)
-    product = Products.objects.get(id=id)
-    cart.remove(product)
-    return redirect("cart_detail")
-
-
-@login_required(login_url="/login")
-def item_increment(request, id):
-    cart = Cart(request)
-    product = Products.objects.get(id=id)
-    cart.add(product=product)
-    return redirect("cart_detail")
-
-
-@login_required(login_url="/login")
-def item_decrement(request, id):
-    cart = Cart(request)
-    product = Products.objects.get(id=id)
-    cart.decrement(product=product)
-    return redirect("cart_detail")
-
-
-@login_required(login_url="/login")
-def cart_clear(request):
-    cart = Cart(request)
-    cart.clear()
-    return redirect("cart_detail")
-
-
-@login_required(login_url="/login")
-def cart_detail(request):
-    cart = Cart(request)
-    subtotal = 0
-
-    # Check if the session contains items and if it's a list of dictionaries
-    session_data = list(cart.session.values())[0]
-
-    if isinstance(session_data, list) and all(
-        isinstance(item, dict) for item in session_data
-    ):
-        items = session_data
-
-        for item in items:
-            try:
-                # Accessing price and quantity assuming they exist in the item dictionary
-                price = int(item["price"])
-                quantity = int(item["quantity"])
-                subtotal += price * quantity
-            except (ValueError, KeyError) as e:
-                print(f"Error processing item: {e}")
-    else:
-        print("Unexpected session data structure")
-
-    data = {
-        "subtotal": subtotal,
-    }
-    return render(request, "cart_detail.html", data)
 
 
 def home(request):
@@ -340,3 +268,77 @@ def faq(request):
     faq = Faq.objects.all()
     data = {"faq": faq}
     return render(request, "faq.html", data)
+
+@login_required(login_url="/login")
+def cart_add(request, id):
+    if request.user.is_authenticated:
+        cart = Cart(request)
+        product = Products.objects.get(id=id)
+        cart.add(product=product)
+        return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
+    else:
+        cart = Cart(request)
+        product = Products.objects.get(id=id)
+        cart.add(product=product)
+        return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
+
+
+@login_required(login_url="/login")
+def item_clear(request, id):
+    cart = Cart(request)
+    product = Products.objects.get(id=id)
+    cart.remove(product)
+    return redirect("cart_detail")
+
+
+@login_required(login_url="/login")
+def item_increment(request, id):
+    cart = Cart(request)
+    product = Products.objects.get(id=id)
+    cart.add(product=product)
+    return redirect("cart_detail")
+
+
+@login_required(login_url="/login")
+def item_decrement(request, id):
+    cart = Cart(request)
+    product = Products.objects.get(id=id)
+    cart.decrement(product=product)
+    return redirect("cart_detail")
+
+
+@login_required(login_url="/login")
+def cart_clear(request):
+    cart = Cart(request)
+    cart.clear()
+    return redirect("cart_detail")
+
+
+@login_required(login_url="/login")
+def cart_detail(request):
+    cart = Cart(request)
+    subtotal = 0
+
+    # Check if the session contains items and if it's a list of dictionaries
+    session_data = list(cart.session.values())[0]
+
+    if isinstance(session_data, list) and all(
+        isinstance(item, dict) for item in session_data
+    ):
+        items = session_data
+
+        for item in items:
+            try:
+                # Accessing price and quantity assuming they exist in the item dictionary
+                price = int(item["price"])
+                quantity = int(item["quantity"])
+                subtotal = subtotal + price * quantity
+            except (ValueError, KeyError) as e:
+                print(f"Error processing item: {e}")
+    else:
+        print("Unexpected session data structure")
+
+    data = {
+        "subtotal": subtotal,
+    }
+    return render(request, "cart_detail.html", data)
