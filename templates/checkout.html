@@ -38,7 +38,7 @@
         .checkout-form-unique {
             display: flex;
             flex-wrap: wrap;
-            justify-content: space-between;
+            justify-content: center;
         }
 
         .form-group-unique {
@@ -108,13 +108,20 @@
                 padding: 40px;
             }
         }
+        @media (max-width: 600px) {
+            .checkout-form-unique {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        }
     </style>
 </head>
 
 <body class="unique-body">
-    <div class="row">
+    <div class="row" style="width: 100%;">
         <div class="col-md-7">
-            <div style="margin: 15%;" class="container-unique">
+            <div style="margin: 20% 0% 15% 7%;" class="container-unique">
                 <form class="checkout-form-unique">
                     <h3 class="unique-h3">Address Details</h3>
                     <div class="form-group-unique">
@@ -165,46 +172,6 @@
                         <input type="text" id="zip-unique" name="zip" class="unique-input" required>
                     </div>
 
-                    <h3 class="unique-h3">Payment Information</h3>
-                    <div class="form-group-unique">
-                        <label for="card-name-unique" class="unique-label">
-                            <i class="fas fa-user unique-icon"></i>
-                            Name on Card
-                        </label>
-                        <input type="text" id="card-name-unique" name="card-name" class="unique-input" required>
-                    </div>
-
-                    <div class="form-group-unique">
-                        <label for="card-number-unique" class="unique-label">
-                            <i class="fas fa-credit-card unique-icon"></i>
-                            Credit Card Number
-                        </label>
-                        <input type="text" id="card-number-unique" name="card-number" class="unique-input" required>
-                    </div>
-
-                    <div class="form-group-unique">
-                        <label for="exp-month-unique" class="unique-label">
-                            <i class="fas fa-calendar-alt unique-icon"></i>
-                            Exp Month
-                        </label>
-                        <input type="text" id="exp-month-unique" name="exp-month" class="unique-input" required>
-                    </div>
-
-                    <div class="form-group-unique">
-                        <label for="exp-year-unique" class="unique-label">
-                            <i class="fas fa-calendar-alt unique-icon"></i>
-                            Exp Year
-                        </label>
-                        <input type="text" id="exp-year-unique" name="exp-year" class="unique-input" required>
-                    </div>
-
-                    <div class="form-group-unique">
-                        <label for="cvv-unique" class="unique-label">
-                            <i class="fas fa-lock unique-icon"></i>
-                            CVV
-                        </label>
-                        <input type="text" id="cvv-unique" name="cvv" class="unique-input" required>
-                    </div>
 
                     <button type="submit" class="unique-button">
                         Place Order
@@ -212,8 +179,8 @@
                 </form>
             </div>
         </div>
-        <div class="col-md-4 container-unique1" style="margin-top: 10% !important; margin-top: 15% !important;
-    height: 100vh;">
+        <div class="col-md-4 container-unique1" style="margin-top: 10% !important; margin-top: 12% !important;
+   ">
             <h3 class="unique-h3">Total</h3>
             <h4>Your Order</h4>
             <div class="my-5"></div>
