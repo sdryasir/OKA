@@ -1,0 +1,227 @@
+{% include 'header.html' %}
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Checkout Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body.unique-body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container-unique {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .container-unique1 {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #F5F5F5;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2.unique-h2 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .checkout-form-unique {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .form-group-unique {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        label.unique-label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input.unique-input[type="text"],
+        input.unique-input[type="email"] {
+            width: calc(100% - 25px);
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .form-group-unique i.unique-icon {
+            margin-right: 10px;
+        }
+
+        button.unique-button {
+            width: 96%;
+            padding: 15px;
+            background-color: #28a745;
+            border: none;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        button.unique-button:hover {
+            background-color: #218838;
+        }
+
+        h3.unique-h3 {
+            text-align: center;
+            width: 100%;
+            border-bottom: 2px solid #f4f4f4;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        @media (min-width: 600px) {
+            .form-group-unique {
+                width: 48%;
+            }
+
+            .form-group-full-width-unique {
+                width: 100%;
+            }
+
+            button.unique-button {
+                width: 48%;
+                margin-top: 20px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .container-unique {
+                padding: 40px;
+            }
+        }
+    </style>
+</head>
+
+<body class="unique-body">
+    <div class="row">
+        <div class="col-md-7">
+            <div style="margin: 15%;" class="container-unique">
+                <form class="checkout-form-unique">
+                    <h3 class="unique-h3">Address Details</h3>
+                    <div class="form-group-unique">
+                        <label for="name-unique" class="unique-label">
+                            <i class="fas fa-user unique-icon"></i>
+                            Full Name
+                        </label>
+                        <input type="text" id="name-unique" name="name" class="unique-input" required>
+                    </div>
+
+                    <div class="form-group-unique">
+                        <label for="email-unique" class="unique-label">
+                            <i class="fas fa-envelope unique-icon"></i>
+                            Email
+                        </label>
+                        <input type="email" id="email-unique" name="email" class="unique-input" required>
+                    </div>
+
+                    <div class="form-group-unique">
+                        <label for="address-unique" class="unique-label">
+                            <i class="fas fa-address-card unique-icon"></i>
+                            Address
+                        </label>
+                        <input type="text" id="address-unique" name="address" class="unique-input" required>
+                    </div>
+
+                    <div class="form-group-unique">
+                        <label for="city-unique" class="unique-label">
+                            <i class="fas fa-city unique-icon"></i>
+                            City
+                        </label>
+                        <input type="text" id="city-unique" name="city" class="unique-input" required>
+                    </div>
+
+                    <div class="form-group-unique">
+                        <label for="state-unique" class="unique-label">
+                            <i class="fas fa-map-marker-alt unique-icon"></i>
+                            State
+                        </label>
+                        <input type="text" id="state-unique" name="state" class="unique-input" required>
+                    </div>
+
+                    <div class="form-group-unique">
+                        <label for="zip-unique" class="unique-label">
+                            <i class="fas fa-map-pin unique-icon"></i>
+                            Zip Code
+                        </label>
+                        <input type="text" id="zip-unique" name="zip" class="unique-input" required>
+                    </div>
+
+                    <h3 class="unique-h3">Payment Information</h3>
+                    <div class="form-group-unique">
+                        <label for="card-name-unique" class="unique-label">
+                            <i class="fas fa-user unique-icon"></i>
+                            Name on Card
+                        </label>
+                        <input type="text" id="card-name-unique" name="card-name" class="unique-input" required>
+                    </div>
+
+                    <div class="form-group-unique">
+                        <label for="card-number-unique" class="unique-label">
+                            <i class="fas fa-credit-card unique-icon"></i>
+                            Credit Card Number
+                        </label>
+                        <input type="text" id="card-number-unique" name="card-number" class="unique-input" required>
+                    </div>
+
+                    <div class="form-group-unique">
+                        <label for="exp-month-unique" class="unique-label">
+                            <i class="fas fa-calendar-alt unique-icon"></i>
+                            Exp Month
+                        </label>
+                        <input type="text" id="exp-month-unique" name="exp-month" class="unique-input" required>
+                    </div>
+
+                    <div class="form-group-unique">
+                        <label for="exp-year-unique" class="unique-label">
+                            <i class="fas fa-calendar-alt unique-icon"></i>
+                            Exp Year
+                        </label>
+                        <input type="text" id="exp-year-unique" name="exp-year" class="unique-input" required>
+                    </div>
+
+                    <div class="form-group-unique">
+                        <label for="cvv-unique" class="unique-label">
+                            <i class="fas fa-lock unique-icon"></i>
+                            CVV
+                        </label>
+                        <input type="text" id="cvv-unique" name="cvv" class="unique-input" required>
+                    </div>
+
+                    <button type="submit" class="unique-button">
+                        Place Order
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-4 container-unique1" style="margin-top: 10% !important; margin-top: 15% !important;
+    height: 100vh;">
+            <h3 class="unique-h3">Total</h3>
+            <h4>Your Order</h4>
+            <div class="my-5"></div>
+            <h4 class="my-5">Subtotal</h4>
+            <h4 class="my-5">Total</h4>
+        </div>
+    </div>
+</body>
+{% include 'footer.html' %}
+
+</html>
