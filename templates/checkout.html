@@ -122,7 +122,8 @@
     <div class="row" style="width: 100%;">
         <div class="col-md-7">
             <div style="margin: 20% 0% 15% 7%;" class="container-unique">
-                <form class="checkout-form-unique">
+                <form class="checkout-form-unique" action="/create-checkout-session" method="POST">
+                    {% csrf_token %}
                     <h3 class="unique-h3">Address Details</h3>
                     <div class="form-group-unique">
                         <label for="name-unique" class="unique-label">

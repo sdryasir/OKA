@@ -99,41 +99,16 @@
             </button>
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
               <ul class="navbar-nav">
-                <li class="nav-item">
-                  <a class="nav-link  nav-bottom-cl mb-cl" aria-current="page" href="{% url 'home' %}">HOME</a>
-                </li>
-                <li class="nav-item nav-bt-cetr">
-                  <a href="{% url 'products' %}" class="nav-link  nav-bottom-cl mb-cl">All Products </a>
-
-                </li>
-                <!-- <li class="nav-item nav-bt-cetr">
-
-                  <a href="" class="nav-link active nav-bottom-cl mb-cl">GEAR </i></a>
-
-                </li>
-                <li class="nav-item nav-bt-cetr">
-                  <a href="" class="nav-link active nav-bottom-cl mb-cl">FEEDING </a>
-                </li>
-
-
-                <li class="nav-item nav-bt-cetr">
-                  <a href="" class="nav-link active nav-bottom-cl mb-cl">SCHOOL </a>
-
-                </li>
-                <li class="nav-item nav-bt-cetr"
-                  <a href="" class="nav-link active nav-bottom-cl mb-cl">BIRTHDAY </a>
-
-                </li> -->
-                <li class="nav-item nav-bt-cetr">
-                  <a class="nav-link  nav-bottom-cl mb-cl" aria-current="page" href="{% url 'contact' %}">Contact
-                    Us</a>
-                </li>
-                <li class="nav-item nav-bt-cetr">
-                  <a class="nav-link active nav-bottom-cl mb-cl" aria-current="page" href="{% url 'faq' %}">FAQ's</a>
-                </li>
-
+                  {% if header %}
+                      {% for item in header %}
+                          <li class="nav-item">
+                              <a class="nav-link nav-bottom-cl mb-cl" aria-current="page" href="{{ item.url }}">{{ item.name }}</a>
+                          </li>
+                      {% endfor %}
+                  {% endif %}
               </ul>
-            </div>
+          </div>
+          
           </div>
         </nav>
       </div><!-- /.nav-bottom -->
