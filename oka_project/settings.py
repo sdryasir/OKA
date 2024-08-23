@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'faq',
     'navbar',
     'cart',
+    'users',
     
 ]
 

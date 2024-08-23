@@ -122,54 +122,104 @@
     <div class="row" style="width: 100%;">
         <div class="col-md-7">
             <div style="margin: 20% 0% 15% 7%;" class="container-unique">
-                <form class="checkout-form-unique">
+                <form class="checkout-form-unique" action="{% url 'checkout' %}" method="post">
+                    {% csrf_token %}
                     <h3 class="unique-h3">Address Details</h3>
                     <div class="form-group-unique">
                         <label for="name-unique" class="unique-label">
                             <i class="fas fa-user unique-icon"></i>
-                            Full Name
+                            {{form.username.label}}
                         </label>
-                        <input type="text" id="name-unique" name="name" class="unique-input" required>
+                        <!-- <input type="text" id="name-unique" name="name" class="unique-input" required> -->
+                        {{form.username}}
+                        {{form.username.errors}}
                     </div>
+                    <div class="form-group-unique">
+                        <label for="phone-unique" class="unique-label">
+                            <i class="fas fa-user unique-icon"></i>
+                            {{form.phone_no.label}}
+                        </label>
+                        <!-- <input type="text" id="name-unique" name="name" class="unique-input" required> -->
+                        {{form.phone_no}}
+                        {{form.phone_no.errors}}
+                    </div>
+                    <div class="form-group-unique">
+                        <label for="name-unique" class="unique-label">
+                            <i class="fas fa-user unique-icon"></i>
+                            {{form.password1.label}}
+                        </label>
+                        <!-- <input type="text" id="name-unique" name="name" class="unique-input" required> -->
+                        {{form.password1}}
+                        {{form.password1.errors}}
+                    </div>
+                    <div class="form-group-unique">
+                        <label for="name-unique" class="unique-label">
+                            <i class="fas fa-user unique-icon"></i>
+                            {{form.password2.label}}
+                        </label>
+                        <!-- <input type="text" id="name-unique" name="name" class="unique-input" required> -->
+                        {{form.password2}}
+                        {{form.password2.errors}}
+                    </div>
+                    
+                   
 
                     <div class="form-group-unique">
                         <label for="email-unique" class="unique-label">
                             <i class="fas fa-envelope unique-icon"></i>
-                            Email
+                             {{form.email.label}}
                         </label>
-                        <input type="email" id="email-unique" name="email" class="unique-input" required>
+                        <!-- <input type="text" id="name-unique" name="name" class="unique-input" required> -->
+                        {{form.email}}
+                        {{form.email.errors}}
                     </div>
-
+                    <div class="form-group-unique">
+                        <label for="name-unique" class="unique-label">
+                            <i class="fas fa-user unique-icon"></i>
+                            {{form.country.label}}
+                        </label>
+                        <!-- <input type="text" id="name-unique" name="name" class="unique-input" required> -->
+                        {{form.country}}
+                        {{form.country.errors}}
+                    </div>
                     <div class="form-group-unique">
                         <label for="address-unique" class="unique-label">
                             <i class="fas fa-address-card unique-icon"></i>
-                            Address
+                            {{form.address.label}}
                         </label>
-                        <input type="text" id="address-unique" name="address" class="unique-input" required>
+                        <!-- <input type="text" id="name-unique" name="name" class="unique-input" required> -->
+                        {{form.address}}
+                        {{form.address.errors}}
                     </div>
 
                     <div class="form-group-unique">
                         <label for="city-unique" class="unique-label">
                             <i class="fas fa-city unique-icon"></i>
-                            City
+                            {{form.city.label}}
                         </label>
-                        <input type="text" id="city-unique" name="city" class="unique-input" required>
+                        <!-- <input type="text" id="name-unique" name="name" class="unique-input" required> -->
+                        {{form.city}}
+                        {{form.city.errors}}
                     </div>
 
                     <div class="form-group-unique">
                         <label for="state-unique" class="unique-label">
                             <i class="fas fa-map-marker-alt unique-icon"></i>
-                            State
+                            {{form.state.label}}
                         </label>
-                        <input type="text" id="state-unique" name="state" class="unique-input" required>
+                        <!-- <input type="text" id="name-unique" name="name" class="unique-input" required> -->
+                        {{form.state}}
+                        {{form.state.errors}}
                     </div>
 
                     <div class="form-group-unique">
                         <label for="zip-unique" class="unique-label">
                             <i class="fas fa-map-pin unique-icon"></i>
-                            Zip Code
+                            {{form.zip_code.label}}
                         </label>
-                        <input type="text" id="zip-unique" name="zip" class="unique-input" required>
+                        <!-- <input type="text" id="name-unique" name="name" class="unique-input" required> -->
+                        {{form.zip_code}}
+                        {{form.zip_code.errors}}
                     </div>
 
 
