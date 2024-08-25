@@ -16,6 +16,8 @@ from django.contrib.sessions.models import Session
 from django.contrib.auth import authenticate, login as auth_login, logout
 from faq.models import Faq
 import random
+import stripe
+from django.conf import settings
 from django.core.paginator import Paginator, EmptyPage
 from offer.models import Offer
 from cart.cart import Cart
@@ -27,12 +29,28 @@ from django.contrib import messages
 
 
 
+from django.http import JsonResponse
+from header_footer.models import Header
+from header_footer.models import Footer
+
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
+
+def header(request):
+    header = Header.objects.all()
+    footer = Footer.objects.all()
+    print(header)
+    print(footer)
+    data = {
+        "footer": footer,
+        "header": header,
+    }
+    return render(request, "header.html", data)
 
 def home(request):
     productdata = list(Products.objects.all())
     categorydata = list(Category.objects.all())
     carouseldata = list(Carousel.objects.all())
-
     offerdata = list(Offer.objects.all())
     random.shuffle(productdata)
     random.shuffle(categorydata)
@@ -263,6 +281,7 @@ def register_user(request):
     else:
         return redirect("home")
 
+
 def checkout(request):
     if request.method == 'POST':
         form = CustomUserForm(request.POST)
@@ -276,10 +295,12 @@ def checkout(request):
         form = CustomUserForm()    
     return render(request, "checkout.html", {"form": form})
 
+
 def faq(request):
     faq = Faq.objects.all()
     data = {"faq": faq}
     return render(request, "faq.html", data)
+
 
 @login_required(login_url="/login")
 def cart_add(request, id):
@@ -330,27 +351,69 @@ def cart_clear(request):
 def cart_detail(request):
     cart = Cart(request)
     subtotal = 0
+    total = 0
 
-    # Check if the session contains items and if it's a list of dictionaries
-    session_data = list(cart.session.values())[0]
+    # Initialize a list to store line items for Stripe
+    line_items = []
 
-    if isinstance(session_data, list) and all(
-        isinstance(item, dict) for item in session_data
-    ):
-        items = session_data
+    session_cart = cart.session.get('cart', {})
 
-        for item in items:
+    if isinstance(session_cart, dict) and session_cart:
+        for item in session_cart.values():
             try:
-                # Accessing price and quantity assuming they exist in the item dictionary
                 price = int(item["price"])
                 quantity = int(item["quantity"])
-                subtotal = subtotal + price * quantity
+                subtotal += price * quantity
+
+                # Add each product as a line item
+                line_items.append({
+                    "price_data": {
+                        "currency": "usd",
+                        "product_data": {
+                            "name": item["name"],  # Product name from cart
+                        },
+                        "unit_amount": price * 100,  # Convert dollars to cents
+                    },
+                    "quantity": quantity,  # Dynamic quantity
+                })
             except (ValueError, KeyError) as e:
                 print(f"Error processing item: {e}")
-    else:
-        print("Unexpected session data structure")
+
+        total = subtotal + 200  # Calculate the total
+
+        # Store total and line items in session
+        request.session['total'] = total
+        request.session['line_items'] = line_items
 
     data = {
         "subtotal": subtotal,
+        "total": total
     }
+
     return render(request, "cart_detail.html", data)
+
+
+def create_checkout_session(request):
+    total = request.session.get('total', 0)
+    line_items = request.session.get('line_items', [])
+
+    try:
+        checkout_session = stripe.checkout.Session.create(
+            line_items=line_items,  # Use the dynamic line items
+            mode="payment",
+            success_url=settings.YOUR_DOMAIN + "success",
+            cancel_url=settings.YOUR_DOMAIN + "cancel",
+        )
+    except Exception as e:
+        return str(e)
+
+    return redirect(checkout_session.url, code=303)
+
+
+
+def success(request):
+    return render(request, "success.html")
+
+
+def cancel(request):
+    return render(request, "cancel.html")

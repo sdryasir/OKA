@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class NavbarConfig(AppConfig):
+class SocialConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'navbar'
+    name = 'social'

@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+import requests
+import json
 from .models import Contact
 
 def contact(request):
@@ -20,6 +22,17 @@ def savecontact(request):
         messages.error(request, 'Please Fill All The Fields!')
         return render(request, 'contact.html')
     else:
+        Captcha_token = request.POST["g-recaptcha-response"]
+        google_api = "https://www.google.com/recaptcha/api/siteverify"
+        Captcha_secrete = "6LdG8xoqAAAAAP4IU6KwAJIIuQiuJgiU3BcJiGUB"
+        client_data = {"secret": Captcha_secrete, "response": Captcha_token}
+        Captcha_Server_response = requests.post(
+                    url=google_api, data=client_data
+                )
+        Captcha_Server_response_parse = json.loads(Captcha_Server_response.text)
+        if Captcha_Server_response_parse["success"] == False:
+            messages.error(request, "Invalid Captcha Try Again!")
+            return redirect("login")
         contact = Contact(name=name, email=email, phone=phone, message=message)
         contact.save()
         messages.success(request, 'Sent Successfully!')

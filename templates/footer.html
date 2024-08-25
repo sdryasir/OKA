@@ -1,70 +1,52 @@
+{% if footer %}
 <footer class="footer-cls">
-
   <div class="container">
     <div class="row" id="mediaq-bottom-footer">
-      <div class="col-lg-2 col-md-4 col-sm-6 mb-4">
-        <h5 class="h5-center">About</h5>
-        <ul class="media-footer-mobile">
-          <li><a href="#">Our Story</a></li>
-          <li><a href="#">Why Baby Planet</a></li>
-        </ul>
-      </div>
-      <div class="col-lg-2 col-md-4 col-sm-6 mb-4">
-        <h5 class="h5-center">Information</h5>
-        <ul class="media-footer-mobile">
-          <li><a href="#">Shipping Policy</a></li>
-          <li><a href="#">Return to Exchange</a></li>
-          <li><a href="#">Payment Options</a></li>
-          <li><a href="#">Terms and Conditions</a></li>
-        </ul>
-      </div>
-      <div class="col-lg-2 col-md-4 col-sm-6 mb-4">
-        <h5 class="h5-center">Support</h5>
-        <ul class="media-footer-mobile">
-          <li><a href="#">Contact Us</a></li>
-        </ul>
-      </div>
-      <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-        <h5 class="h5-center">Community</h5>
-        <ul class="media-footer-mobile">
-          <li><a href="#">Blog</a></li>
-          <li><a href="#">Feedback</a></li>
-        </ul>
-      </div>
-      <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-        <h5 class="h5-center">Offices</h5>
-        <ul class="media-footer-mobile">
-          <li><a href="#">Blog</a></li>
-          <li><a href="#">Feedback</a></li>
-        </ul>
-      </div>
+      {% for section in sections %}
+        <div class="col-lg-2 col-md-4 col-sm-6 mb-4">
+          <h5 class="h5-center">{{ section.title }}</h5>
+          <ul class="media-footer-mobile">
+            {% for link in section.links.all %}
+              <li><a href="{{ link.url }}">{{ link.name }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endfor %}
     </div>
     <div class="social-container py-3">
-      <a href="#">
+      {% for s in social %}
+      {% if s.name == 'facebook' %}
+      <a href="{{s.url}}">
         <div class="social-icon"><box-icon name='facebook' type='logo' color="#ffffff"></box-icon></div>
       </a>
-      <a href="#">
+      {% elif s.name == 'twitter' %}
+      <a href="{{s.url}}">
         <div class="social-icon"><box-icon name='twitter' type='logo' color='#ffffff'></box-icon></div>
       </a>
-      <a href="#">
+      {% elif s.name == 'instagram' %}
+      <a href="{{s.url}}">
         <div class="social-icon"><box-icon name='instagram' type='logo' color='#ffffff'></box-icon></div>
       </a>
-      <a href="#">
+      {% elif s.name == 'pinterest' %}
+      <a href="{{s.url}}">
         <div class="social-icon"><box-icon name='pinterest-alt' type='logo' color='#ffffff'></box-icon></div>
       </a>
-      <a href="#">
+      {% elif s.name == 'Youtube' %}
+      <a href="{{s.url}}">
         <div class="social-icon"><box-icon name='youtube' type='logo' color='#ffffff'></box-icon></div>
       </a>
+      {% endif %}
+      {% endfor %}
     </div>
   </div>
   <div class="credit-footer-main">
     <div class="copyright-text">
-      <p class="cpy-adjustment">Copyright © 2024 <a style="color: black;" href="#">Baby Planet</a> all rights
-        reserved.</p>
+      <p class="cpy-adjustment">Copyright © 2024 <a style="color: black;" href="#">Baby Planet</a> all rights reserved.</p>
     </div>
   </div>
   <div class="div-last d-none" style="height: 75px;"></div>
 </footer>
+{% endif %}
 <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha38
@@ -309,3 +291,4 @@
 </body>
 
 </html>
+
