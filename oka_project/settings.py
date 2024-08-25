@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'footer',
     'faq',
     'cart',
+    'social',
     'header_footer',
     'nested_admin',
     
@@ -88,6 +89,7 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "cart.context_processor.cart_total_amount",
                 'header_footer.context_processors.navbar',
+                'social.context_processors.socials',
             ],
         },
     },

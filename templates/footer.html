@@ -14,21 +14,29 @@
       {% endfor %}
     </div>
     <div class="social-container py-3">
-      <a href="#">
+      {% for s in social %}
+      {% if s.name == 'facebook' %}
+      <a href="{{s.url}}">
         <div class="social-icon"><box-icon name='facebook' type='logo' color="#ffffff"></box-icon></div>
       </a>
-      <a href="#">
+      {% elif s.name == 'twitter' %}
+      <a href="{{s.url}}">
         <div class="social-icon"><box-icon name='twitter' type='logo' color='#ffffff'></box-icon></div>
       </a>
-      <a href="#">
+      {% elif s.name == 'instagram' %}
+      <a href="{{s.url}}">
         <div class="social-icon"><box-icon name='instagram' type='logo' color='#ffffff'></box-icon></div>
       </a>
-      <a href="#">
+      {% elif s.name == 'pinterest' %}
+      <a href="{{s.url}}">
         <div class="social-icon"><box-icon name='pinterest-alt' type='logo' color='#ffffff'></box-icon></div>
       </a>
-      <a href="#">
+      {% elif s.name == 'Youtube' %}
+      <a href="{{s.url}}">
         <div class="social-icon"><box-icon name='youtube' type='logo' color='#ffffff'></box-icon></div>
       </a>
+      {% endif %}
+      {% endfor %}
     </div>
   </div>
   <div class="credit-footer-main">
