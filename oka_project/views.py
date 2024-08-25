@@ -34,7 +34,7 @@ from header_footer.models import Header
 from header_footer.models import Footer
 
 
-stripe.api_key = settings.STRIPE_SECRET_KEY
+stripe.api_key = 'sk_test_51PnwfEG84wrz8yN3pN99IhWeXEqKCsXVeSoLT4n7fIlm7AXOFVXMI2B4nxmkJgsuVeLVnvZFY6TogGyCPlGMxkzq00T1b1FcpY'
 
 def header(request):
     header = Header.objects.all()
