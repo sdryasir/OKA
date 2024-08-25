@@ -16,89 +16,41 @@ from django.contrib.sessions.models import Session
 from django.contrib.auth import authenticate, login as auth_login, logout
 from faq.models import Faq
 import random
+import stripe
+from django.conf import settings
 from django.core.paginator import Paginator, EmptyPage
 from offer.models import Offer
 from cart.cart import Cart
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
+from users.forms import CustomUserForm
+from django.contrib import messages
 
 
-@login_required(login_url="/login")
-def cart_add(request, id):
-    if request.user.is_authenticated:
-        cart = Cart(request)
-        product = Products.objects.get(id=id)
-        cart.add(product=product)
-        return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
-    else:
-        cart = Cart(request)
-        product = Products.objects.get(id=id)
-        cart.add(product=product)
-        return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
-
-@login_required(login_url="/login")
-def item_clear(request, id):
-    cart = Cart(request)
-    product = Products.objects.get(id=id)
-    cart.remove(product)
-    return redirect("cart_detail")
-
-@login_required(login_url="/login")
-def item_increment(request, id):
-    cart = Cart(request)
-    product = Products.objects.get(id=id)
-    cart.add(product=product)
-    return redirect("cart_detail")
-
-@login_required(login_url="/login")
-def item_decrement(request, id):
-    cart = Cart(request)
-    product = Products.objects.get(id=id)
-    cart.decrement(product=product)
-    return redirect("cart_detail")
-
-@login_required(login_url="/login")
-def cart_clear(request):
-    cart = Cart(request)
-    cart.clear()
-    return redirect("cart_detail")
 
 
-@login_required(login_url="/login")
-def cart_detail(request):
-    cart = Cart(request)
-    subtotal = 0
+from django.http import JsonResponse
+from header_footer.models import Header
+from header_footer.models import Footer
 
-    # Check if the session contains items and if it's a list of dictionaries
-    session_data = list(cart.session.values())[0]
 
-    if isinstance(session_data, list) and all(isinstance(item, dict) for item in session_data):
-        items = session_data
+stripe.api_key = settings.STRIPE_SECRET_KEY
 
-        for item in items:
-            try:
-                # Accessing price and quantity assuming they exist in the item dictionary
-                price = int(item['price'])
-                quantity = int(item['quantity'])
-                subtotal += price * quantity
-            except (ValueError, KeyError) as e:
-                print(f"Error processing item: {e}")
-    else:
-        print("Unexpected session data structure")
-
+def header(request):
+    header = Header.objects.all()
+    footer = Footer.objects.all()
+    print(header)
+    print(footer)
     data = {
-        'subtotal': subtotal,
+        "footer": footer,
+        "header": header,
     }
-    return render(request, "cart_detail.html", data)
-
-
-
+    return render(request, "header.html", data)
 
 def home(request):
     productdata = list(Products.objects.all())
     categorydata = list(Category.objects.all())
     carouseldata = list(Carousel.objects.all())
-
     offerdata = list(Offer.objects.all())
     random.shuffle(productdata)
     random.shuffle(categorydata)
@@ -252,7 +204,7 @@ def productResult(request, category):
     if not productsbycat:
         messages.error(request, "No Product Found!")
         return render(request, "product_results.html")
-    
+
     paginator = Paginator(productsbycat, 4)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
@@ -265,7 +217,6 @@ def productResult(request, category):
         "productsbycat": productsbycat,
         "sort_order": sort_order,
         "category": category,
-
     }
 
     return render(request, "product_results.html", data)
@@ -331,7 +282,18 @@ def register_user(request):
         return redirect("home")
 
 
-# Create your views here.
+def checkout(request):
+    if request.method == 'POST':
+        form = CustomUserForm(request.POST)
+        if form.is_valid():
+            user = form.save()  
+            print('jvchdchajdchvjhcvaj' , user)
+        else:
+            print('hgjsjghcdddddddddghchcgchjchjchch')
+    else:   
+
+        form = CustomUserForm()    
+    return render(request, "checkout.html", {"form": form})
 
 
 def faq(request):
@@ -340,3 +302,118 @@ def faq(request):
     return render(request, "faq.html", data)
 
 
+@login_required(login_url="/login")
+def cart_add(request, id):
+    if request.user.is_authenticated:
+        cart = Cart(request)
+        product = Products.objects.get(id=id)
+        cart.add(product=product)
+        return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
+    else:
+        cart = Cart(request)
+        product = Products.objects.get(id=id)
+        cart.add(product=product)
+        return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
+
+
+@login_required(login_url="/login")
+def item_clear(request, id):
+    cart = Cart(request)
+    product = Products.objects.get(id=id)
+    cart.remove(product)
+    return redirect("cart_detail")
+
+
+@login_required(login_url="/login")
+def item_increment(request, id):
+    cart = Cart(request)
+    product = Products.objects.get(id=id)
+    cart.add(product=product)
+    return redirect("cart_detail")
+
+
+@login_required(login_url="/login")
+def item_decrement(request, id):
+    cart = Cart(request)
+    product = Products.objects.get(id=id)
+    cart.decrement(product=product)
+    return redirect("cart_detail")
+
+
+@login_required(login_url="/login")
+def cart_clear(request):
+    cart = Cart(request)
+    cart.clear()
+    return redirect("cart_detail")
+
+
+@login_required(login_url="/login")
+def cart_detail(request):
+    cart = Cart(request)
+    subtotal = 0
+    total = 0
+
+    # Initialize a list to store line items for Stripe
+    line_items = []
+
+    session_cart = cart.session.get('cart', {})
+
+    if isinstance(session_cart, dict) and session_cart:
+        for item in session_cart.values():
+            try:
+                price = int(item["price"])
+                quantity = int(item["quantity"])
+                subtotal += price * quantity
+
+                # Add each product as a line item
+                line_items.append({
+                    "price_data": {
+                        "currency": "usd",
+                        "product_data": {
+                            "name": item["name"],  # Product name from cart
+                        },
+                        "unit_amount": price * 100,  # Convert dollars to cents
+                    },
+                    "quantity": quantity,  # Dynamic quantity
+                })
+            except (ValueError, KeyError) as e:
+                print(f"Error processing item: {e}")
+
+        total = subtotal + 200  # Calculate the total
+
+        # Store total and line items in session
+        request.session['total'] = total
+        request.session['line_items'] = line_items
+
+    data = {
+        "subtotal": subtotal,
+        "total": total
+    }
+
+    return render(request, "cart_detail.html", data)
+
+
+def create_checkout_session(request):
+    total = request.session.get('total', 0)
+    line_items = request.session.get('line_items', [])
+
+    try:
+        checkout_session = stripe.checkout.Session.create(
+            line_items=line_items,  # Use the dynamic line items
+            mode="payment",
+            success_url=settings.YOUR_DOMAIN + "success",
+            cancel_url=settings.YOUR_DOMAIN + "cancel",
+        )
+    except Exception as e:
+        return str(e)
+
+    return redirect(checkout_session.url, code=303)
+
+
+
+def success(request):
+    return render(request, "success.html")
+
+
+def cancel(request):
+    return render(request, "cancel.html")

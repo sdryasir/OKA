@@ -929,7 +929,10 @@ input:-internal-autofill-selected {
 .g-recaptcha{
   height: 200px !important;
 }
-
+.errorlist li{
+  color: red !important;
+  list-style-type: disclosure-closed;
+}
 
 
 
@@ -2195,3 +2198,4 @@ body {
 }
 
 /* UBAID CSS ends */
+

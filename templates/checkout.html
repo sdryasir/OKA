@@ -1,0 +1,244 @@
+{% include 'header.html' %}
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Checkout Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body.unique-body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container-unique {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .container-unique1 {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #F5F5F5;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2.unique-h2 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .checkout-form-unique {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .form-group-unique {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        label.unique-label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input.unique-input[type="text"],
+        input.unique-input[type="email"] {
+            width: calc(100% - 25px);
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .form-group-unique i.unique-icon {
+            margin-right: 10px;
+        }
+
+        button.unique-button {
+            width: 96%;
+            padding: 15px;
+            background-color: #28a745;
+            border: none;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        button.unique-button:hover {
+            background-color: #218838;
+        }
+
+        h3.unique-h3 {
+            text-align: center;
+            width: 100%;
+            border-bottom: 2px solid #f4f4f4;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        @media (min-width: 600px) {
+            .form-group-unique {
+                width: 48%;
+            }
+
+            .form-group-full-width-unique {
+                width: 100%;
+            }
+
+            button.unique-button {
+                width: 48%;
+                margin-top: 20px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .container-unique {
+                padding: 40px;
+            }
+        }
+        @media (max-width: 600px) {
+            .checkout-form-unique {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        }
+    </style>
+</head>
+
+<body class="unique-body">
+    <div class="row" style="width: 100%;">
+        <div class="col-md-7">
+            <div style="margin: 20% 0% 15% 7%;" class="container-unique">
+                <form class="checkout-form-unique" action="{% url 'checkout' %}" method="post">
+                    {% csrf_token %}
+                    <h3 class="unique-h3">Address Details</h3>
+                    <div class="form-group-unique">
+                        <label for="name-unique" class="unique-label">
+                            <i class="fas fa-user unique-icon"></i>
+                            {{form.username.label}}
+                        </label>
+                        <!-- <input type="text" id="name-unique" name="name" class="unique-input" required> -->
+                        {{form.username}}
+                        {{form.username.errors}}
+                    </div>
+                    <div class="form-group-unique">
+                        <label for="phone-unique" class="unique-label">
+                            <i class="fas fa-user unique-icon"></i>
+                            {{form.phone_no.label}}
+                        </label>
+                        <!-- <input type="text" id="name-unique" name="name" class="unique-input" required> -->
+                        {{form.phone_no}}
+                        {{form.phone_no.errors}}
+                    </div>
+                    <div class="form-group-unique">
+                        <label for="name-unique" class="unique-label">
+                            <i class="fas fa-user unique-icon"></i>
+                            {{form.password1.label}}
+                        </label>
+                        <!-- <input type="text" id="name-unique" name="name" class="unique-input" required> -->
+                        {{form.password1}}
+                        {{form.password1.errors}}
+                    </div>
+                    <div class="form-group-unique">
+                        <label for="name-unique" class="unique-label">
+                            <i class="fas fa-user unique-icon"></i>
+                            {{form.password2.label}}
+                        </label>
+                        <!-- <input type="text" id="name-unique" name="name" class="unique-input" required> -->
+                        {{form.password2}}
+                        {{form.password2.errors}}
+                    </div>
+                    
+                   
+
+                    <div class="form-group-unique">
+                        <label for="email-unique" class="unique-label">
+                            <i class="fas fa-envelope unique-icon"></i>
+                             {{form.email.label}}
+                        </label>
+                        <!-- <input type="text" id="name-unique" name="name" class="unique-input" required> -->
+                        {{form.email}}
+                        {{form.email.errors}}
+                    </div>
+                    <div class="form-group-unique">
+                        <label for="name-unique" class="unique-label">
+                            <i class="fas fa-user unique-icon"></i>
+                            {{form.country.label}}
+                        </label>
+                        <!-- <input type="text" id="name-unique" name="name" class="unique-input" required> -->
+                        {{form.country}}
+                        {{form.country.errors}}
+                    </div>
+                    <div class="form-group-unique">
+                        <label for="address-unique" class="unique-label">
+                            <i class="fas fa-address-card unique-icon"></i>
+                            {{form.address.label}}
+                        </label>
+                        <!-- <input type="text" id="name-unique" name="name" class="unique-input" required> -->
+                        {{form.address}}
+                        {{form.address.errors}}
+                    </div>
+
+                    <div class="form-group-unique">
+                        <label for="city-unique" class="unique-label">
+                            <i class="fas fa-city unique-icon"></i>
+                            {{form.city.label}}
+                        </label>
+                        <!-- <input type="text" id="name-unique" name="name" class="unique-input" required> -->
+                        {{form.city}}
+                        {{form.city.errors}}
+                    </div>
+
+                    <div class="form-group-unique">
+                        <label for="state-unique" class="unique-label">
+                            <i class="fas fa-map-marker-alt unique-icon"></i>
+                            {{form.state.label}}
+                        </label>
+                        <!-- <input type="text" id="name-unique" name="name" class="unique-input" required> -->
+                        {{form.state}}
+                        {{form.state.errors}}
+                    </div>
+
+                    <div class="form-group-unique">
+                        <label for="zip-unique" class="unique-label">
+                            <i class="fas fa-map-pin unique-icon"></i>
+                            {{form.zip_code.label}}
+                        </label>
+                        <!-- <input type="text" id="name-unique" name="name" class="unique-input" required> -->
+                        {{form.zip_code}}
+                        {{form.zip_code.errors}}
+                    </div>
+
+
+                    <button type="submit" class="unique-button">
+                        Place Order
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-4 container-unique1" style="margin-top: 10% !important; margin-top: 12% !important;
+   ">
+            <h3 class="unique-h3">Total</h3>
+            <h4>Your Order</h4>
+            <div class="my-5"></div>
+            <h4 class="my-5">Subtotal</h4>
+            <h4 class="my-5">Total</h4>
+        </div>
+    </div>
+</body>
+{% include 'footer.html' %}
+
+</html>
