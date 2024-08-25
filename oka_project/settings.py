@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'faq',
     'cart',
     'header_footer',
+    'nested_admin',
     
 ]
 
