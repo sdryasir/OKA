@@ -23,6 +23,12 @@ from offer.models import Offer
 from cart.cart import Cart
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
+from users.forms import CustomUserForm
+from django.contrib import messages
+
+
+
+
 from django.http import JsonResponse
 from header_footer.models import Header
 from header_footer.models import Footer
@@ -277,7 +283,17 @@ def register_user(request):
 
 
 def checkout(request):
-    return render(request, "checkout.html")
+    if request.method == 'POST':
+        form = CustomUserForm(request.POST)
+        if form.is_valid():
+            user = form.save()  
+            print('jvchdchajdchvjhcvaj' , user)
+        else:
+            print('hgjsjghcdddddddddghchcgchjchjchch')
+    else:   
+
+        form = CustomUserForm()    
+    return render(request, "checkout.html", {"form": form})
 
 
 def faq(request):
