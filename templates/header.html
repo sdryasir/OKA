@@ -37,7 +37,7 @@
               <div class="hamburger">
 
               </div><!-- /.hamburger -->
-              <a href="{% url 'home' %}" style="display: flex; justify-content: center;" ><img class="logo-size" src="{% static 'images/logo.png' %}" alt=""></a>
+              <a href="{% url 'home' %}" class="u-navbar-title" style="display: flex; justify-content: center;" ><img class="logo-size" src="{% static 'images/logo.png' %}" alt=""></a>
 
 
               <div class="nav-items-inner">
@@ -60,7 +60,7 @@
 
                   </li>
                   <li class="nav-item sizing me-3">
-                    <i id="person-icon" class="bi bi-person material-symbols-outlined"
+                    <i id="person-icon" class="bi bi-person material-symbols-outlined u-p-icon"
                       style="color: black; font-weight: 700; font-size: 102%;"></i>
 
                   </li>
@@ -68,8 +68,8 @@
                   <li class="nav-item sizing me-3 u-view-upper">
                     <a class="bi bi-cart" href="{% url 'cart_detail' %}"
                       style="color: black; font-weight: 700; font-size: 102%; text-decoration: none;">
-                      <span class="position-absolute translate-middle badge rounded-pill bg-danger"
-                        style="width: 16px; height: 16px; font-size: 9px; top: 38%;">
+                      <span class="position-absolute translate-middle badge rounded-pill bg-danger u-pill"
+                        >
                         {{request.session.cart|length}}
                         <span class="visually-hidden">unread messages</span>
                       </span>
