@@ -199,5 +199,8 @@ JAZZMIN_SETTINGS = {
         "categories.Category":"fas fa-list",
         "offer.Offer":"fas fa-tag",
         "Product.Products":"fas fa-plus", 
+        "header_footer.Header":"fas fa-bars", 
+        "header_footer.footer":"fas fa-bars", 
+        "social.Social":"fas fa-icons", 
     }
 }
