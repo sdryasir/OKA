@@ -25,10 +25,6 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from users.forms import CustomUserForm
 from django.contrib import messages
-
-
-
-
 from django.http import JsonResponse
 from header_footer.models import Header
 from header_footer.models import Footer
