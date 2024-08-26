@@ -318,6 +318,93 @@ iframe {
   }
 }
 
+main#faq-main {
+  overflow-y: hidden !important;
+  background: transparent;
+  overflow-y: scroll;
+  background-color: #F5F5F5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 50px 0;
+}
+
+.faq-wrapper {
+  width: 60%;
+  min-width: 300px;
+}
+
+h1#faq-title {
+  margin-bottom: 20px;
+}
+
+.faq-container {
+  background-color: #F5F5F5;
+  color: black;
+  border-radius: 20px;
+  box-shadow: 0 5px 10px 0 rgb(0, 0, 0, 0.25);
+  margin: 20px 0;
+  width: 100%;
+}
+
+.faq-question {
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 20px 80px 20px 20px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.faq-question::after {
+  content: "\002B";
+  font-size: 2.2rem;
+  position: absolute;
+  right: 20px;
+  transition: transform 0.5s ease;
+}
+
+.faq-question.active::after {
+  transform: rotate(135deg);
+}
+
+.faq-answer-cont {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+}
+
+.faq-answer {
+  padding: 0 20px 20px;
+  line-height: 1.5rem;
+}
+
+.faq-question.active+.faq-answer-cont {
+  max-height: none;
+}
+
+
+
+@media screen and (max-width: 790px) {
+  html {
+    font-size: 14px;
+  }
+
+  #faq-main , .u-main-style{
+    margin-top: 17% !important;
+  }
+
+  .bg-cl {
+    background-color: #F5F5F5;
+  }
+
+  .faq-wrapper {
+    width: 80%;
+  }
+}
+
 /* ZAIN CSS ENDS */
 
 /*----------------------------------------------------------------------------------------------------------------*/
@@ -789,7 +876,8 @@ input:-internal-autofill-selected {
   color: white !important;
   border-color: #f85606 !important;
 }
-.u-bg-pg:hover{
+
+.u-bg-pg:hover {
   color: #f85606 !important;
 }
 
@@ -921,17 +1009,27 @@ input:-internal-autofill-selected {
 .u-cart-price-3:hover {
   background-color: #f85606;
 }
+
 .u-star-adjusting {
   font-size: 1.8rem;
   color: gold;
   margin: 0 !important;
 }
-.g-recaptcha{
+
+.g-recaptcha {
   height: 200px !important;
 }
-.errorlist li{
+
+.errorlist li {
   color: red !important;
   list-style-type: disclosure-closed;
+}
+
+.u-pill {
+  width: 16px;
+  height: 16px;
+  font-size: 9px;
+  top: 38%;
 }
 
 
@@ -1604,7 +1702,7 @@ body {
     color: black !important;
     padding: 1px 6px;
   }
-  
+
 
   .logo-size {
     width: 95px !important;
@@ -1627,8 +1725,8 @@ body {
     background-color: #fff;
   }
 
-  main {
-    margin-top: 25%;
+  #faq-main {
+    margin-top: 25% !important;
   }
 
   #signup-mobile {
@@ -1646,7 +1744,7 @@ body {
   }
 
   .u_active {
-    left: 65px;
+    left: 13px;
   }
 
   .u-img-card img {
@@ -1878,6 +1976,13 @@ body {
 
   .u-cart-body {
     border-bottom: 1px solid rgb(0, 0, 0, 0.2);
+  }
+
+  .u-navbar-title {
+    width: 28% !important;
+  }
+  .u-pill{
+    top: 20px;
   }
 
 }
@@ -2198,4 +2303,3 @@ body {
 }
 
 /* UBAID CSS ends */
-
