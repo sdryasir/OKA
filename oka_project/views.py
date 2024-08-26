@@ -25,10 +25,6 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from users.forms import CustomUserForm
 from django.contrib import messages
-
-
-
-
 from django.http import JsonResponse
 from header_footer.models import Header
 from header_footer.models import Footer
@@ -126,7 +122,17 @@ def signup(request):
     if request.user.is_authenticated:
         return redirect("home")
     else:
-        return render(request, "signup.html")
+        if request.method == 'POST':
+            form = CustomUserForm(request.POST)
+            if form.is_valid():
+                user = form.save()  
+                return redirect("login")
+                print('jvchdchajdchvjhcvaj' , user)
+            else:
+                print('hgjsjghcdddddddddghchcgchjchjchch')
+        else:   
+            form = CustomUserForm()    
+    return render(request, "signup.html", {"form": form})
 
 
 def productDetails(request, id):
@@ -222,78 +228,78 @@ def productResult(request, category):
     return render(request, "product_results.html", data)
 
 
-def register_user(request):
-    if not request.user.is_authenticated:
-        first_name = request.POST["first_name"]
-        username = request.POST["username"]
-        email = request.POST["email"]
-        password = request.POST["password"]
-        if not username or not first_name or not email or not password:
-            messages.error(request, "Please Fill All The Fields Correctly!")
-            return render(request, "signup.html")
-        else:
-            if User.objects.filter(username=username).exists():
-                messages.error(request, "Username Already Register")
-                return render(request, "signup.html")
-            elif User.objects.filter(email=email).exists():
-                messages.error(request, "Email Already Register!")
-                return render(request, "signup.html")
-            elif len(password) < 8:
-                messages.error(request, "Password Must be 8 Characters Long!")
-                return render(request, "signup.html")
-            else:
-                user = User.objects.create_user(
-                    first_name=first_name,
-                    username=username,
-                    email=email,
-                    password=password,
-                )
-                try:
-                    validate_email(email)
-                    email_msg = EmailMessage(
-                        f"Welcome! {first_name}",
-                        "<h1>Welcome To Baby Planet Thankx For Account Creation!</h1>",
-                        "info@nullxcoder.xyz",
-                        to=[email],
-                    )
-                    email_msg.content_subtype = "html"  # Set the email content to HTML
-                    email_msg.send()
-                except ValidationError:
-                    return HttpResponse("Invalid email address.")
-                except BadHeaderError:
-                    return HttpResponse("Invalid header found.")
-                except SMTPException:
-                    return HttpResponse("There was an error sending the email.")
-                Captcha_token = request.POST["g-recaptcha-response"]
-                google_api = "https://www.google.com/recaptcha/api/siteverify"
-                Captcha_secrete = "6LdG8xoqAAAAAP4IU6KwAJIIuQiuJgiU3BcJiGUB"
-                client_data = {"secret": Captcha_secrete, "response": Captcha_token}
-                Captcha_Server_response = requests.post(
-                    url=google_api, data=client_data
-                )
-                Captcha_Server_response_parse = json.loads(Captcha_Server_response.text)
-                if Captcha_Server_response_parse["success"] == False:
-                    messages.error(request, "Invalid Captcha Try Again!")
-                    return render(request, "signup.html")
-                else:
-                    messages.success(request, "Account created successfully!")
-                    return render(request, "login.html")
-    else:
-        return redirect("home")
+# def register_user(request):
+#     if not request.user.is_authenticated:
+#         first_name = request.POST["first_name"]
+#         username = request.POST["username"]
+#         email = request.POST["email"]
+#         password = request.POST["password"]
+#         if not username or not first_name or not email or not password:
+#             messages.error(request, "Please Fill All The Fields Correctly!")
+#             return render(request, "signup.html")
+#         else:
+#             if User.objects.filter(username=username).exists():
+#                 messages.error(request, "Username Already Register")
+#                 return render(request, "signup.html")
+#             elif User.objects.filter(email=email).exists():
+#                 messages.error(request, "Email Already Register!")
+#                 return render(request, "signup.html")
+#             elif len(password) < 8:
+#                 messages.error(request, "Password Must be 8 Characters Long!")
+#                 return render(request, "signup.html")
+#             else:
+#                 user = User.objects.create_user(
+#                     first_name=first_name,
+#                     username=username,
+#                     email=email,
+#                     password=password,
+#                 )
+#                 try:
+#                     validate_email(email)
+#                     email_msg = EmailMessage(
+#                         f"Welcome! {first_name}",
+#                         "<h1>Welcome To Baby Planet Thankx For Account Creation!</h1>",
+#                         "info@nullxcoder.xyz",
+#                         to=[email],
+#                     )
+#                     email_msg.content_subtype = "html"  # Set the email content to HTML
+#                     email_msg.send()
+#                 except ValidationError:
+#                     return HttpResponse("Invalid email address.")
+#                 except BadHeaderError:
+#                     return HttpResponse("Invalid header found.")
+#                 except SMTPException:
+#                     return HttpResponse("There was an error sending the email.")
+#                 Captcha_token = request.POST["g-recaptcha-response"]
+#                 google_api = "https://www.google.com/recaptcha/api/siteverify"
+#                 Captcha_secrete = "6LdG8xoqAAAAAP4IU6KwAJIIuQiuJgiU3BcJiGUB"
+#                 client_data = {"secret": Captcha_secrete, "response": Captcha_token}
+#                 Captcha_Server_response = requests.post(
+#                     url=google_api, data=client_data
+#                 )
+#                 Captcha_Server_response_parse = json.loads(Captcha_Server_response.text)
+#                 if Captcha_Server_response_parse["success"] == False:
+#                     messages.error(request, "Invalid Captcha Try Again!")
+#                     return render(request, "signup.html")
+#                 else:
+#                     messages.success(request, "Account created successfully!")
+#                     return render(request, "login.html")
+#     else:
+#         return redirect("home")
 
 
-def checkout(request):
-    if request.method == 'POST':
-        form = CustomUserForm(request.POST)
-        if form.is_valid():
-            user = form.save()  
-            print('jvchdchajdchvjhcvaj' , user)
-        else:
-            print('hgjsjghcdddddddddghchcgchjchjchch')
-    else:   
+# def checkout(request):
+#     if request.method == 'POST':
+#         form = CustomUserForm(request.POST)
+#         if form.is_valid():
+#             user = form.save()  
+#             print('jvchdchajdchvjhcvaj' , user)
+#         else:
+#             print('hgjsjghcdddddddddghchcgchjchjchch')
+#     else:   
 
-        form = CustomUserForm()    
-    return render(request, "checkout.html", {"form": form})
+#         form = CustomUserForm()    
+#     return render(request, "checkout.html", {"form": form})
 
 
 def faq(request):
