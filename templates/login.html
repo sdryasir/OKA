@@ -37,16 +37,13 @@
                     <a style="text-decoration:none;" href="{%url 'password_reset'%}"> Forgot Password? </a>
                 </div>
                 <div class="g-recaptcha" data-sitekey="6LdG8xoqAAAAABjDxfEmCW9bQ4HPoSJkEXWuSCGJ"></div>
-                <button type="submit" class="btn btn-primary z-w-but-login my-3">Login</button>
+                <button type="submit" style="transition: .25s ease; border: 1px solid #0D6EFD;" class="btn btn-primary z-w-but-login my-3">Login</button>
 
-                <a style="    margin-left: 10%;
-    width: 24vw;
-    background-color: #f85606;
-    border: none;" class="btn btn-primary z-w-but-creat" href="{% url 'signup' %}">Create Account</a>
-</form>
+                <a style="    margin-left: 10%; width: 24vw; background-color: #f85606;transition: .25s ease; border: 1px solid #f85606;" class="btn btn-primary z-w-but-creat" href="{% url 'signup' %}">Create Account</a>
+            </form>
         </div>
     </div>
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     {% include 'footer.html' %}
 </main>
 

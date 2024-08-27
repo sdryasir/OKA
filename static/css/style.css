@@ -30,7 +30,7 @@ body {
 }
 
 .row {
-  padding-top: 5%;
+  padding-top: 70px;
   font-family: var(--font-family);
 }
 
@@ -223,7 +223,6 @@ iframe {
 }
 
 .z-w-but-creat {
-  margin-left: 10%;
   width: 20vw !important;
   background-color: #f85606;
   border: none;
@@ -305,7 +304,6 @@ iframe {
   .z-w-but-creat {
     width: 50vw !important;
     margin-top: 10px;
-    margin-left: 41% !important;
   }
 
   .z-w-but-login {
@@ -1256,17 +1254,18 @@ body {
   text-decoration: none;
   color: white;
   background-color: #FF6F00;
+  border: 2px solid #FF6F00 !important;
   border: none;
   border-radius: 5px;
   text-align: center;
   cursor: pointer;
+  transition: .25s ease-in-out;
 }
 
 .popup-content a:hover {
   background-color: transparent;
   color: black;
-  border: 2px solid black;
-  border-color: black !important;
+  border: 2px solid #FF6F00;
 }
 
 .close {
