@@ -121,17 +121,19 @@ def log_out_user(request):
 def signup(request):
     if request.user.is_authenticated:
         return redirect("home")
-    else:
-        if request.method == 'POST':
-            form = CustomUserForm(request.POST)
-            if form.is_valid():
-                user = form.save()  
-                return redirect("login")
-                print('jvchdchajdchvjhcvaj' , user)
+    
+    if request.method == 'POST':
+        form = CustomUserForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data.get('email')
+            if User.objects.filter(email=email).exists():
+                form.add_error('email', 'Email is already in use.')
             else:
-                print('hgjsjghcdddddddddghchcgchjchjchch')
-        else:   
-            form = CustomUserForm()    
+                user = form.save()
+                return redirect("login")
+    else:
+        form = CustomUserForm()
+    
     return render(request, "signup.html", {"form": form})
 
 
