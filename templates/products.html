@@ -47,7 +47,7 @@
         <h2 id="fashion-pg-h1">All Products</h2>
       </div>
       <!-- /.category -->
-      <div name="sorting" class="u-sorting">
+      {% comment %} <div name="sorting" class="u-sorting">
         <p>Sort:</p>
         <form id="sortForm" method="GET" action="">
           <select name="sort_order" id="sortOrder">
@@ -58,7 +58,7 @@
             <option value="htl" {% if sort_order == 'htl'  %} selected {% endif %} >High To Low</option>
           </select>
         </form>
-      </div>
+      </div> {% endcomment %}
       <div class="row p-0">
         {% for product in products %}
         <div class="col-sm-6 u-card-adjusting col-md-4 col-lg-3 col-xl-3 my-2">
@@ -115,12 +115,12 @@
       </nav>
     </div><!-- /.pagination-wrapper -->
   </div><!-- /.u_category_inner_wrapper -->
-  <script>
+  {% comment %} <script>
     document
       .getElementById("sortOrder")
       .addEventListener("change", function () {
         document.getElementById("sortForm").submit();
       });
-  </script>
+  </script> {% endcomment %}
   {% include 'filter.html' %} {% include 'footer.html' %}
 </main>

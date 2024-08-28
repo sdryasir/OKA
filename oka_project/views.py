@@ -182,7 +182,8 @@ def products(request):
     }
 
     return render(request, "products.html", data)
-
+def resetfilter(request):
+    return render(request, "products.html")
 
 def searchResult(request):
     searchresults = request.GET.get("search")
