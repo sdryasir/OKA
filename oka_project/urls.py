@@ -37,6 +37,7 @@ urlpatterns = [
     path('cancel', views.cancel, name='cancel'),
     path('create_checkout_session', views.create_checkout_session, name='create_checkout_session'),
     path('all-products/', views.products, name='products'),
+    path('resetfilter/', views.resetfilter, name='resetfilter'),
     path('product-details/', views.productDetails, name='product-details'),
     path('product-details/<id>', views.productDetails, name='product-details'),
     path('search-results/', views.searchResult, name='search-results'),
