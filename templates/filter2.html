@@ -1,11 +1,11 @@
 <style>
-  .btn-primary{
-    background-color: #F85606 !important;
-    border-color: #F85606 !important;
-  }
-  .btn-primary:hover{
-    background-color: transparent !important;
-  }
+    .btn-primary{
+      background-color: #F85606 !important;
+      border-color: #F85606 !important;
+    }
+    .btn-primary:hover{
+      background-color: transparent !important;
+    }
 </style>
 <div class="u-filter-wrapper">
   <button class="btn u-btn-style" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop"
@@ -21,6 +21,9 @@
     </div>
     <div class="offcanvas-body">
       <form id="filterform" method="GET">
+        <!-- Include search term in the filter form -->
+        <input type="hidden" name="search" value="{{ search_query }}">
+
         <!-- Price Filter Section -->
         <div class="u-price-wrapper">
           <div style="display: flex;" class="u-price-heading mb-4">
@@ -49,17 +52,17 @@
         <div class="u-sorting" style="margin-top: 10%;">
           <p>Sort:</p>
           <select name="sort_order" id="sortOrder">
-            <option value="none" {% if sort_order == 'none'  %} selected {% endif %}>------</option>
-            <option value="ascending" {% if sort_order == 'ascending'  %} selected {% endif %}>Ascending</option>
-            <option value="descending" {% if sort_order == 'descending'  %} selected {% endif %}>Descending</option>
-            <option value="lth" {% if sort_order == 'lth'  %} selected {% endif %}>Low To High</option>
-            <option value="htl" {% if sort_order == 'htl'  %} selected {% endif %}>High To Low</option>
+            <option value="none" {% if sort_order == 'none' %} selected {% endif %}>------</option>
+            <option value="ascending" {% if sort_order == 'ascending' %} selected {% endif %}>Ascending</option>
+            <option value="descending" {% if sort_order == 'descending' %} selected {% endif %}>Descending</option>
+            <option value="lth" {% if sort_order == 'lth' %} selected {% endif %}>Low To High</option>
+            <option value="htl" {% if sort_order == 'htl' %} selected {% endif %}>High To Low</option>
           </select>
         </div><!-- /.u-sorting -->
 
         <!-- Apply Button -->
         <button type="submit" class="btn btn-primary mt-3">Apply Filter</button>
-        <a href="{% url 'products' %}"class="btn btn-primary mt-3">Reset</a>
+        <a href="{% url 'search-results' %}?search={{ search_query }}" class="btn btn-primary mt-3">Reset</a>
       </form>
     </div>
   </div> 

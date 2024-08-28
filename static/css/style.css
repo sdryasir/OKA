@@ -248,7 +248,10 @@ iframe {
   justify-content: center;
   margin-bottom: 3%;
 }
-
+.u-sorting{
+  display: flex !important;
+  justify-content: start !important;
+}
 
 @media (max-width: 991.98px) {
   .input-box-email {
