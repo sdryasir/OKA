@@ -245,7 +245,7 @@ def productResult(request, category):
         messages.error(request, "No Product Found!")
         return render(request, "product_results.html")
 
-    paginator = Paginator(productsbycat, 4)
+    paginator = Paginator(productsbycat, 8)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
 
