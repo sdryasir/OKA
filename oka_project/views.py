@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.db.models import Q
 from django.core.mail import send_mail, BadHeaderError
 from django.core.mail import EmailMessage
 from django.core.validators import validate_email
@@ -186,13 +187,43 @@ def resetfilter(request):
     return render(request, "products.html")
 
 def searchResult(request):
-    searchresults = request.GET.get("search")
-    searchterm = Products.objects.filter(name__icontains=searchresults)
-    if not searchterm.exists():
+    # Get search term and filter parameters from the request
+    search_term = request.GET.get("search", "")
+    sort_order = request.GET.get("sort_order")
+    min_price = request.GET.get("min_price", 0)
+    max_price = request.GET.get("max_price", 5000)
+
+    # Start with a base queryset that includes the search term
+    search_results = Products.objects.filter(name__icontains=search_term)
+
+    # Apply price filter if min_price or max_price is specified
+    if min_price or max_price:
+        search_results = search_results.filter(price__gte=min_price, price__lte=max_price)
+
+    # Apply sorting if sort_order is specified
+    if sort_order == "ascending":
+        search_results = search_results.order_by("price")
+    elif sort_order == "descending":
+        search_results = search_results.order_by("-price")
+    elif sort_order == "lth":
+        search_results = search_results.order_by("price")
+    elif sort_order == "htl":
+        search_results = search_results.order_by("-price")
+
+    # Check if there are any results and handle the case where no products are found
+    if not search_results.exists():
         messages.error(request, "No Product Found!")
-        return render(request, "search_results.html")
-    data = {"searchterm": searchterm}
-    return render(request, "search_results.html", data)
+
+    # Prepare context data for rendering the template
+    context = {
+        "searchterm": search_results,
+        "search_query": search_term,  # Pass the search term to the template
+        "sort_order": sort_order,
+        "minprice": min_price,
+        "maxprice": max_price
+    }
+
+    return render(request, "search_results.html", context)
 
 
 def productResult(request, category):
