@@ -74,7 +74,9 @@
         <a class="u-shopping-btn" href="{% url 'products' %}">Continue Shopping</a>
         <a class="u-shopping-btn u-shopping-clear-btn-mview" href="{% url 'cart_clear' %}">Clear Cart</a>
       </div>
+     
       <div class="u-shipping-inner-2">
+        
         <p style="font-weight: 600; color: #333; text-align: end">
           SUBTOTAL : Rs. {{subtotal}}
         </p>
@@ -101,19 +103,49 @@
 
   <!-- Modal content -->
   <div class="modal-content">
-    <div style="justify-content: space-between; align-items: center" class="modal-header">
+    <div style="justify-content: space-between; align-items: center" class="modal-header pt-2">
       <h4>Your Payment</h4>
       <span class="u-cart-close">&times;</span>
     </div>
     <div class="modal-body">
+      <div class="row u-custom-row pt-3" style="display: flex; justify-content: space-between; border-bottom: 1px rgb(0,0,0,.5) dotted;">
+        <p class=" col-sm-8" style="font-weight: 600; color: #333;">
+          Name
+
+        </p>
+        <p class=" col-sm-2" style="font-weight: 600; color: #333; text-align: center;">
+          Quantity
+
+        </p>
+        <p class=" col-sm-2" style="font-weight: 600; color: #333; text-align: end;">
+          Price
+
+        </p>
+      </div>
+      {% for key,product in request.session.cart.items %}
+      <div class="row u-custom-row pt-3" style="display: flex; justify-content: space-between; border-bottom: 1px rgb(0,0,0,.5) dotted;">
+        <p class=" col-sm-8" style="font-weight: 600; color: #333;">
+          {{product.name}}
+
+        </p>
+        <p class=" col-sm-2" style="font-weight: 600; color: #333; text-align: center;">
+          {{product.quantity}}
+
+        </p>
+        <p class=" col-sm-2" style="font-weight: 600; color: #333; text-align: end;">
+          {{product.price}}
+
+        </p>
+      </div>
+      {% endfor %}
       <div class="u-shipping-inner-2">
-        <p style="margin-top: 12px; font-weight: 600; color: #333; text-align: center">
+        <p style="margin-top: 12px; font-weight: 600; color: #333; border-bottom: 1px rgb(0,0,0,.5) dotted; text-align: end;">
           Subtotal : Rs. {{subtotal}}
         </p>
-        <p style="font-weight: 600; color: #333; text-align: center">
+        <p style="font-weight: 600; color: #333; border-bottom: 1px rgb(0,0,0,.5) dotted; text-align: end">
           Shipping Charges : Rs. 200
         </p>
-        <p style="font-weight: 600; color: #f40000; text-align: center">
+        <p style="font-weight: 600; color: #f40000; border-bottom: 1px rgb(0,0,0,.5) dotted; text-align: end">
           Total Bill : Rs. {{total}}
         </p>
         <p style="text-align: end">
