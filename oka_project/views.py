@@ -229,7 +229,16 @@ def searchResult(request):
 def productResult(request, category):
     productsbycat = Products.objects.filter(category_id=category)
 
+    # Retrieve filter parameters
+    min_price = request.GET.get("min_price")
+    max_price = request.GET.get("max_price")
     sort_order = request.GET.get("sort_order")
+
+    # Apply price range filter
+    if min_price and max_price:
+        productsbycat = productsbycat.filter(price__gte=min_price, price__lte=max_price)
+
+    # Apply sorting
     if sort_order == "ascending":
         productsbycat = productsbycat.order_by("price")
     elif sort_order == "descending":
@@ -241,6 +250,8 @@ def productResult(request, category):
     else:
         productsbycat = list(productsbycat)
         random.shuffle(productsbycat)
+
+    # Handle no products case
     if not productsbycat:
         messages.error(request, "No Product Found!")
         return render(request, "product_results.html")
@@ -256,6 +267,8 @@ def productResult(request, category):
         "totalpages": totalpage,
         "productsbycat": productsbycat,
         "sort_order": sort_order,
+        "minprice": min_price,
+        "maxprice": max_price,
         "category": category,
     }
 
