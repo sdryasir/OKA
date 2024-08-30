@@ -430,7 +430,7 @@ footer {
 }
 
 main {
-  margin-top: 11%;
+  margin-top: 138px;
 }
 
 .logo-size {
@@ -1902,6 +1902,9 @@ body {
       width: 33.33333337%;
   
   }
+  main {
+    margin-top: 102px;
+  }
 }
 
 @media (min-width: 300px) and (max-width: 575.98px) {
@@ -2008,6 +2011,9 @@ body {
   .u-pill{
     top: 20px;
   }
+  main {
+    margin-top: 81px;
+  }
 
 }
 
@@ -2059,6 +2065,9 @@ body {
     border-radius: 0 !important;
 
     /* margin-left: 12px; */
+  }
+  main {
+    margin-top: 104px;
   }
 }
 

@@ -29,6 +29,7 @@ from django.contrib import messages
 from django.http import JsonResponse
 from header_footer.models import Header
 from header_footer.models import Footer
+from orders.models import Orders , OrderItem
 
 
 stripe.api_key = 'sk_test_51PnwfEG84wrz8yN3pN99IhWeXEqKCsXVeSoLT4n7fIlm7AXOFVXMI2B4nxmkJgsuVeLVnvZFY6TogGyCPlGMxkzq00T1b1FcpY'
@@ -434,6 +435,41 @@ def cart_detail(request):
 
 
 def create_checkout_session(request):
+    cart = Cart(request)
+    subtotal = 0
+    total = 0
+
+    # Initialize a list to store line items for Stripe
+    line_items = []
+
+    session_cart = cart.session.get('cart', {})
+
+    if isinstance(session_cart, dict) and session_cart:
+        for item in session_cart.values():
+            try:
+                price = int(item["price"])
+                quantity = int(item["quantity"])
+                subtotal += price * quantity
+
+                # Add each product as a line item
+                line_items.append({
+                    "price_data": {
+                        "currency": "usd",
+                        "product_data": {
+                            "name": item["name"],  # Product name from cart
+                        },
+                        "unit_amount": price,  # Convert dollars to cents
+                    },
+                    "quantity": quantity,  # Dynamic quantity
+                })
+            except (ValueError, KeyError) as e:
+                print(f"Error processing item: {e}")
+
+        total = subtotal + 200  # Calculate the total
+
+        # Store total and line items in session
+        request.session['total'] = total
+        request.session['line_items'] = line_items
     total = request.session.get('total', 0)
     line_items = request.session.get('line_items', [])
 
@@ -444,8 +480,25 @@ def create_checkout_session(request):
             success_url=settings.YOUR_DOMAIN + "success",
             cancel_url=settings.YOUR_DOMAIN + "cancel",
         )
+        if checkout_session: # needto be dynamic
+            order = Orders.objects.create(
+                user=request.user,
+                total_price=total,
+                payment_id=checkout_session.id,
+                payment_status="unpaid"
+            )
+            if order:
+                for item in session_cart.values():
+                    OrderItem.objects.create(
+                        order=order,
+                        product_name=item["name"],
+                        quantity=item["quantity"],
+                        price=item["price"]
+                    )
     except Exception as e:
-        return str(e)
+        print('==================================')
+        print(e)
+        print('+++++++++++++++++++++++++++++++++++')
 
     return redirect(checkout_session.url, code=303)
 
