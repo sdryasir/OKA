@@ -248,7 +248,10 @@ iframe {
   justify-content: center;
   margin-bottom: 3%;
 }
-
+.u-sorting{
+  display: flex !important;
+  justify-content: start !important;
+}
 
 @media (max-width: 991.98px) {
   .input-box-email {
@@ -427,7 +430,7 @@ footer {
 }
 
 main {
-  margin-top: 11%;
+  margin-top: 138px;
 }
 
 .logo-size {
@@ -1567,63 +1570,72 @@ body {
 
 /* img model ends */
 
-/* search model start */
+/* checkout modal start */
+
 .modal {
-  display: none;
-  /* Hidden by default */
-  position: fixed;
-  /* Stay in place */
-  z-index: 324565453456;
-  /* Sit on top */
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 60px; /* Location of the box */
   left: 0;
   top: 0;
-  width: 100%;
-  /* Full width */
-  height: 100%;
-  /* Full height */
-  overflow: auto;
-  /* Enable scroll if needed */
-  background-color: rgb(0, 0, 0);
-  /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.3);
-  /* Black w/ opacity */
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
+/* Modal Content */
 .modal-content {
-  display: flex !important;
-  justify-content: center;
+  position: relative;
   background-color: #fefefe;
+  margin: auto;
   padding: 0;
-  position: absolute;
-  top: 20px;
   border: 1px solid #888;
-  width: 100%;
-  background-color: transparent;
-  border-radius: 50px;
-  display: flow-root;
-  border: 0;
+  width: 70%;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s
 }
 
-.modal-content form {
-  justify-content: center;
+/* Add Animation */
+@-webkit-keyframes animatetop {
+  from {top:-300px; opacity:0} 
+  to {top:0; opacity:1}
 }
 
-.close {
-  color: black;
+@keyframes animatetop {
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
+}
+
+/* The Close Button */
+.u-cart-close {
+  /* color: white; */
   float: right;
-  font-size: 30px;
-  position: absolute;
-  left: 13%;
+  font-size: 28px;
   font-weight: bold;
 }
 
-.close:hover,
-.close:focus {
+.u-cart-close:hover,
+.u-cart-close:focus {
   color: #000;
   text-decoration: none;
   cursor: pointer;
 }
 
+.modal-header {
+  padding: 2px 16px;
+}
+
+.modal-body {padding: 2px 16px;}
+
+.modal-footer {
+  padding: 2px 16px;
+}
 /* search modal ends */
 
 /* dorpdown-start */
@@ -1877,6 +1889,22 @@ body {
     color: gold;
     margin: 0;
   }
+  .modal-content{
+    width: 80% !important;
+  }
+  .u-custom-row .col-sm-8{
+      flex: 0 0 auto;
+      width: 33.33333337%;
+  
+  }
+  .u-custom-row .col-sm-2{
+      flex: 0 0 auto;
+      width: 33.33333337%;
+  
+  }
+  main {
+    margin-top: 102px;
+  }
 }
 
 @media (min-width: 300px) and (max-width: 575.98px) {
@@ -1983,6 +2011,9 @@ body {
   .u-pill{
     top: 20px;
   }
+  main {
+    margin-top: 81px;
+  }
 
 }
 
@@ -2034,6 +2065,9 @@ body {
     border-radius: 0 !important;
 
     /* margin-left: 12px; */
+  }
+  main {
+    margin-top: 104px;
   }
 }
 

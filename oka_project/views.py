@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.db.models import Q
 from django.core.mail import send_mail, BadHeaderError
 from django.core.mail import EmailMessage
 from django.core.validators import validate_email
@@ -28,6 +29,7 @@ from django.contrib import messages
 from django.http import JsonResponse
 from header_footer.models import Header
 from header_footer.models import Footer
+from orders.models import Orders , OrderItem
 
 
 stripe.api_key = 'sk_test_51PnwfEG84wrz8yN3pN99IhWeXEqKCsXVeSoLT4n7fIlm7AXOFVXMI2B4nxmkJgsuVeLVnvZFY6TogGyCPlGMxkzq00T1b1FcpY'
@@ -182,16 +184,47 @@ def products(request):
     }
 
     return render(request, "products.html", data)
-
+def resetfilter(request):
+    return render(request, "products.html")
 
 def searchResult(request):
-    searchresults = request.GET.get("search")
-    searchterm = Products.objects.filter(name__icontains=searchresults)
-    if not searchterm.exists():
+    # Get search term and filter parameters from the request
+    search_term = request.GET.get("search", "")
+    sort_order = request.GET.get("sort_order")
+    min_price = request.GET.get("min_price", 0)
+    max_price = request.GET.get("max_price", 5000)
+
+    # Start with a base queryset that includes the search term
+    search_results = Products.objects.filter(name__icontains=search_term)
+
+    # Apply price filter if min_price or max_price is specified
+    if min_price or max_price:
+        search_results = search_results.filter(price__gte=min_price, price__lte=max_price)
+
+    # Apply sorting if sort_order is specified
+    if sort_order == "ascending":
+        search_results = search_results.order_by("price")
+    elif sort_order == "descending":
+        search_results = search_results.order_by("-price")
+    elif sort_order == "lth":
+        search_results = search_results.order_by("price")
+    elif sort_order == "htl":
+        search_results = search_results.order_by("-price")
+
+    # Check if there are any results and handle the case where no products are found
+    if not search_results.exists():
         messages.error(request, "No Product Found!")
-        return render(request, "search_results.html")
-    data = {"searchterm": searchterm}
-    return render(request, "search_results.html", data)
+
+    # Prepare context data for rendering the template
+    context = {
+        "searchterm": search_results,
+        "search_query": search_term,  # Pass the search term to the template
+        "sort_order": sort_order,
+        "minprice": min_price,
+        "maxprice": max_price
+    }
+
+    return render(request, "search_results.html", context)
 
 
 def productResult(request, category):
@@ -402,6 +435,41 @@ def cart_detail(request):
 
 
 def create_checkout_session(request):
+    cart = Cart(request)
+    subtotal = 0
+    total = 0
+
+    # Initialize a list to store line items for Stripe
+    line_items = []
+
+    session_cart = cart.session.get('cart', {})
+
+    if isinstance(session_cart, dict) and session_cart:
+        for item in session_cart.values():
+            try:
+                price = int(item["price"])
+                quantity = int(item["quantity"])
+                subtotal += price * quantity
+
+                # Add each product as a line item
+                line_items.append({
+                    "price_data": {
+                        "currency": "usd",
+                        "product_data": {
+                            "name": item["name"],  # Product name from cart
+                        },
+                        "unit_amount": price,  # Convert dollars to cents
+                    },
+                    "quantity": quantity,  # Dynamic quantity
+                })
+            except (ValueError, KeyError) as e:
+                print(f"Error processing item: {e}")
+
+        total = subtotal + 200  # Calculate the total
+
+        # Store total and line items in session
+        request.session['total'] = total
+        request.session['line_items'] = line_items
     total = request.session.get('total', 0)
     line_items = request.session.get('line_items', [])
 
@@ -412,8 +480,25 @@ def create_checkout_session(request):
             success_url=settings.YOUR_DOMAIN + "success",
             cancel_url=settings.YOUR_DOMAIN + "cancel",
         )
+        if checkout_session: # needto be dynamic
+            order = Orders.objects.create(
+                user=request.user,
+                total_price=total,
+                payment_id=checkout_session.id,
+                payment_status="unpaid"
+            )
+            if order:
+                for item in session_cart.values():
+                    OrderItem.objects.create(
+                        order=order,
+                        product_name=item["name"],
+                        quantity=item["quantity"],
+                        price=item["price"]
+                    )
     except Exception as e:
-        return str(e)
+        print('==================================')
+        print(e)
+        print('+++++++++++++++++++++++++++++++++++')
 
     return redirect(checkout_session.url, code=303)
 
