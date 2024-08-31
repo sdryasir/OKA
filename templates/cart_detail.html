@@ -80,9 +80,15 @@
         <p style="font-weight: 600; color: #333; text-align: end">
           SUBTOTAL : Rs. {{subtotal}}
         </p>
+        {% if subtotal != 0 %}
         <p style="font-weight: 600; color: #333; text-align: end">
           SHIPPING : Rs. 200
         </p>
+        {% else %}
+        <p style="font-weight: 600; color: #333; text-align: end">
+          SHIPPING : Rs. 0
+        </p>
+        {% endif %}
         <p style="font-weight: 600; color: #f40000; text-align: end">
           TOTAL : Rs. {{total}}
         </p>
@@ -142,9 +148,16 @@
         <p style="margin-top: 12px; font-weight: 600; color: #333; border-bottom: 1px rgb(0,0,0,.5) dotted; text-align: end;">
           Subtotal : Rs. {{subtotal}}
         </p>
+        {% if subtotal != 0 %}
         <p style="font-weight: 600; color: #333; border-bottom: 1px rgb(0,0,0,.5) dotted; text-align: end">
           Shipping Charges : Rs. 200
         </p>
+        {% else %}
+        <p style="font-weight: 600; color: #333; border-bottom: 1px rgb(0,0,0,.5) dotted; text-align: end">
+          Shipping Charges : Rs. 0
+        </p>
+        {% endif %}
+
         <p style="font-weight: 600; color: #f40000; border-bottom: 1px rgb(0,0,0,.5) dotted; text-align: end">
           Total Bill : Rs. {{total}}
         </p>
