@@ -544,7 +544,7 @@ def create_checkout_session(request):
 
 
 
-def success(request, order_id):
+def success(request):
     return render(request, "success.html")
 
 
