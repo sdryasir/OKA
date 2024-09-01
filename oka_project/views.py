@@ -466,15 +466,16 @@ def create_checkout_session(request):
 
                 # Add each product as a line item
                 line_items.append({
-                    "price_data": {
-                        "currency": "usd",
-                        "product_data": {
-                            "name": item["name"],  # Product name from cart
+                        "price_data": {
+                            "currency": "pkr",  # Set the currency to PKR
+                            "product_data": {
+                                "name": item["name"],  # Product name from cart
+                            },
+                            "unit_amount": int(price * 100),  # Convert PKR to paisa (smallest currency unit)
                         },
-                        "unit_amount": price,  # Convert dollars to cents
-                    },
-                    "quantity": quantity,  # Dynamic quantity
-                })
+                        "quantity": quantity,  # Dynamic quantity
+                    })
+
             except (ValueError, KeyError) as e:
                 print(f"Error processing item: {e}")
 
