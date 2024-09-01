@@ -44,6 +44,7 @@ urlpatterns = [
     path('product-results/', views.productResult, name='product-results'),
     path('product-results/<category>', views.productResult, name='product-results'),
     # path('register-user/', views.register_user, name='register-user'),
+    path('success/<int:order_id>/', views.success, name='success'),
     path('login-user/', views.log_inUser, name='loginuser'),
     path('logout/', views.log_out_user, name='logout'),
     path('password_reset/', auth_views.PasswordResetView.as_view(template_name='Password_Reset_View.html'), name='password_reset'),

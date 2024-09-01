@@ -31,10 +31,11 @@ from django.contrib import messages
 from django.http import JsonResponse
 from header_footer.models import Header
 from header_footer.models import Footer
-from orders.models import Orders , OrderItem
+from orders.models import Orders, OrderItem
 
 
-stripe.api_key = 'sk_test_51PnwfEG84wrz8yN3pN99IhWeXEqKCsXVeSoLT4n7fIlm7AXOFVXMI2B4nxmkJgsuVeLVnvZFY6TogGyCPlGMxkzq00T1b1FcpY'
+stripe.api_key = "sk_test_51PnwfEG84wrz8yN3pN99IhWeXEqKCsXVeSoLT4n7fIlm7AXOFVXMI2B4nxmkJgsuVeLVnvZFY6TogGyCPlGMxkzq00T1b1FcpY"
+
 
 def header(request):
     header = Header.objects.all()
@@ -46,6 +47,7 @@ def header(request):
         "header": header,
     }
     return render(request, "header.html", data)
+
 
 def home(request):
     productdata = list(Products.objects.all())
@@ -125,19 +127,19 @@ def log_out_user(request):
 def signup(request):
     if request.user.is_authenticated:
         return redirect("home")
-    
-    if request.method == 'POST':
+
+    if request.method == "POST":
         form = CustomUserForm(request.POST)
         if form.is_valid():
-            email = form.cleaned_data.get('email')
+            email = form.cleaned_data.get("email")
             if User.objects.filter(email=email).exists():
-                form.add_error('email', 'Email is already in use.')
+                form.add_error("email", "Email is already in use.")
             else:
                 user = form.save()
                 return redirect("login")
     else:
         form = CustomUserForm()
-    
+
     return render(request, "signup.html", {"form": form})
 
 
@@ -186,8 +188,11 @@ def products(request):
     }
 
     return render(request, "products.html", data)
+
+
 def resetfilter(request):
     return render(request, "products.html")
+
 
 def searchResult(request):
     # Get search term and filter parameters from the request
@@ -201,7 +206,9 @@ def searchResult(request):
 
     # Apply price filter if min_price or max_price is specified
     if min_price or max_price:
-        search_results = search_results.filter(price__gte=min_price, price__lte=max_price)
+        search_results = search_results.filter(
+            price__gte=min_price, price__lte=max_price
+        )
 
     # Apply sorting if sort_order is specified
     if sort_order == "ascending":
@@ -223,7 +230,7 @@ def searchResult(request):
         "search_query": search_term,  # Pass the search term to the template
         "sort_order": sort_order,
         "minprice": min_price,
-        "maxprice": max_price
+        "maxprice": max_price,
     }
 
     return render(request, "search_results.html", context)
@@ -342,13 +349,13 @@ def productResult(request, category):
 #     if request.method == 'POST':
 #         form = CustomUserForm(request.POST)
 #         if form.is_valid():
-#             user = form.save()  
+#             user = form.save()
 #             print('jvchdchajdchvjhcvaj' , user)
 #         else:
 #             print('hgjsjghcdddddddddghchcgchjchjchch')
-#     else:   
+#     else:
 
-#         form = CustomUserForm()    
+#         form = CustomUserForm()
 #     return render(request, "checkout.html", {"form": form})
 
 
@@ -412,7 +419,7 @@ def cart_detail(request):
     # Initialize a list to store line items for Stripe
     line_items = []
 
-    session_cart = cart.session.get('cart', {})
+    session_cart = cart.session.get("cart", {})
 
     if isinstance(session_cart, dict) and session_cart:
         for item in session_cart.values():
@@ -422,29 +429,28 @@ def cart_detail(request):
                 subtotal += price * quantity
 
                 # Add each product as a line item
-                line_items.append({
-                    "price_data": {
-                        "currency": "usd",
-                        "product_data": {
-                            "name": item["name"],  # Product name from cart
+                line_items.append(
+                    {
+                        "price_data": {
+                            "currency": "usd",
+                            "product_data": {
+                                "name": item["name"],  # Product name from cart
+                            },
+                            "unit_amount": price * 100,  # Convert dollars to cents
                         },
-                        "unit_amount": price * 100,  # Convert dollars to cents
-                    },
-                    "quantity": quantity,  # Dynamic quantity
-                })
+                        "quantity": quantity,  # Dynamic quantity
+                    }
+                )
             except (ValueError, KeyError) as e:
                 print(f"Error processing item: {e}")
 
         total = subtotal + 200  # Calculate the total
 
         # Store total and line items in session
-        request.session['total'] = total
-        request.session['line_items'] = line_items
+        request.session["total"] = total
+        request.session["line_items"] = line_items
 
-    data = {
-        "subtotal": subtotal,
-        "total": total
-    }
+    data = {"subtotal": subtotal, "total": total}
 
     return render(request, "cart_detail.html", data)
 
@@ -458,7 +464,7 @@ def create_checkout_session(request):
     # Initialize a list to store line items for Stripe
     line_items = []
 
-    session_cart = cart.session.get('cart', {})
+    session_cart = cart.session.get("cart", {})
 
     if isinstance(session_cart, dict) and session_cart:
         for item in session_cart.values():
@@ -468,26 +474,28 @@ def create_checkout_session(request):
                 subtotal += price * quantity
 
                 # Add each product as a line item
-                line_items.append({
-                    "price_data": {
-                        "currency": "pkr",
-                        "product_data": {
-                            "name": item["name"],  # Product name from cart
+                line_items.append(
+                    {
+                        "price_data": {
+                            "currency": "pkr",
+                            "product_data": {
+                                "name": item["name"],  # Product name from cart
+                            },
+                            "unit_amount": price,  # Price in cents
                         },
-                        "unit_amount": price,  # Price in cents
-                    },
-                    "quantity": quantity,  # Dynamic quantity
-                })
+                        "quantity": quantity,  # Dynamic quantity
+                    }
+                )
             except (ValueError, KeyError) as e:
                 print(f"Error processing item: {e}")
 
         total = subtotal + shipping_fee  # Calculate the total
 
         # Store total and line items in session
-        request.session['total'] = total
-        request.session['line_items'] = line_items
-    total = request.session.get('total', 0)
-    line_items = request.session.get('line_items', [])
+        request.session["total"] = total
+        request.session["line_items"] = line_items
+    total = request.session.get("total", 0)
+    line_items = request.session.get("line_items", [])
 
     try:
         checkout_session = stripe.checkout.Session.create(
@@ -517,7 +525,7 @@ def create_checkout_session(request):
                 user=request.user,
                 total_price=total / 100,  # Convert cents back to PKR
                 payment_id=checkout_session.id,
-                payment_status="unpaid"
+                payment_status="unpaid",
             )
             if order:
                 for item in session_cart.values():
@@ -525,65 +533,22 @@ def create_checkout_session(request):
                         order=order,
                         product_name=item["name"],
                         quantity=item["quantity"],
-                        price=item["price"]
+                        price=item["price"],
                     )
     except Exception as e:
-        print('==================================')
+        print("==================================")
         print(e)
-        print('+++++++++++++++++++++++++++++++++++')
+        print("+++++++++++++++++++++++++++++++++++")
 
     return redirect(checkout_session.url, code=303)
 
 
 
+def success(request, order_id):
+    return render(request, "success.html")
 
 
-def success(request):
-    session_id = request.GET.get('session_id')
 
-    if session_id:
-        try:
-            # Find the order associated with this session_id
-            order = Orders.objects.get(payment_id=session_id)
-
-            # Check if the payment status is 'paid'
-            if order.payment_status == 'paid':
-                # Clear the cart
-                cart = Cart(request)
-                cart.clear()
-
-                # Send confirmation email
-                send_confirmation_email(order)
-
-                # Render the success template
-                return render(request, 'success.html', {'order': order})
-
-            return HttpResponse("Payment was not successful.")
-
-        except Orders.DoesNotExist:
-            return HttpResponse("Order not found.")
-
-    return HttpResponse("Session ID not provided.")
-
-
-def send_confirmation_email(order):
-    subject = 'Order Confirmation'
-    message = f"""
-    Dear {order.user.username},
-
-    Thank you for your purchase!
-
-    Your order has been successfully processed. 
-    Order ID: {order.id}
-    Total Amount: {order.total_price} PKR
-
-    We appreciate your business and hope to serve you again soon.
-
-    Best regards,
-    Your Company Name
-    """
-    recipient_list = [order.user.email]
-    send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, recipient_list)
 
 def cancel(request):
     return render(request, "cancel.html")
