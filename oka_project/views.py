@@ -6,7 +6,9 @@ from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from smtplib import SMTPException
 import requests
+from django.views.decorators.csrf import csrf_exempt
 import json
+from django.utils import timezone
 from Product.models import Products
 from categories.models import Category
 from carousel.models import Carousel
@@ -534,9 +536,54 @@ def create_checkout_session(request):
 
 
 
-def success(request):
-    return render(request, "success.html")
 
+
+def success(request):
+    session_id = request.GET.get('session_id')
+
+    if session_id:
+        try:
+            # Find the order associated with this session_id
+            order = Orders.objects.get(payment_id=session_id)
+
+            # Check if the payment status is 'paid'
+            if order.payment_status == 'paid':
+                # Clear the cart
+                cart = Cart(request)
+                cart.clear()
+
+                # Send confirmation email
+                send_confirmation_email(order)
+
+                # Render the success template
+                return render(request, 'success.html', {'order': order})
+
+            return HttpResponse("Payment was not successful.")
+
+        except Orders.DoesNotExist:
+            return HttpResponse("Order not found.")
+
+    return HttpResponse("Session ID not provided.")
+
+
+def send_confirmation_email(order):
+    subject = 'Order Confirmation'
+    message = f"""
+    Dear {order.user.username},
+
+    Thank you for your purchase!
+
+    Your order has been successfully processed. 
+    Order ID: {order.id}
+    Total Amount: {order.total_price} PKR
+
+    We appreciate your business and hope to serve you again soon.
+
+    Best regards,
+    Your Company Name
+    """
+    recipient_list = [order.user.email]
+    send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, recipient_list)
 
 def cancel(request):
     return render(request, "cancel.html")
