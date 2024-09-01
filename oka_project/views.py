@@ -450,6 +450,7 @@ def cart_detail(request):
 def create_checkout_session(request):
     cart = Cart(request)
     subtotal = 0
+    shipping_fee = 200 * 100  # Shipping fee in cents (200 PKR)
     total = 0
 
     # Initialize a list to store line items for Stripe
@@ -460,26 +461,25 @@ def create_checkout_session(request):
     if isinstance(session_cart, dict) and session_cart:
         for item in session_cart.values():
             try:
-                price = int(item["price"])
+                price = int(item["price"]) * 100  # Convert PKR to cents
                 quantity = int(item["quantity"])
                 subtotal += price * quantity
 
                 # Add each product as a line item
                 line_items.append({
-                        "price_data": {
-                            "currency": "pkr",  # Set the currency to PKR
-                            "product_data": {
-                                "name": item["name"],  # Product name from cart
-                            },
-                            "unit_amount": int(price * 100),  # Convert PKR to paisa (smallest currency unit)
+                    "price_data": {
+                        "currency": "pkr",
+                        "product_data": {
+                            "name": item["name"],  # Product name from cart
                         },
-                        "quantity": quantity,  # Dynamic quantity
-                    })
-
+                        "unit_amount": price,  # Price in cents
+                    },
+                    "quantity": quantity,  # Dynamic quantity
+                })
             except (ValueError, KeyError) as e:
                 print(f"Error processing item: {e}")
 
-        total = subtotal + 200  # Calculate the total
+        total = subtotal + shipping_fee  # Calculate the total
 
         # Store total and line items in session
         request.session['total'] = total
@@ -493,11 +493,27 @@ def create_checkout_session(request):
             mode="payment",
             success_url=settings.YOUR_DOMAIN + "success",
             cancel_url=settings.YOUR_DOMAIN + "cancel",
+            shipping_options=[
+                {
+                    "shipping_rate_data": {
+                        "type": "fixed_amount",
+                        "fixed_amount": {
+                            "amount": shipping_fee,
+                            "currency": "pkr",
+                        },
+                        "display_name": "Standard Shipping",
+                        "delivery_estimate": {
+                            "minimum": {"unit": "business_day", "value": "5"},
+                            "maximum": {"unit": "business_day", "value": "7"},
+                        },
+                    }
+                }
+            ],
         )
-        if checkout_session: # needto be dynamic
+        if checkout_session:
             order = Orders.objects.create(
                 user=request.user,
-                total_price=total,
+                total_price=total / 100,  # Convert cents back to PKR
                 payment_id=checkout_session.id,
                 payment_status="unpaid"
             )
