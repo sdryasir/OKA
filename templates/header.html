@@ -63,11 +63,21 @@
                     </div>
 
                   </li>
+                  {% if user.is_authenticated %}
+                  <li class="nav-item sizing me-3">
+                    <i id="person-icon" class="bi bi-person-circle material-symbols-outlined u-p-icon"
+                      style="color: black; font-weight: 700; font-size: 105%;"></i>
+
+                  </li>
+
+                  {% else %}
                   <li class="nav-item sizing me-3">
                     <i id="person-icon" class="bi bi-person material-symbols-outlined u-p-icon"
                       style="color: black; font-weight: 700; font-size: 102%;"></i>
 
                   </li>
+
+                  {% endif %}
 
                   <li class="nav-item sizing me-3 u-view-upper">
                     <a class="bi bi-cart" href="{% url 'cart_detail' %}"
@@ -155,7 +165,7 @@
     <div class="popup-content">
       <span class="close">&times;</span>
       {% if user.is_authenticated %}
-      <p><strong>Welcome! {{user.username}}</p></strong>
+      <p><strong>Welcome! "{{user.username}}"</p></strong>
       <p style="color: red;"><strong style="color: black;">login at:</strong> {{user.last_login}}</p>
       <a id="logoutBtn" href="/logout">Logout</a>
       {% else %}
