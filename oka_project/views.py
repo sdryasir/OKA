@@ -230,7 +230,16 @@ def searchResult(request):
 def productResult(request, category):
     productsbycat = Products.objects.filter(category_id=category)
 
+    # Retrieve filter parameters
+    min_price = request.GET.get("min_price")
+    max_price = request.GET.get("max_price")
     sort_order = request.GET.get("sort_order")
+
+    # Apply price range filter
+    if min_price and max_price:
+        productsbycat = productsbycat.filter(price__gte=min_price, price__lte=max_price)
+
+    # Apply sorting
     if sort_order == "ascending":
         productsbycat = productsbycat.order_by("price")
     elif sort_order == "descending":
@@ -242,11 +251,13 @@ def productResult(request, category):
     else:
         productsbycat = list(productsbycat)
         random.shuffle(productsbycat)
+
+    # Handle no products case
     if not productsbycat:
         messages.error(request, "No Product Found!")
         return render(request, "product_results.html")
 
-    paginator = Paginator(productsbycat, 4)
+    paginator = Paginator(productsbycat, 8)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
 
@@ -257,6 +268,8 @@ def productResult(request, category):
         "totalpages": totalpage,
         "productsbycat": productsbycat,
         "sort_order": sort_order,
+        "minprice": min_price,
+        "maxprice": max_price,
         "category": category,
     }
 
@@ -437,6 +450,7 @@ def cart_detail(request):
 def create_checkout_session(request):
     cart = Cart(request)
     subtotal = 0
+    shipping_fee = 200 * 100  # Shipping fee in cents (200 PKR)
     total = 0
 
     # Initialize a list to store line items for Stripe
@@ -447,25 +461,25 @@ def create_checkout_session(request):
     if isinstance(session_cart, dict) and session_cart:
         for item in session_cart.values():
             try:
-                price = int(item["price"])
+                price = int(item["price"]) * 100  # Convert PKR to cents
                 quantity = int(item["quantity"])
                 subtotal += price * quantity
 
                 # Add each product as a line item
                 line_items.append({
                     "price_data": {
-                        "currency": "usd",
+                        "currency": "pkr",
                         "product_data": {
                             "name": item["name"],  # Product name from cart
                         },
-                        "unit_amount": price,  # Convert dollars to cents
+                        "unit_amount": price,  # Price in cents
                     },
                     "quantity": quantity,  # Dynamic quantity
                 })
             except (ValueError, KeyError) as e:
                 print(f"Error processing item: {e}")
 
-        total = subtotal + 200  # Calculate the total
+        total = subtotal + shipping_fee  # Calculate the total
 
         # Store total and line items in session
         request.session['total'] = total
@@ -479,11 +493,27 @@ def create_checkout_session(request):
             mode="payment",
             success_url=settings.YOUR_DOMAIN + "success",
             cancel_url=settings.YOUR_DOMAIN + "cancel",
+            shipping_options=[
+                {
+                    "shipping_rate_data": {
+                        "type": "fixed_amount",
+                        "fixed_amount": {
+                            "amount": shipping_fee,
+                            "currency": "pkr",
+                        },
+                        "display_name": "Standard Shipping",
+                        "delivery_estimate": {
+                            "minimum": {"unit": "business_day", "value": "5"},
+                            "maximum": {"unit": "business_day", "value": "7"},
+                        },
+                    }
+                }
+            ],
         )
-        if checkout_session: # needto be dynamic
+        if checkout_session:
             order = Orders.objects.create(
                 user=request.user,
-                total_price=total,
+                total_price=total / 100,  # Convert cents back to PKR
                 payment_id=checkout_session.id,
                 payment_status="unpaid"
             )
