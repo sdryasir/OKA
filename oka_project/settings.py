@@ -60,6 +60,8 @@ INSTALLED_APPS = [
     'nested_admin',
     'orders',
     
+    
+    
 ]
 
 

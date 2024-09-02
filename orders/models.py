@@ -7,7 +7,7 @@ class Orders(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=20 , default="Pending")
     payment_status = models.CharField(max_length=20 , default="unpaid" , null=True)
-    payment_id = models.CharField(max_length=20 , null=True)
+    payment_id = models.CharField(max_length=100,null=True)
     total_price = models.DecimalField(max_digits=10 , decimal_places=2 , default=0.00)
     class Meta:
         verbose_name_plural = "Order"
