@@ -552,3 +552,12 @@ def success(request):
 
 def cancel(request):
     return render(request, "cancel.html")
+
+
+def submit_review(request, id):
+    if request.method == 'POST':
+        rating = request.POST['rating']
+        opinion = request.POST.get('opinion')
+        product_id = request.POST.get('id')
+        print(rating, opinion, product_id)
+    return HttpResponse('Thank you for your review!')

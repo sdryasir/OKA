@@ -42,6 +42,7 @@ urlpatterns = [
     path('product-details/<id>', views.productDetails, name='product-details'),
     path('search-results/', views.searchResult, name='search-results'),
     path('product-results/', views.productResult, name='product-results'),
+    path('submit_review/<int:id>', views.submit_review, name='submit_review'),
     path('product-results/<category>', views.productResult, name='product-results'),
     # path('register-user/', views.register_user, name='register-user'),
     path('success/<int:order_id>/', views.success, name='success'),
