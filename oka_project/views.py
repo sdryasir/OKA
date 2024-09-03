@@ -1,10 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponseBadRequest
 from django.db.models import Q
 from django.core.mail import send_mail, BadHeaderError
 from django.core.mail import EmailMessage
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from smtplib import SMTPException
+from reviews.models import Reviews
 import requests
 from django.views.decorators.csrf import csrf_exempt
 import json
@@ -143,11 +145,13 @@ def signup(request):
     return render(request, "signup.html", {"form": form})
 
 
-def productDetails(request, id):
+def product_details(request, id):
     productsdetails = Products.objects.get(id__exact=id)
+    reviews = Reviews.objects.filter(Item=id).order_by('-id')
 
     data = {
         "products": productsdetails,
+        "reviews":reviews
     }
 
     return render(request, "productdetail.html", data)
@@ -543,21 +547,54 @@ def create_checkout_session(request):
     return redirect(checkout_session.url, code=303)
 
 
-
 def success(request):
     return render(request, "success.html")
-
-
 
 
 def cancel(request):
     return render(request, "cancel.html")
 
 
+@login_required
 def submit_review(request, id):
-    if request.method == 'POST':
-        rating = request.POST['rating']
-        opinion = request.POST.get('opinion')
-        product_id = request.POST.get('id')
-        print(rating, opinion, product_id)
-    return HttpResponse('Thank you for your review!')
+    referrer = request.META.get('HTTP_REFERER', 'productdetail') 
+    product = get_object_or_404(Products, id=id)
+
+    if request.method == "POST":
+        rating = request.POST.get("rating")
+        opinion = request.POST.get("opinion")
+
+        if not rating or not opinion:
+            messages.error(request, "Please Fill Both Fields!")
+            return redirect(referrer)
+
+        # Check if the user has already reviewed this product
+        existing_review = Reviews.objects.filter(
+            user=request.user, Item=product
+        ).first()
+        if existing_review:
+            messages.error(request, "You have already reviewed this product.")
+            return redirect(referrer)
+
+        # Fetch the relevant order item for this product and user by matching product_name
+        order_item = OrderItem.objects.filter(
+            order__user=request.user, product_name=product.name
+        ).first()
+        if not order_item:
+            messages.error(request, "You have not placed any order for this product.")
+            return redirect(referrer)
+
+        # Create a new review with the associated order
+        Reviews.objects.create(
+            rating=rating,
+            opinion=opinion,
+            user=request.user,
+            Item=product,
+            order=order_item.order,  # Link to the correct order
+        )
+        messages.error(request, "Review submitted successfully.")
+        # Redirect to the product details page after review submission
+        return redirect("productdetail", id=id)
+
+    # If the request method is not POST, render the product detail page
+    return render(request, "productdetail.html", {"product": product})

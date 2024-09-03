@@ -59,11 +59,12 @@ INSTALLED_APPS = [
     'header_footer',
     'nested_admin',
     'orders',
-    
-    
+    'reviews',
+        
     
 ]
 
+MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
