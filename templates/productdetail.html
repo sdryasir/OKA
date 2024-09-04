@@ -1,7 +1,205 @@
 {% include 'header.html' %}
 {% load static %}
 
+<style>
+  * {
+      margin: 0px;
+      padding: 0px;
+      font-family: poppins;
+      box-sizing: border-box;
+  }
+
+  a {
+      text-decoration: none;
+  }
+
+  #testimonials {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      width: 100%;
+  }
+  .alert-error {
+    color: white !important;
+    background-color: #ff834e !important;
+
+}
+.messages{
+  width: auto;
+  display: flex;
+  justify-content: center;
+  margin-top: 12%;
+}
+
+  .testimonial-heading {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+      letter-spacing: 1px;
+      margin: 30px 0px;
+      padding: 10px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+  }
+
+  .testimonial-heading span {
+      font-size: 1.3rem;
+      color: #252525;
+      margin-bottom: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+  }
+
+  .testimonial-box-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      width: 100%;
+  }
+
+  .testimonial-box {
+      width: 500px;
+      box-shadow: 2px 2px 30px rgba(0, 0, 0, 0.1);
+      background-color: #ffffff;
+      padding: 20px;
+      margin: 15px;
+      cursor: pointer;
+  }
+
+  .profile-img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-right: 10px;
+  }
+
+  .profile-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+  }
+
+  .profile {
+      display: flex;
+      align-items: center;
+  }
+
+  .name-user {
+      display: flex;
+      flex-direction: column;
+  }
+
+  .name-user strong {
+      color: #3d3d3d;
+      font-size: 1.1rem;
+      letter-spacing: 0.5px;
+  }
+
+  .name-user span {
+      color: #979797;
+      font-size: 0.8rem;
+  }
+
+  .reviews {
+      color: #f9d71c;
+  }
+
+  .box-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+  }
+
+  .client-comment p {
+      font-size: 0.9rem;
+      color: #4b4b4b;
+  }
+
+  .testimonial-box:hover {
+      transform: translateY(-10px);
+      transition: all ease 0.3s;
+  }
+
+  @media(max-width: 1060px) {
+      .testimonial-box {
+          width: 45%;
+          padding: 10px;
+      }
+  }
+  @media (min-width: 790px) and (max-width: 1060px) {
+    .testimonial-box{
+    margin-left: 0;
+    margin-right: 0;
+    width: 89%;
+    }
+}
+  @media(max-width: 790px) {
+      .testimonial-box {
+          width: 100%;
+      }
+
+      .testimonial-heading h1 {
+          font-size: 1.4rem;
+          margin-top: 20% !important;
+      }
+  }
+
+  @media (min-width: 340px) and (max-width: 767px) {
+    .testimonial-heading{
+      margin-top: 5% !important;
+    }
+  }
+  @media (min-width: 340px) and (max-width: 1240px) {
+    .box-top{
+      justify-content: space-around !important;
+    }
+  }
+
+
+  @media(max-width: 340px) {
+      .testimonial-heading{
+        margin-top: 5% !important;
+      }
+      .box-top {
+          flex-wrap: wrap;
+          margin-bottom: 10px;
+      }
+
+      .reviews {
+          margin-top: 10px;
+      }
+      
+  }
+
+  ::selection {
+      color: #ffffff;
+      background-color: #252525;
+  }
+  
+
+</style>
+
+
+
+
 <main>
+  {% if messages %}
+  <div class="messages">
+      {% for message in messages %}
+          <div class="alert alert-{{ message.tags }}">
+              {{ message }}
+          </div>
+      {% endfor %}
+  </div>
+  {% endif %}
   <div class="container-fluid">
     <div class="row mb-5 p-0">
       <div class="col-md-6 col-lg-6 col-xl-4 mt-5">
@@ -89,6 +287,7 @@
                 <a class="u-cart-adjust-2 ms-2" style="order: -1;" href=""><i class="bi bi-heart me-1"> </i></a>
               </form>
 
+
               <div class="u-add-to-cart d-flex align-items-center mt-3">
                 <a style="text-align: center;" class="u-cart-adjust ms-2" href="{% url 'cart_add' products.id %}"><i
                     class="bi bi-cart me-1"> </i> ADD TO CART</a>
@@ -156,10 +355,13 @@
           aria-labelledby="pills-profile-tab" tabindex="0">
           {{products.More_information}}</div>
         <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">
-          <div class="body-b">
+          
+       <div class="row">
+        <div style="padding: 0;" class="col-md-6">
           <div class="review-wrapper">
             <h3>Rate Your Experience</h3>
-            <form action="#">
+            <form action="{% url 'submit-review' products.id %}" method="post">
+              {% csrf_token %}
               <div class="rating">
                 <input type="number" name="rating" hidden>
                 <i class='bx bx-star star' data-index="0"></i>
@@ -168,20 +370,59 @@
                 <i class='bx bx-star star' data-index="3"></i>
                 <i class='bx bx-star star' data-index="4"></i>
               </div>
-              <textarea name="opinion" cols="30" rows="5" placeholder="Your opinion..."></textarea>
+              <textarea name="opinion" cols="30" rows="5" placeholder="Your opinion..." required></textarea>
               <div class="btn-group d-flex justify-content-between">
                 <button type="submit" class="btn btn-primary">Submit</button>
-                <button type="button" class="btn btn-outline-secondary">Cancel</button>
+                <button type="button" class="btn btn-outline-secondary" onclick="window.location.href = window.location.href;">Cancel</button>
               </div>
             </form>
           </div>
         </div>
-        </div>
+        <div class="col-md-5">
 
+  
+
+
+  <section id="testimonials">
+      <div class="testimonial-heading">
+          <h4>Reviews</h4>
       </div>
-    </div>
-  </div><!-- /.u-tab-wrapper -->
+      <div class="testimonial-box-container">
+        {% if reviews %}
+        {% for review in reviews %}
+          <div class="testimonial-box">
+              <div class="box-top">
+                  <div class="profile">
+                      <div class="profile-img">
+                          <img src="https://cdn3.iconfinder.com/data/icons/avatars-15/64/_Ninja-2-512.png" />
+                      </div>
+                      <div class="name-user">
+                          <strong>{{review.user}}</strong>
+                          <span>{{review.date_time}}</span>
+                      </div>
+                  </div>
+                  <div class="reviews">
+                      <span style="color: black;">{{review.rating}}</span><i class="fas fa-star"></i>
+                  </div>
+              </div>
+              <div class="client-comment">
+                  <p>{{review.opinion}}</p>
+              </div>
+          </div>
+        {% endfor %}
+        {% else %}
+        <div></div>
+          <h2 style="color: red;">No Reviews Found!</h2>
+        {% endif %}
+      </div>
+  </section>
+</div>
+
+</div>
+</div>
+</div><!-- /.u-tab-wrapper -->
 </main>
 
 
+<script src='https://kit.fontawesome.com/c8e4d183c2.js'></script>
 {% include 'footer.html' %}

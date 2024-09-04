@@ -34,7 +34,9 @@ class Products(models.Model):
     image5 = models.FileField(upload_to= "products/" , max_length=200 , null=True , help_text='Image size must be 500 X 500 pixels and add all images. If you dont have enough images then you can add 1 image 6 times' ,  validators=[validate_image_size])
     image6 = models.FileField(upload_to= "products/" , max_length=200 , null=True , help_text='Image size must be 500 X 500 pixels and add all images. If you dont have enough images then you can add 1 image 6 times' ,  validators=[validate_image_size])
 
- 
+    class Meta:
+        verbose_name = 'Product'
+        verbose_name_plural = 'Products'
 
     def __str__(self):
         return self.name
