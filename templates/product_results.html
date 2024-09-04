@@ -43,13 +43,12 @@
     text-align: center;
     font-size: x-large;
     font-weight: bolder;
-    margin-top: 5%;
-    margin-bottom: 5%;
+    text-decoration: underline;
   }
 </style>
 
 <main style=" margin-top: 0;" >
-  <div style="padding-top: 100px !important;" class="u_category_inner_wrapper">
+  <div style="padding-top: 100px !important;" class="u_category_inner_wrapper pb-5">
     <div class="container-fluid">
       <div class="row">
         <div class="category mb-5">
@@ -89,7 +88,7 @@
     </div>
     <div class="pagination-wrapper">
       <nav aria-label="Page navigation example">
-        <ul class="pagination d-flex justify-content-center m-0 py-5">
+        <ul class="pagination d-flex justify-content-center m-0 pt-5">
           {% if products.has_previous %}
           <li class="page-item">
             <a style="color: black; box-shadow: none; border: 1px solid black" class="page-link"
@@ -110,13 +109,14 @@
           {% endif %}
         </ul>
       </nav>
+      {% if messages %}
+      {% for mess in messages %}
+      <div class="meSa">{{mess}}</div>
+      {% endfor %}
+      {% endif %}
     </div><!-- /.pagination-wrapper -->
   </div><!-- /.u_category_inner_wrapper -->
-  {% if messages %}
-  {% for mess in messages %}
-  <div class="meSa">{{mess}}</div>
-  {% endfor %}
-  {% endif %}
+
 
   
 
