@@ -42,7 +42,7 @@ urlpatterns = [
     path('product-details/<id>', views.productDetails, name='product-details'),
     path('search-results/', views.searchResult, name='search-results'),
     path('product-results/', views.productResult, name='product-results'),
-    path('product-results/<category>', views.productResult, name='product-results'),
+    path('product-results/<int:category>', views.productResult, name='product-results'),
     # path('register-user/', views.register_user, name='register-user'),
     path('success/<int:order_id>/', views.success, name='success'),
     path('login-user/', views.log_inUser, name='loginuser'),
@@ -57,6 +57,8 @@ urlpatterns = [
     path('cart/item_decrement/<int:id>/',views.item_decrement, name='item_decrement'),
     path('cart/cart_clear/', views.cart_clear, name='cart_clear'),
     path('cart/cart-detail/',views.cart_detail,name='cart_detail'),
+
+
 ]
 if settings.DEBUG :
     urlpatterns += static(settings.MEDIA_URL , document_root = settings.MEDIA_ROOT)  

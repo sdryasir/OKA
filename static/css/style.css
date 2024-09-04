@@ -1032,6 +1032,30 @@ input:-internal-autofill-selected {
   font-size: 9px;
   top: 38%;
 }
+#profile_picture {
+  width: 207px;
+  font-size: 13px;
+}
+.u-btn-p-save{
+  color: white;
+  background-color: #f85606;
+  border: 1px #f85606 solid;
+  text-decoration: none;
+  padding: 4px 40px;
+  border-radius: 8px;
+  margin: 4px 0;
+  transition: .35s;
+  font-size: 14px;
+}
+.u-form-style .form-group {
+  text-align: end;
+}
+.u-form-style{
+  margin-top: 8px !important;
+  text-align: center;
+}
+
+
 
 
 
@@ -1751,8 +1775,9 @@ body {
 
   .u_sizing {
     position: absolute;
-    right: 45px;
+    right: 52px;
     top: 3px;
+    z-index: 3;
   }
 
   .u_active {

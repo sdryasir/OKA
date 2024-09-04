@@ -58,10 +58,7 @@ INSTALLED_APPS = [
     'social',
     'header_footer',
     'nested_admin',
-    'orders',
-    
-    
-    
+    'orders',   
 ]
 
 
