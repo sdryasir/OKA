@@ -218,7 +218,7 @@ def product_details(request, id):
         "city": city,
         "country": country,
         "address": address,
-        "phone_no": phone_no
+        "phone_no": phone_no,
         "reviews":reviews
     }
 
