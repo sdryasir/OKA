@@ -805,8 +805,9 @@ def submit_review(request, id):
             Item=product,
             order=order_item.order,
         )
-
-        messages.success(request, "Review submitted successfully.")
-        return redirect("productdetail", id=id)
-
+        try:
+            messages.success(request, "Review submitted successfully.")
+            return redirect("productdetail", id=id)
+        except:
+            return redirect(referrer)
     return render(request, "productdetail.html", {"product": product})
