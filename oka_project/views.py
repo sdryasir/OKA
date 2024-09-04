@@ -34,6 +34,7 @@ from django.http import JsonResponse
 from header_footer.models import Header
 from header_footer.models import Footer
 from orders.models import Orders, OrderItem
+from users.models import Userdata
 
 
 stripe.api_key = "sk_test_51PnwfEG84wrz8yN3pN99IhWeXEqKCsXVeSoLT4n7fIlm7AXOFVXMI2B4nxmkJgsuVeLVnvZFY6TogGyCPlGMxkzq00T1b1FcpY"
@@ -50,8 +51,12 @@ def header(request):
     }
     return render(request, "header.html", data)
 
-
 def home(request):
+    profile_picture = None
+    city = None
+    country = None
+    address = None
+    phone_no = None
     productdata = list(Products.objects.all())
     categorydata = list(Category.objects.all())
     carouseldata = list(Carousel.objects.all())
@@ -61,17 +66,56 @@ def home(request):
     random.shuffle(carouseldata)
     random.shuffle(offerdata)
 
+    if request.user.is_authenticated:
+        userdata, created = Userdata.objects.get_or_create(user=request.user)
+        profile_picture = userdata.profile_picture.url if userdata.profile_picture else None
+
+        if request.method == 'POST':
+            if 'profile_picture' in request.FILES:
+                # Save the profile picture
+                userdata.profile_picture = request.FILES['profile_picture']
+                userdata.save()
+                return redirect('home')
+        city = userdata.city if userdata.city else None
+        country = userdata.country if userdata.country else None
+        address = userdata.address if userdata.address else None
+        phone_no = userdata.phone_no if userdata.phone_no else None
+
     data = {
         "products": productdata,
         "categories": categorydata,
         "carousels": carouseldata,
         "offer": offerdata,
-    }
+        "profile_picture": profile_picture,
+        "city": city,
+        "country": country,
+        "address": address,
+        "phone_no": phone_no,
+        }
     return render(request, "index.html", data)
 
-
 def contact(request):
-    return render(request, "contact.html")
+    profile_picture = None
+    city = None
+    country = None
+    address = None
+    phone_no = None
+    if request.user.is_authenticated:
+        userdata, created = Userdata.objects.get_or_create(user=request.user)
+        profile_picture = userdata.profile_picture.url if userdata.profile_picture else None
+    
+        if request.method == 'POST':
+            if 'profile_picture' in request.FILES:
+                # Save the profile picture
+                userdata.profile_picture = request.FILES['profile_picture']
+                userdata.save()
+                return redirect('contact')
+        city = userdata.city if userdata.city else None
+        country = userdata.country if userdata.country else None
+        address = userdata.address if userdata.address else None
+        phone_no = userdata.phone_no if userdata.phone_no else None
+
+    return render(request, "contact.html"    ,{"profile_picture": profile_picture,"city": city,"country": country,"address": address,"phone_no": phone_no})
 
 
 def login(request):
@@ -148,9 +192,33 @@ def signup(request):
 def product_details(request, id):
     productsdetails = Products.objects.get(id__exact=id)
     reviews = Reviews.objects.filter(Item=id).order_by('-id')
+    profile_picture = None
+    city = None
+    country = None
+    address = None
+    phone_no = None
+    if request.user.is_authenticated:
+        userdata, created = Userdata.objects.get_or_create(user=request.user)
+        profile_picture = userdata.profile_picture.url if userdata.profile_picture else None
+    
+        if request.method == 'POST':
+            if 'profile_picture' in request.FILES:
+                # Save the profile picture
+                userdata.profile_picture = request.FILES['profile_picture']
+                userdata.save()
+                return redirect('productDetails', id)
+        city = userdata.city if userdata.city else None
+        country = userdata.country if userdata.country else None
+        address = userdata.address if userdata.address else None
+        phone_no = userdata.phone_no if userdata.phone_no else None
 
     data = {
         "products": productsdetails,
+        "profile_picture": profile_picture,
+        "city": city,
+        "country": country,
+        "address": address,
+        "phone_no": phone_no
         "reviews":reviews
     }
 
@@ -180,8 +248,28 @@ def products(request):
     paginator = Paginator(productdata, 8)
     page_number = request.GET.get("page", 1)
     page_obj = paginator.get_page(page_number)
+    
 
     totalpage = [x + 1 for x in range(paginator.num_pages)]
+    profile_picture = None
+    city = None
+    country = None
+    address = None
+    phone_no = None
+    if request.user.is_authenticated:
+        userdata, created = Userdata.objects.get_or_create(user=request.user)
+        profile_picture = userdata.profile_picture.url if userdata.profile_picture else None
+    
+        if request.method == 'POST':
+            if 'profile_picture' in request.FILES:
+                # Save the profile picture
+                userdata.profile_picture = request.FILES['profile_picture']
+                userdata.save()
+                return redirect('products')
+        city = userdata.city if userdata.city else None
+        country = userdata.country if userdata.country else None
+        address = userdata.address if userdata.address else None
+        phone_no = userdata.phone_no if userdata.phone_no else None
 
     data = {
         "products": page_obj,
@@ -189,6 +277,11 @@ def products(request):
         "sort_order": sort_order,
         "minprice": minprice,
         "maxprice": maxprice,
+        "profile_picture": profile_picture,
+        "city": city,
+        "country": country,
+        "address": address,
+        "phone_no": phone_no
     }
 
     return render(request, "products.html", data)
@@ -227,6 +320,25 @@ def searchResult(request):
     # Check if there are any results and handle the case where no products are found
     if not search_results.exists():
         messages.error(request, "No Product Found!")
+    profile_picture = None
+    city = None
+    country = None
+    address = None
+    phone_no = None
+    if request.user.is_authenticated:
+        userdata, created = Userdata.objects.get_or_create(user=request.user)
+        profile_picture = userdata.profile_picture.url if userdata.profile_picture else None
+    
+        if request.method == 'POST':
+            if 'profile_picture' in request.FILES:
+                # Save the profile picture
+                userdata.profile_picture = request.FILES['profile_picture']
+                userdata.save()
+                return redirect('products')
+        city = userdata.city if userdata.city else None
+        country = userdata.country if userdata.country else None
+        address = userdata.address if userdata.address else None
+        phone_no = userdata.phone_no if userdata.phone_no else None
 
     # Prepare context data for rendering the template
     context = {
@@ -235,6 +347,11 @@ def searchResult(request):
         "sort_order": sort_order,
         "minprice": min_price,
         "maxprice": max_price,
+        "profile_picture": profile_picture,
+        "city": city,
+        "country": country,
+        "address": address,
+        "phone_no": phone_no
     }
 
     return render(request, "search_results.html", context)
@@ -268,13 +385,32 @@ def productResult(request, category):
     # Handle no products case
     if not productsbycat:
         messages.error(request, "No Product Found!")
-        return render(request, "product_results.html")
+        return render(request, "product_results.html", {"category": category})
 
     paginator = Paginator(productsbycat, 8)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
 
     totalpage = [x + 1 for x in range(paginator.num_pages)]
+    profile_picture = None
+    city = None
+    country = None
+    address = None
+    phone_no = None
+    if request.user.is_authenticated:
+        userdata, created = Userdata.objects.get_or_create(user=request.user)
+        profile_picture = userdata.profile_picture.url if userdata.profile_picture else None
+    
+        if request.method == 'POST':
+            if 'profile_picture' in request.FILES:
+                # Save the profile picture
+                userdata.profile_picture = request.FILES['profile_picture']
+                userdata.save()
+                return redirect('product-results', category=category)
+        city = userdata.city if userdata.city else None
+        country = userdata.country if userdata.country else None
+        address = userdata.address if userdata.address else None
+        phone_no = userdata.phone_no if userdata.phone_no else None
 
     data = {
         "products": page_obj,
@@ -284,10 +420,14 @@ def productResult(request, category):
         "minprice": min_price,
         "maxprice": max_price,
         "category": category,
+        "profile_picture": profile_picture,
+        "city": city,
+        "country": country,
+        "address": address,
+        "phone_no": phone_no
     }
 
     return render(request, "product_results.html", data)
-
 
 # def register_user(request):
 #     if not request.user.is_authenticated:
@@ -365,7 +505,26 @@ def productResult(request, category):
 
 def faq(request):
     faq = Faq.objects.all()
-    data = {"faq": faq}
+    profile_picture = None
+    city = None
+    country = None
+    address = None
+    phone_no = None
+    if request.user.is_authenticated:
+        userdata, created = Userdata.objects.get_or_create(user=request.user)
+        profile_picture = userdata.profile_picture.url if userdata.profile_picture else None
+    
+        if request.method == 'POST':
+            if 'profile_picture' in request.FILES:
+                # Save the profile picture
+                userdata.profile_picture = request.FILES['profile_picture']
+                userdata.save()
+                return redirect('faq')
+        city = userdata.city if userdata.city else None
+        country = userdata.country if userdata.country else None
+        address = userdata.address if userdata.address else None
+        phone_no = userdata.phone_no if userdata.phone_no else None
+    data = {"faq": faq , "profile_picture": profile_picture , "city": city , "country": country , "address": address , "phone_no": phone_no}
     return render(request, "faq.html", data)
 
 
@@ -453,8 +612,27 @@ def cart_detail(request):
         # Store total and line items in session
         request.session["total"] = total
         request.session["line_items"] = line_items
+    profile_picture = None
+    city = None
+    country = None
+    address = None
+    phone_no = None
+    if request.user.is_authenticated:
+        userdata, created = Userdata.objects.get_or_create(user=request.user)
+        profile_picture = userdata.profile_picture.url if userdata.profile_picture else None
+    
+        if request.method == 'POST':
+            if 'profile_picture' in request.FILES:
+                # Save the profile picture
+                userdata.profile_picture = request.FILES['profile_picture']
+                userdata.save()
+                return redirect('cart_detail')
+        city = userdata.city if userdata.city else None
+        country = userdata.country if userdata.country else None
+        address = userdata.address if userdata.address else None
+        phone_no = userdata.phone_no if userdata.phone_no else None
 
-    data = {"subtotal": subtotal, "total": total}
+    data = {"subtotal": subtotal, "total": total , "profile_picture": profile_picture , "city": city , "country": country , "address": address , "phone_no": phone_no}
 
     return render(request, "cart_detail.html", data)
 
@@ -548,53 +726,52 @@ def create_checkout_session(request):
 
 
 def success(request):
-    return render(request, "success.html")
+    profile_picture = None
+    city = None
+    country = None
+    address = None
+    phone_no = None
+    if request.user.is_authenticated:
+        userdata, created = Userdata.objects.get_or_create(user=request.user)
+        profile_picture = userdata.profile_picture.url if userdata.profile_picture else None
+    
+        if request.method == 'POST':
+            if 'profile_picture' in request.FILES:
+                # Save the profile picture
+                userdata.profile_picture = request.FILES['profile_picture']
+                userdata.save()
+                return redirect('home')
+        city = userdata.city if userdata.city else None
+        country = userdata.country if userdata.country else None
+        address = userdata.address if userdata.address else None
+        phone_no = userdata.phone_no if userdata.phone_no else None
+    return render(request, "success.html" , {"profile_picture": profile_picture , "city": city , "country": country , "address": address , "phone_no": phone_no})
+
+
 
 
 def cancel(request):
-    return render(request, "cancel.html")
+    profile_picture = None
+    city = None
+    country = None
+    address = None
+    phone_no = None
+    if request.user.is_authenticated:
+        userdata, created = Userdata.objects.get_or_create(user=request.user)
+        profile_picture = userdata.profile_picture.url if userdata.profile_picture else None
+    
+        if request.method == 'POST':
+            if 'profile_picture' in request.FILES:
+                # Save the profile picture
+                userdata.profile_picture = request.FILES['profile_picture']
+                userdata.save()
+                return redirect('home')
+        city = userdata.city if userdata.city else None
+        country = userdata.country if userdata.country else None
+        address = userdata.address if userdata.address else None
+        phone_no = userdata.phone_no if userdata.phone_no else None
+    
+    
+    return render(request, "cancel.html" , {"profile_picture": profile_picture , "city": city , "country": country , "address": address , "phone_no": phone_no})
 
 
-@login_required
-def submit_review(request, id):
-    referrer = request.META.get('HTTP_REFERER', 'productdetail') 
-    product = get_object_or_404(Products, id=id)
-
-    if request.method == "POST":
-        rating = request.POST.get("rating")
-        opinion = request.POST.get("opinion")
-
-        if not rating or not opinion:
-            messages.error(request, "Please Fill Both Fields!")
-            return redirect(referrer)
-
-        # Check if the user has already reviewed this product
-        existing_review = Reviews.objects.filter(
-            user=request.user, Item=product
-        ).first()
-        if existing_review:
-            messages.error(request, "You have already reviewed this product.")
-            return redirect(referrer)
-
-        # Fetch the relevant order item for this product and user by matching product_name
-        order_item = OrderItem.objects.filter(
-            order__user=request.user, product_name=product.name
-        ).first()
-        if not order_item:
-            messages.error(request, "You have not placed any order for this product.")
-            return redirect(referrer)
-
-        # Create a new review with the associated order
-        Reviews.objects.create(
-            rating=rating,
-            opinion=opinion,
-            user=request.user,
-            Item=product,
-            order=order_item.order,  # Link to the correct order
-        )
-        messages.error(request, "Review submitted successfully.")
-        # Redirect to the product details page after review submission
-        return redirect("productdetail", id=id)
-
-    # If the request method is not POST, render the product detail page
-    return render(request, "productdetail.html", {"product": product})

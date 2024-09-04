@@ -1,5 +1,4 @@
 {% load static %}
-
 <!doctype html>
 <html lang="en">
 
@@ -62,18 +61,23 @@
                         <i class="ph-bold ph-x"></i>
                       </button>
                     </div>
-
+                      
                   </li>
                   {% if user.is_authenticated %}
+                  {% if profile_picture %}
                   <li class="nav-item sizing me-3">
-                    <i id="person-icon" class="bi bi-person-circle material-symbols-outlined u-p-icon"
-                      style="color: black; font-weight: 700; font-size: 105%;"></i>
-
+                    <i data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" id="person-icon" class="material-symbols-outlined u-p-icon"
+                      style="color: black; font-weight: 700; font-size: 105%;"> <img src="{{ profile_picture }}" alt="Profile Picture" class="img-fluid rounded-circle" style="width: 26px; height: 26px; object-fit: cover;"></i>
                   </li>
-
                   {% else %}
                   <li class="nav-item sizing me-3">
-                    <i id="person-icon" class="bi bi-person material-symbols-outlined u-p-icon"
+                    <i data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" id="person-icon" class="material-symbols-outlined u-p-icon"
+                      style="color: black; font-weight: 700; font-size: 105%;"> <img src="{% static 'images/profile2.jpeg' %}" alt="Profile Picture" class="img-fluid rounded-circle" style="width: 26px; height: 26px; object-fit: cover;"></i>
+                  </li>
+                  {% endif %}
+                  {% else %}
+                  <li class="nav-item sizing me-3">
+                    <i id="person-icon"  class="bi bi-person material-symbols-outlined u-p-icon"
                       style="color: black; font-weight: 700; font-size: 102%;"></i>
 
                   </li>
@@ -160,19 +164,54 @@
       </div><!-- /.u-mobile-nav -->
 
     </div><!-- /.head-wrapper -->
-    
-  </header>
+  </header> 
+  {% if user.is_authenticated %}
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" style="width: 280px;" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasRightLabel">Hi! <strong>{{user.first_name}}</strong></h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body" style="padding-top: 2px;">
+    <div class="u-profile-edit d-flex" style="justify-content: space-between;">
+      <a href=""></a> 
+      <a href="{% url 'logout' %}" style=" padding: 3px 8px; border-radius: 5px;" class="btn btn-danger"><i class="bi bi-box-arrow-right"></i></a>
+    </div><!-- /.u-profile-edit -->
+
+    {% if profile_picture %}
+        <div class="mt-2" style="text-align: center;">
+            <img src="{{ profile_picture }}" alt="Profile Picture" class="img-fluid rounded-circle" style="width: 130px; height: 130px; object-fit: cover;">
+        </div>
+    {% else %}
+    <div class="mt-4" style="text-align: center;">
+      <img src="{% static 'images/profile2.jpeg' %}" alt="Profile Picture" class="img-fluid rounded-circle" style="width: 130px; height: 130px; object-fit: cover;">
+  </div>
+    {% endif %}
+    <form method="post" enctype="multipart/form-data" class="mt-4 u-form-style">
+      {% csrf_token %}
+      <div class="form-group">
+          <input type="file" name="profile_picture" id="profile_picture" required class="form-control-file">
+      </div>
+      <button type="submit" class="btn u-btn-p-save btn-primary">Save</button>
+  </form>
+  <div class="u-user-name mt-4">
+    <p style="font-size: 14px; margin: 0; margin-top: 6px;"><strong>Username</strong> : {{ user.username }}</p>
+    <p style="font-size: 14px; margin: 0; margin-top: 6px;"><strong>Phone</strong> : {{ phone_no }}</p>
+    <p style="font-size: 14px; margin: 0; margin-top: 6px;"><strong>Email</strong> : {{ user.email }}</p>
+    <p style="font-size: 14px; margin: 0; margin-top: 6px;"><strong>City</strong> : {{ city }}</p>
+    <p style="font-size: 14px; margin: 0; margin-top: 6px;"><strong>Country</strong> : {{ country }}</p>
+    <p style="font-size: 14px; margin: 0; margin-top: 6px;"><strong>Address</strong> : {{ address }}</p>
+  </div><!-- /.u-user-name -->
+
+          
+
+    </div>
+  </div>
+  {% else %}
   <div id="popup" class="popup">
     <div class="popup-content">
       <span class="close">&times;</span>
-      {% if user.is_authenticated %}
-      <p><strong>Welcome! "{{user.username}}"</p></strong>
-      <p style="color: red;"><strong style="color: black;">login at:</strong> {{user.last_login}}</p>
-      <a id="logoutBtn" href="/logout">Logout</a>
-      {% else %}
       <a id="loginBtn" href="{% url 'login' %}">Login</a>
       <a id="signupBtn" href="{% url 'signup' %}">Sign up</a>
-
       {% endif %}
     </div>
   </div>
