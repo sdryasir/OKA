@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseBadRequest
+import logging
 from django.db.models import Q
 from django.core.mail import send_mail, BadHeaderError
 from django.core.mail import EmailMessage
@@ -774,6 +775,8 @@ def cancel(request):
     return render(request, "cancel.html" , {"profile_picture": profile_picture , "city": city , "country": country , "address": address , "phone_no": phone_no})
 
 
+# Configure logger
+logger = logging.getLogger(__name__)
 @login_required
 def submit_review(request, id):
     referrer = request.META.get('HTTP_REFERER', 'home') 
@@ -792,21 +795,22 @@ def submit_review(request, id):
             messages.error(request, "You have already reviewed this product.")
             return redirect(referrer)
 
+        # Optionally fetch an order item if needed
         order_item = OrderItem.objects.filter(order__user=request.user, product_name=product.name).first()
-        if not order_item:
-            messages.error(request, "You have not placed an order for this product. Please place an order before reviewing.")
-            return redirect(referrer)
-        try:
 
+        try:
             Reviews.objects.create(
                 rating=rating,
                 opinion=opinion,
                 user=request.user,
                 Item=product,
-                order=order_item.order,
+                order=order_item.order if order_item else None,  # Assign None if no order_item
             )
             messages.success(request, "Review submitted successfully.")
             return redirect("productdetail", id=id)
-        except:
+        except Exception as e:
+            logger.error(f"Error submitting review: {e}")
+            messages.error(request, "An error occurred while submitting your review. Please try again later.")
             return redirect(referrer)
+
     return render(request, "productdetail.html", {"product": product})
