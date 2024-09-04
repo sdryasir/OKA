@@ -775,3 +775,38 @@ def cancel(request):
     return render(request, "cancel.html" , {"profile_picture": profile_picture , "city": city , "country": country , "address": address , "phone_no": phone_no})
 
 
+@login_required
+def submit_review(request, id):
+    referrer = request.META.get('HTTP_REFERER', 'home') 
+    product = get_object_or_404(Products, id=id)
+
+    if request.method == "POST":
+        rating = request.POST.get("rating")
+        opinion = request.POST.get("opinion")
+
+        if not rating or not opinion:
+            messages.error(request, "Please fill in both fields!")
+            return redirect(referrer)
+
+        existing_review = Reviews.objects.filter(user=request.user, Item=product).first()
+        if existing_review:
+            messages.error(request, "You have already reviewed this product.")
+            return redirect(referrer)
+
+        order_item = OrderItem.objects.filter(order__user=request.user, product_name=product.name).first()
+        if not order_item:
+            messages.error(request, "You have not placed an order for this product. Please place an order before reviewing.")
+            return redirect(referrer)
+
+        Reviews.objects.create(
+            rating=rating,
+            opinion=opinion,
+            user=request.user,
+            Item=product,
+            order=order_item.order,
+        )
+
+        messages.success(request, "Review submitted successfully.")
+        return redirect("productdetail", id=id)
+
+    return render(request, "productdetail.html", {"product": product})
