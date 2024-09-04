@@ -810,7 +810,6 @@ def submit_review(request, id):
             return redirect("productdetail", id=id)
         except Exception as e:
             logger.error(f"Error submitting review: {e}")
-            messages.error(request, "An error occurred while submitting your review. Please try again later.")
             return redirect(referrer)
 
     return render(request, "productdetail.html", {"product": product})
