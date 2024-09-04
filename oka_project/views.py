@@ -43,8 +43,7 @@ stripe.api_key = "sk_test_51PnwfEG84wrz8yN3pN99IhWeXEqKCsXVeSoLT4n7fIlm7AXOFVXMI
 def header(request):
     header = Header.objects.all()
     footer = Footer.objects.all()
-    print(header)
-    print(footer)
+
     data = {
         "footer": footer,
         "header": header,
@@ -797,16 +796,17 @@ def submit_review(request, id):
         if not order_item:
             messages.error(request, "You have not placed an order for this product. Please place an order before reviewing.")
             return redirect(referrer)
+        try:
 
-        Reviews.objects.create(
-            rating=rating,
-            opinion=opinion,
-            user=request.user,
-            Item=product,
-            order=order_item.order,
-        )
-
-        messages.success(request, "Review submitted successfully.")
-        return redirect("productdetail", id=id)
-
+            Reviews.objects.create(
+                rating=rating,
+                opinion=opinion,
+                user=request.user,
+                Item=product,
+                order=order_item.order,
+            )
+            messages.success(request, "Review submitted successfully.")
+            return redirect("productdetail", id=id)
+        except:
+            return redirect(referrer)
     return render(request, "productdetail.html", {"product": product})
