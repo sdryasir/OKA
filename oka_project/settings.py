@@ -206,6 +206,8 @@ JAZZMIN_SETTINGS = {
         "header_footer.footer":"fas fa-bars", 
         "social.Social":"fas fa-icons", 
         "users.Userdata":"fas fa-database",
-        "orders.OrderItem":"fas  fa-bitbucket",
+        "orders.Orders":"fas fa-cart-shopping",
+        "orders.OrderItem":"fas fa-italic",
+        "reviews.Reviews":"fas fa-registered",
     }
 }
