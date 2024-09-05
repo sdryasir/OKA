@@ -226,13 +226,19 @@ def product_details(request, id):
 
 
 def products(request):
+    # Retrieve query parameters for sorting and filtering
     sort_order = request.GET.get("sort_order")
     minprice = request.GET.get("min_price", 0)
     maxprice = request.GET.get("max_price", 5000)
+    
+    # Get all product data
     productdata = Products.objects.all()
+    
+    # Apply price filtering
     if minprice or maxprice:
         productdata = productdata.filter(price__gte=minprice, price__lte=maxprice)
-
+    
+    # Apply sorting based on the sort_order parameter
     if sort_order == "ascending":
         productdata = productdata.order_by("price")
     elif sort_order == "descending":
@@ -242,15 +248,19 @@ def products(request):
     elif sort_order == "htl":
         productdata = productdata.order_by("-price")
     else:
+        # Random shuffle if no sorting is applied
         productdata = list(productdata)
         random.shuffle(productdata)
 
+    # Paginate the product data (8 products per page)
     paginator = Paginator(productdata, 8)
     page_number = request.GET.get("page", 1)
     page_obj = paginator.get_page(page_number)
     
-
+    # List total pages for pagination
     totalpage = [x + 1 for x in range(paginator.num_pages)]
+    
+    # Handle authenticated user profile data
     profile_picture = None
     city = None
     country = None
@@ -260,17 +270,18 @@ def products(request):
         userdata, created = Userdata.objects.get_or_create(user=request.user)
         profile_picture = userdata.profile_picture.url if userdata.profile_picture else None
     
-        if request.method == 'POST':
-            if 'profile_picture' in request.FILES:
-                # Save the profile picture
-                userdata.profile_picture = request.FILES['profile_picture']
-                userdata.save()
-                return redirect('products')
+        if request.method == 'POST' and 'profile_picture' in request.FILES:
+            # Save the profile picture
+            userdata.profile_picture = request.FILES['profile_picture']
+            userdata.save()
+            return redirect('products')
+        
         city = userdata.city if userdata.city else None
         country = userdata.country if userdata.country else None
         address = userdata.address if userdata.address else None
         phone_no = userdata.phone_no if userdata.phone_no else None
 
+    # Pass data to the template
     data = {
         "products": page_obj,
         "totalpages": totalpage,
