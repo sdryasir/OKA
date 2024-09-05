@@ -96,19 +96,20 @@
           {% if products.has_previous %}
           <li class="page-item">
             <a style="color: black; box-shadow: none; border: 1px solid black" class="page-link"
-              href="/all-products/?page={{products.previous_page_number}}">Previous</a>
+              href="?page={{products.previous_page_number}}&min_price={{minprice}}&max_price={{maxprice}}&sort_order={{sort_order}}">Previous</a>
           </li>
           {% endif %} {% for p in totalpages %}
           <li class="page-item">
             <a style="color: black; box-shadow: none; border: 1px solid black"
-              class="page-link {% if products.number == p %} u-bg-pg {% endif %}" href="/all-products/?page={{p}}">
+              class="page-link {% if products.number == p %} u-bg-pg {% endif %}"
+              href="?page={{p}}&min_price={{minprice}}&max_price={{maxprice}}&sort_order={{sort_order}}">
               {{p}}
             </a>
           </li>
           {% endfor %} {% if products.has_next %}
           <li class="page-item">
             <a style="color: black; box-shadow: none; border: 1px solid black" class="page-link"
-              href="/all-products/?page={{products.next_page_number}}">Next</a>
+              href="?page={{products.next_page_number}}&min_price={{minprice}}&max_price={{maxprice}}&sort_order={{sort_order}}">Next</a>
           </li>
           {% endif %}
         </ul>
