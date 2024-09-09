@@ -718,8 +718,6 @@ def create_checkout_session(request):
 
     return redirect(checkout_session.url, code=303)
 
-
-
 def success(request):
     profile_picture = None
     city = None
@@ -742,9 +740,6 @@ def success(request):
         phone_no = userdata.phone_no if userdata.phone_no else None
     return render(request, "success.html" , {"profile_picture": profile_picture , "city": city , "country": country , "address": address , "phone_no": phone_no})
 
-
-
-
 def cancel(request):
     profile_picture = None
     city = None
@@ -766,11 +761,7 @@ def cancel(request):
         address = userdata.address if userdata.address else None
         phone_no = userdata.phone_no if userdata.phone_no else None
     
-    
     return render(request, "cancel.html" , {"profile_picture": profile_picture , "city": city , "country": country , "address": address , "phone_no": phone_no})
-
-
-
 
 @csrf_exempt
 def stripe_webhook(request):
@@ -793,16 +784,19 @@ def stripe_webhook(request):
     # Handle the event
     if event['type'] == 'checkout.session.completed':
         session = event['data']['object']
-        payment_id = session.get('id')
-        print(f"Processing checkout.session.completed for payment_id: {payment_id}")
+        session_id = session.get('id')
+        client_reference_id = session.get('client_reference_id')  # Retrieve the order ID
+        print(f"Processing checkout.session.completed for session_id: {session_id}, client_reference_id: {client_reference_id}")
 
         try:
-            order = Orders.objects.get(payment_id=payment_id)
+            # Fetch the order using client_reference_id
+            order = Orders.objects.get(id=client_reference_id)
             order.payment_status = "paid"
+            order.payment_id = session_id  # Optionally store the Stripe session ID
             order.save()
             print(f"Order updated: {order}")
         except Orders.DoesNotExist:
-            print(f"Order with payment_id {payment_id} not found")
+            print(f"Order with client_reference_id {client_reference_id} not found")
 
     elif event['type'] == 'payment_intent.succeeded':
         # Handle the payment_intent.succeeded event if needed
@@ -813,8 +807,6 @@ def stripe_webhook(request):
         print(f"PaymentIntent failed: {json.dumps(event, indent=2)}")
 
     return JsonResponse({'status': 'success'}, status=200)
-
-
 
 # Configure logger
 logger = logging.getLogger(__name__)
