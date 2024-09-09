@@ -691,6 +691,20 @@ def create_checkout_session(request):
         payment_status="unpaid",
     )
 
+    # Save each item in OrderItem model
+    for item in session_cart.values():
+        try:
+            price = int(item["price"]) * 100  # Convert PKR to cents
+            quantity = int(item["quantity"])
+            OrderItem.objects.create(
+                order=order,
+                product_name=item["name"],
+                quantity=quantity,
+                price=price / 100,  # Convert cents back to PKR
+            )
+        except (ValueError, KeyError) as e:
+            print(f"Error saving item: {e}")
+
     # Create a Stripe checkout session with client_reference_id as the order ID
     checkout_session = stripe.checkout.Session.create(
         line_items=line_items,
