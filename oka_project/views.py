@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseBadRequest
 import logging
+from newsletter.models import Newsletter
 from django.db.models import Q
 from django.core.mail import send_mail, BadHeaderError
 from django.core.mail import EmailMessage
@@ -860,3 +861,32 @@ def submit_review(request, id):
             return redirect(referrer)
 
     return render(request, "productdetail.html", {"product": product})
+
+
+def newsletter(request):
+    if request.method == "POST":
+        email_address = request.POST.get("email")
+        
+        # Validate email format
+        try:
+            validate_email(email_address)
+        except ValidationError:
+            # Handle invalid email format
+            messages.error(request, "Please enter a valid email address.")
+            return redirect("home")  # Or show an error message
+        
+        # Save the email address to the database
+        Newsletter.objects.create(email=email_address)
+        
+        # Send confirmation email
+        send_mail(
+            'Newsletter Subscription Confirmation',
+            'Thank you for subscribing to Baby Planet Newsletter!',
+            settings.EMAIL_HOST_USER,
+            [email_address],  # Use the email address here, not the model instance
+            fail_silently=False,
+        )
+        messages.success(request, "Thank you for subscribing to our Newsletter!")
+        return redirect("home")  # Redirect after successful subscription
+
+    return redirect("home")

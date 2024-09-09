@@ -3,6 +3,10 @@
 {% load cart_tag %}
 
 <style>
+  .alert-error {
+    color: white !important;
+    background-color: #ff834e !important;
+}
   .main {
     overflow-y: hidden !important;
   }
@@ -16,11 +20,20 @@
 }
 
 .star::after {
-    content: "\2605";
-    color: #ddd; /* Light gray for unfilled star */
+  content: "\2605";
+  color: #ddd; /* Light gray for unfilled star */
 }
 </style>
 <main class="main-wrapper">
+  <div class="container d-flex justify-content-center align-items-center">
+    {% for message in messages %}
+    <div style="text-align: center;"
+        class="alert alert-{{message.tags}} alert-dismissible fade show cust-responsive-mb my-2" role="alert">
+        <strong>{{message}}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+  </div>
   <div class="carousel-wrapper">
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-indicators indicators">
@@ -179,10 +192,12 @@
           <p>Get all the latest information on Events, Sales and Offers. Sign up for newsletter today.</p>
         </div>
         <div class="col-lg-6 col-md-12">
-          <div class="d-flex input-box-subscribe-btn-main">
-            <input class="input-box-email border" type="email" placeholder="Your email address">
-            <button class="btn-subscribe">Subscribe</button>
-          </div>
+          <form class="d-flex input-box-subscribe-btn-main" action="{% url 'newsletter' %}" method="post">
+            {% csrf_token %}
+            <input class="input-box-email border" name="email" type="email" placeholder="Your email address" required>
+            <button type="submit" class="btn-subscribe">Subscribe</button>
+          </form>
+          
         </div>
       </div>
     </div>

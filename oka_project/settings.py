@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'nested_admin',
     'orders',
     'reviews',
+    'newsletter',
         
     
 ]
@@ -209,6 +210,7 @@ JAZZMIN_SETTINGS = {
         "orders.Orders":"fas fa-truck",
         "orders.OrderItem":"fas fa-italic",
         "reviews.Reviews":"fas fa-registered",
+        "newsletter.Newsletter":"fas fa-envelope",
     }
 }
 
