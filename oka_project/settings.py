@@ -211,3 +211,8 @@ JAZZMIN_SETTINGS = {
         "reviews.Reviews":"fas fa-registered",
     }
 }
+
+
+
+# STRIPE_WEBHOOK_SECRET = 'whsec_xbaF2cJT29hKpENDnGz9GvBuBhFI67gi'
+STRIPE_WEBHOOK_SECRET = 'whsec_xbaF2cJT29hKpENDnGz9GvBuBhFI67gi'
