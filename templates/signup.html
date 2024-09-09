@@ -1,0 +1,261 @@
+{% include 'header.html' %}
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Checkout Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body.unique-body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container-unique {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .container-unique1 {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #F5F5F5;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2.unique-h2 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .checkout-form-unique {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .form-group-unique {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        label.unique-label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input.unique-input[type="text"],
+        input.unique-input[type="email"] {
+            width: calc(100% - 25px);
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .form-group-unique i.unique-icon {
+            margin-right: 10px;
+        }
+
+        button.unique-button {
+            width: 96%;
+            padding: 15px;
+            background-color: #28a745;
+            border: none;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        button.unique-button:hover {
+            background-color: #218838;
+        }
+
+        h2.unique-h3 {
+            text-align: center;
+            width: 100%;
+            border-bottom: 2px solid #f4f4f4;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+
+        @media (min-width: 600px) {
+            .form-group-unique {
+                width: 48%;
+            }
+
+            .form-group-full-width-unique {
+                width: 100%;
+            }
+
+            button.unique-button {
+                width: 48%;
+                margin-top: 20px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .container-unique {
+                padding: 40px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .checkout-form-unique {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+            }
+
+           form .checkout-form-unique .form-group-unique input{
+            width: 96%;
+           }
+
+        }
+        
+    </style>
+</head>
+
+<body class="unique-body">
+    <div class="row" style="width: 100%;">
+        <div class="col-md-12">
+            <div style="margin-top: 50px;" class="container-unique">
+                <form action="{% url 'signup' %}" method="post">
+                    {% csrf_token %}
+                    <h2 class="unique-h3">Sign Up</h2>
+                    
+                    <div  class="checkout-form-unique">
+                        <div class="form-group-unique">
+                            <label for="username-unique" class="unique-label">
+                                <i class="fas fa-user unique-icon"></i>
+                                {{ form.username.label }}
+                            </label>
+                            {{ form.username }}
+                            {{ form.username.errors }}
+                        </div>
+        
+                        <div class="form-group-unique">
+                            <label for="first_name-unique" class="unique-label">
+                                <i class="fas fa-user unique-icon"></i>
+                                {{ form.first_name.label }}
+                            </label>
+                            {{ form.first_name }}
+                            {{ form.first_name.errors }}
+                        </div>
+        
+                        <div class="form-group-unique">
+                            <label for="last_name-unique" class="unique-label">
+                                <i class="fas fa-user unique-icon"></i>
+                                {{ form.last_name.label }}
+                            </label>
+                            {{ form.last_name }}
+                            {{ form.last_name.errors }}
+                        </div>
+        
+                        <div class="form-group-unique">
+                            <label for="phone_no-unique" class="unique-label">
+                                <i class="fas fa-phone unique-icon"></i>
+                                {{ form.phone_no.label }}
+                            </label>
+                            {{ form.phone_no }}
+                            {{ form.phone_no.errors }}
+                        </div>
+        
+                        <div class="form-group-unique">
+                            <label for="password1-unique" class="unique-label">
+                                <i class="fas fa-lock unique-icon"></i>
+                                {{ form.password1.label }}
+                            </label>
+                            {{ form.password1 }}
+                            {{ form.password1.errors }}
+                        </div>
+        
+                        <div class="form-group-unique">
+                            <label for="password2-unique" class="unique-label">
+                                <i class="fas fa-lock unique-icon"></i>
+                                {{ form.password2.label }}
+                            </label>
+                            {{ form.password2 }}
+                            {{ form.password2.errors }}
+                        </div>
+        
+                        <div class="form-group-unique">
+                            <label for="email-unique" class="unique-label">
+                                <i class="fas fa-envelope unique-icon"></i>
+                                {{ form.email.label }}
+                            </label>
+                            {{ form.email }}
+                            {{ form.email.errors }}
+                        </div>
+        
+                        <div class="form-group-unique">
+                            <label for="country-unique" class="unique-label">
+                                <i class="fas fa-flag unique-icon"></i>
+                                {{ form.country.label }}
+                            </label>
+                            {{ form.country }}
+                            {{ form.country.errors }}
+                        </div>
+        
+                        <div class="form-group-unique">
+                            <label for="address-unique" class="unique-label">
+                                <i class="fas fa-address-card unique-icon"></i>
+                                {{ form.address.label }}
+                            </label>
+                            {{ form.address }}
+                            {{ form.address.errors }}
+                        </div>
+        
+                        <div class="form-group-unique">
+                            <label for="city-unique" class="unique-label">
+                                <i class="fas fa-city unique-icon"></i>
+                                {{ form.city.label }}
+                            </label>
+                            {{ form.city }}
+                            {{ form.city.errors }}
+                        </div>
+        
+                        <div class="form-group-unique">
+                            <label for="state-unique" class="unique-label">
+                                <i class="fas fa-map-marker-alt unique-icon"></i>
+                                {{ form.state.label }}
+                            </label>
+                            {{ form.state }}
+                            {{ form.state.errors }}
+                        </div>
+        
+                        <div class="form-group-unique">
+                            <label for="zip_code-unique" class="unique-label">
+                                <i class="fas fa-map-pin unique-icon"></i>
+                                {{ form.zip_code.label }}
+                            </label>
+                            {{ form.zip_code }}
+                            {{ form.zip_code.errors }}
+                        </div>
+                    </div>
+    
+                    <div style="width: 79%;">
+                        <div><button type="submit" class="btn btn-primary my-3" style="width: 100%; transition: .25s ease; border: 1px solid #0D6EFD;">Create Account</button></div>
+                        <div style="text-align: center;"><a style="background-color: #f85606; transition: .25s ease; border: 1px solid #f85606;" class="btn btn-primary z-w-but-creat" href="{% url 'login' %}">Login</a></div>
+                        
+
+                    
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+</body>
+{% include 'footer.html' %}
+
+</html>

@@ -1,0 +1,82 @@
+<style>
+  .btn-primary{
+    background-color: #F85606 !important;
+    border-color: #F85606 !important;
+  }
+  .btn-primary:hover{
+    background-color: transparent !important;
+  }
+</style>
+<div class="u-filter-wrapper">
+  <button class="btn u-btn-style" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop"
+    aria-controls="staticBackdrop">
+    <i class="bi bi-funnel"></i>
+  </button>
+
+  <div class="offcanvas offcanvas-start" style="width: 260px;" data-bs-backdrop="static" tabindex="-1"
+    id="staticBackdrop" aria-labelledby="staticBackdropLabel">
+    <div class="offcanvas-header">
+      <h3>Filter</h3>
+      <button type="button" class="btn-close u-btn-hover" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <form id="filterform" method="GET">
+        <!-- Price Filter Section -->
+        <div class="u-price-wrapper">
+          <div style="display: flex;" class="u-price-heading mb-4">
+            <h5 class="u-par-underline-2">Price:</h5>
+          </div>
+          <div class="u-price">
+            <div class="range-slider">
+              <div class="slider-track"></div>
+              <div class="slider-range" id="slider-range"></div>
+              <input type="range" name="min_price" class="min-range" min="0" max="8000" value="{{ minprice|default:0 }}"
+                oninput="updatePrice()">
+              <input type="range" name="max_price" class="max-range" min="0" max="8000" value="{{ maxprice|default:5000 }}"
+                oninput="updatePrice()">
+            </div>
+            <div class="price-range">
+              <div style="font-size: 14px;">Min: Rs. <span id="min-price">{{ minprice|default:0 }}</span></div>
+              <div style="font-size: 14px;">Max: Rs. <span id="max-price">{{ maxprice|default:5000 }}</span></div>
+            </div>
+          </div>
+        </div><!-- /.u-price-wrapper -->
+
+        <input type="hidden" name="min_price" id="hidden-min-price" value="{{ minprice|default:0 }}">
+        <input type="hidden" name="max_price" id="hidden-max-price" value="{{ maxprice|default:5000 }}">
+
+        <!-- Sorting Section -->
+        <div class="u-sorting" style="margin-top: 10%;">
+          <p>Sort:</p>
+          <select name="sort_order" id="sortOrder">
+            <option value="none" {% if sort_order == 'none'  %} selected {% endif %}>------</option>
+            <option value="ascending" {% if sort_order == 'ascending'  %} selected {% endif %}>Ascending</option>
+            <option value="descending" {% if sort_order == 'descending'  %} selected {% endif %}>Descending</option>
+            <option value="lth" {% if sort_order == 'lth'  %} selected {% endif %}>Low To High</option>
+            <option value="htl" {% if sort_order == 'htl'  %} selected {% endif %}>High To Low</option>
+          </select>
+        </div><!-- /.u-sorting -->
+
+        <!-- Apply Button -->
+        <button type="submit" class="btn btn-primary mt-3">Apply Filter</button>
+        <a href="{% url 'products' %}"class="btn btn-primary mt-3">Reset</a>
+      </form>
+    </div>
+  </div> 
+
+  <script>
+    function updatePrice() {
+      var minPrice = document.querySelector('.min-range').value;
+      var maxPrice = document.querySelector('.max-range').value;
+      document.getElementById('min-price').innerText = minPrice;
+      document.getElementById('max-price').innerText = maxPrice;
+      document.getElementById('hidden-min-price').value = minPrice;
+      document.getElementById('hidden-max-price').value = maxPrice;
+    }
+
+    // Initialize price display
+    document.addEventListener('DOMContentLoaded', function() {
+      updatePrice(); // Set initial values
+    });
+  </script>
+</div>

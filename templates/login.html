@@ -1,0 +1,50 @@
+{% include 'header.html' %}
+{% load static %}
+
+<style>
+    .alert-error {
+        color: white !important;
+        background-color: #ff834e !important;
+    }
+</style>
+
+<main>
+    <div class="container z-login-default-pad my-1">
+        <h1>Login</h1>
+    </div>
+    <div class="container d-flex justify-content-center align-items-center">
+        {% for message in messages %}
+        <div style="text-align: center;"
+            class="alert alert-{{message.tags}} alert-dismissible fade show cust-responsive-mb" role="alert">
+            <strong>{{message}}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="container">
+        <div class="pc-mode">
+            <form method="POST" action="{% url 'loginuser' %}" id="z-mob-responsive" class="z-w-30">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="email" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="email" name="username">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" name="password" id="password">
+                </div>
+                <div>
+                    <a style="text-decoration:none;" href="{%url 'password_reset'%}"> Forgot Password? </a>
+                </div>
+                <div class="g-recaptcha" data-sitekey="6LdG8xoqAAAAABjDxfEmCW9bQ4HPoSJkEXWuSCGJ"></div>
+                <button type="submit" style="transition: .25s ease; border: 1px solid #0D6EFD;" class="btn btn-primary z-w-but-login my-3">Login</button>
+
+                <a style="    margin-left: 10%; width: 24vw; background-color: #f85606;transition: .25s ease; border: 1px solid #f85606;" class="btn btn-primary z-w-but-creat" href="{% url 'signup' %}">Create Account</a>
+            </form>
+        </div>
+    </div>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    {% include 'footer.html' %}
+</main>
+
+</html>

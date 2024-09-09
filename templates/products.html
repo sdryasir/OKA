@@ -1,0 +1,127 @@
+{% load static %} {% include 'header.html' %}
+
+<style>
+  .u-sorting {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    font-family: Arial, sans-serif;
+  }
+
+  .u-sorting p {
+    margin: 0;
+    font-weight: bold;
+  }
+
+  #sortForm {
+    display: flex;
+    align-items: center;
+  }
+
+  #sortOrder {
+    border-radius: 4px;
+    outline: none;
+    font-size: 14px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s, border-color 0.3s;
+  }
+
+  #sortOrder:focus {
+    background-color: #fff;
+    border-color: #007bff;
+  }
+
+  #sortOrder option {
+    font-size: 14px;
+    padding: 5px;
+  }
+</style>
+
+<main  style="margin-top: 130px;" class="u-main-style">
+  <div class="u_category_inner_wrapper pt-4">
+    <div class="container-fluid">
+      <div class="category mb-5">
+        <h2 id="fashion-pg-h1">All Products</h2>
+      </div>
+      <!-- /.category -->
+      {% comment %} <div name="sorting" class="u-sorting">
+        <p>Sort:</p>
+        <form id="sortForm" method="GET" action="">
+          <select name="sort_order" id="sortOrder">
+            <option value="none" {% if sort_order == 'none'  %} selected {% endif %}>------</option>
+            <option value="ascending" {% if sort_order == 'ascending'  %} selected {% endif %} >Ascending</option>
+            <option value="descending" {% if sort_order == 'descending'  %} selected {% endif %} >Descending</option>
+            <option value="lth" {% if sort_order == 'lth'  %} selected {% endif %} >Low To High</option>
+            <option value="htl" {% if sort_order == 'htl'  %} selected {% endif %} >High To Low</option>
+          </select>
+        </form>
+      </div> {% endcomment %}
+      <div class="row p-0">
+        {% for product in products %}
+        <div class="col-sm-6 u-card-adjusting col-md-4 col-lg-3 col-xl-3 my-2">
+          <a style="text-decoration: none; list-style-type:none; color:black;"
+          href="{% url 'product-details' product.id %}">
+          <div class="card u_card_hover">
+            <img src="/media/{{product.image}}" class="card-img-top u-img-lining" alt="..." />
+            <div class="card-body" style="text-align: center">
+              <h5 class="card-title u-lining">{{product.name}}</h5>
+              <div class="stars u-star-adjusting">
+                &#9733;&#9733;&#9733;&#9733;&#9733;
+              </div>
+              <p style="margin: 0">
+                <span style="
+                    color: #858585;
+                    text-decoration: line-through;
+                    font-size: 14px;
+                  ">Rs.{{product.discount_price}}</span>
+                <span style="color: #ff6f00; font-size: 17px">Rs.{{product.price}}</span>
+              </p>
+              <!-- <a style="margin-top: 1rem" href="{% url 'cart_add' product.id %}" class="btn btn-primary u_btn_color">Add to cart
+              </a>
+              <a style="margin-top: 1rem" href="{% url 'product-details' product.id %}"
+                class="btn btn-primary u_btn_color">Details</a> -->
+            </div>
+          </div>
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="pagination-wrapper">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination d-flex justify-content-center m-0 py-5">
+          {% if products.has_previous %}
+          <li class="page-item">
+            <a style="color: black; box-shadow: none; border: 1px solid black" class="page-link"
+              href="?page={{products.previous_page_number}}&min_price={{minprice}}&max_price={{maxprice}}&sort_order={{sort_order}}">Previous</a>
+          </li>
+          {% endif %} {% for p in totalpages %}
+          <li class="page-item">
+            <a style="color: black; box-shadow: none; border: 1px solid black"
+              class="page-link {% if products.number == p %} u-bg-pg {% endif %}"
+              href="?page={{p}}&min_price={{minprice}}&max_price={{maxprice}}&sort_order={{sort_order}}">
+              {{p}}
+            </a>
+          </li>
+          {% endfor %} {% if products.has_next %}
+          <li class="page-item">
+            <a style="color: black; box-shadow: none; border: 1px solid black" class="page-link"
+              href="?page={{products.next_page_number}}&min_price={{minprice}}&max_price={{maxprice}}&sort_order={{sort_order}}">Next</a>
+          </li>
+          {% endif %}
+        </ul>
+      </nav>
+    </div><!-- /.pagination-wrapper -->
+  </div><!-- /.u_category_inner_wrapper -->
+  {% comment %} <script>
+    document
+      .getElementById("sortOrder")
+      .addEventListener("change", function () {
+        document.getElementById("sortForm").submit();
+      });
+  </script> {% endcomment %}
+  {% include 'filter.html' %} {% include 'footer.html' %}
+</main>
