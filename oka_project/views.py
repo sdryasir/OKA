@@ -648,15 +648,15 @@ def cart_detail(request):
     return render(request, "cart_detail.html", data)
 
 
+
+
 def create_checkout_session(request):
     cart = Cart(request)
     subtotal = 0
     shipping_fee = 200 * 100  # Shipping fee in cents (200 PKR)
     total = 0
 
-    # Initialize a list to store line items for Stripe
     line_items = []
-
     session_cart = cart.session.get("cart", {})
 
     if isinstance(session_cart, dict) and session_cart:
@@ -666,74 +666,58 @@ def create_checkout_session(request):
                 quantity = int(item["quantity"])
                 subtotal += price * quantity
 
-                # Add each product as a line item
+                # Add each product as a line item for Stripe
                 line_items.append(
                     {
                         "price_data": {
                             "currency": "pkr",
                             "product_data": {
-                                "name": item["name"],  # Product name from cart
+                                "name": item["name"],
                             },
-                            "unit_amount": price,  # Price in cents
+                            "unit_amount": price,
                         },
-                        "quantity": quantity,  # Dynamic quantity
+                        "quantity": quantity,
                     }
                 )
             except (ValueError, KeyError) as e:
                 print(f"Error processing item: {e}")
 
-        total = subtotal + shipping_fee  # Calculate the total
+        total = subtotal + shipping_fee
 
-        # Store total and line items in session
-        request.session["total"] = total
-        request.session["line_items"] = line_items
-    total = request.session.get("total", 0)
-    line_items = request.session.get("line_items", [])
+    # Create an order in your system
+    order = Orders.objects.create(
+        user=request.user,
+        total_price=total / 100,  # Convert cents back to PKR
+        payment_status="unpaid",
+    )
 
-    try:
-        checkout_session = stripe.checkout.Session.create(
-            line_items=line_items,  # Use the dynamic line items
-            mode="payment",
-            success_url=settings.YOUR_DOMAIN + "success",
-            cancel_url=settings.YOUR_DOMAIN + "cancel",
-            shipping_options=[
-                {
-                    "shipping_rate_data": {
-                        "type": "fixed_amount",
-                        "fixed_amount": {
-                            "amount": shipping_fee,
-                            "currency": "pkr",
-                        },
-                        "display_name": "Standard Shipping",
-                        "delivery_estimate": {
-                            "minimum": {"unit": "business_day", "value": "5"},
-                            "maximum": {"unit": "business_day", "value": "7"},
-                        },
-                    }
+    # Create a Stripe checkout session with client_reference_id as the order ID
+    checkout_session = stripe.checkout.Session.create(
+        line_items=line_items,
+        mode="payment",
+        success_url=settings.YOUR_DOMAIN + "success",
+        cancel_url=settings.YOUR_DOMAIN + "cancel",
+        client_reference_id=order.id,  # Pass the order ID for matching in webhook
+        shipping_options=[
+            {
+                "shipping_rate_data": {
+                    "type": "fixed_amount",
+                    "fixed_amount": {
+                        "amount": shipping_fee,
+                        "currency": "pkr",
+                    },
+                    "display_name": "Standard Shipping",
+                    "delivery_estimate": {
+                        "minimum": {"unit": "business_day", "value": "5"},
+                        "maximum": {"unit": "business_day", "value": "7"},
+                    },
                 }
-            ],
-        )
-        if checkout_session:
-            order = Orders.objects.create(
-                user=request.user,
-                total_price=total / 100,  # Convert cents back to PKR
-                payment_id=checkout_session.id,
-                payment_status="unpaid",
-            )
-            if order:
-                for item in session_cart.values():
-                    OrderItem.objects.create(
-                        order=order,
-                        product_name=item["name"],
-                        quantity=item["quantity"],
-                        price=item["price"],
-                    )
-    except Exception as e:
-        print("==================================")
-        print(e)
-        print("+++++++++++++++++++++++++++++++++++")
+            }
+        ],
+    )
 
     return redirect(checkout_session.url, code=303)
+
 
 
 def success(request):
@@ -784,6 +768,52 @@ def cancel(request):
     
     
     return render(request, "cancel.html" , {"profile_picture": profile_picture , "city": city , "country": country , "address": address , "phone_no": phone_no})
+
+
+
+
+@csrf_exempt
+def stripe_webhook(request):
+    payload = request.body
+    sig_header = request.META.get('HTTP_STRIPE_SIGNATURE')
+    event = None
+
+    try:
+        event = stripe.Webhook.construct_event(
+            payload, sig_header, settings.STRIPE_WEBHOOK_SECRET
+        )
+        print(f"Received event: {json.dumps(event, indent=2)}")  # Log the entire event payload
+    except ValueError as e:
+        print(f"Invalid payload: {e}")
+        return JsonResponse({'status': 'invalid payload'}, status=400)
+    except stripe.error.SignatureVerificationError as e:
+        print(f"Invalid signature: {e}")
+        return JsonResponse({'status': 'invalid signature'}, status=400)
+
+    # Handle the event
+    if event['type'] == 'checkout.session.completed':
+        session = event['data']['object']
+        payment_id = session.get('id')
+        print(f"Processing checkout.session.completed for payment_id: {payment_id}")
+
+        try:
+            order = Orders.objects.get(payment_id=payment_id)
+            order.payment_status = "paid"
+            order.save()
+            print(f"Order updated: {order}")
+        except Orders.DoesNotExist:
+            print(f"Order with payment_id {payment_id} not found")
+
+    elif event['type'] == 'payment_intent.succeeded':
+        # Handle the payment_intent.succeeded event if needed
+        print(f"PaymentIntent succeeded: {json.dumps(event, indent=2)}")
+
+    elif event['type'] == 'payment_intent.payment_failed':
+        # Handle the payment_intent.payment_failed event if needed
+        print(f"PaymentIntent failed: {json.dumps(event, indent=2)}")
+
+    return JsonResponse({'status': 'success'}, status=200)
+
 
 
 # Configure logger
