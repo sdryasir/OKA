@@ -45,6 +45,7 @@ urlpatterns = [
     path('product-results/<int:category>', views.productResult, name='product-results'),
     path('webhook/stripe/', views.stripe_webhook, name='stripe-webhook'),
     path('success/<int:order_id>/', views.success, name='success'),
+    path('newsletter/', views.newsletter, name='newsletter'),
     path('login-user/', views.log_inUser, name='loginuser'),
     path('logout/', views.log_out_user, name='logout'),
     path('password_reset/', auth_views.PasswordResetView.as_view(template_name='Password_Reset_View.html'), name='password_reset'),
