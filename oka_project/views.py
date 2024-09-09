@@ -147,7 +147,6 @@ def log_inUser(request):
                 if Captcha_Server_response_parse["success"] == False:
                     messages.error(request, "Invalid Captcha Try Again!")
                     return redirect("login")
-                messages.success(request, "Login Successful!")
                 auth_login(request, user)
                 request.session["username"] = user.username
                 return redirect("home")
