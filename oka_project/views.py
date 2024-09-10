@@ -37,6 +37,7 @@ from header_footer.models import Header
 from header_footer.models import Footer
 from orders.models import Orders, OrderItem
 from users.models import Userdata
+from contact.models import Contact, Usrinfo
 
 
 stripe.api_key = "sk_test_51PnwfEG84wrz8yN3pN99IhWeXEqKCsXVeSoLT4n7fIlm7AXOFVXMI2B4nxmkJgsuVeLVnvZFY6TogGyCPlGMxkzq00T1b1FcpY"
@@ -96,6 +97,10 @@ def home(request):
     return render(request, "index.html", data)
 
 def contact(request):
+    info = Usrinfo.objects.all()
+    data ={
+        "info": info
+    }
     profile_picture = None
     city = None
     country = None
@@ -116,7 +121,7 @@ def contact(request):
         address = userdata.address if userdata.address else None
         phone_no = userdata.phone_no if userdata.phone_no else None
 
-    return render(request, "contact.html"    ,{"profile_picture": profile_picture,"city": city,"country": country,"address": address,"phone_no": phone_no})
+    return render(request, "contact.html"    ,{"profile_picture": profile_picture,"city": city,"country": country,"address": address,"phone_no": phone_no,"info": info})
 
 
 def login(request):

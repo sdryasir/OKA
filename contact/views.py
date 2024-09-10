@@ -2,10 +2,15 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 import requests
 import json
-from .models import Contact
+from .models import Contact, Usrinfo
 
 def contact(request):
-    return render(request, 'contact.html')
+    info = Usrinfo.objects.all()
+    print(info)
+    data ={
+        "info": info
+    }
+    return render(request, 'contact.html', data)
 
 def savecontact(request):
     # Check honeypot fields
