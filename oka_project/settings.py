@@ -188,7 +188,7 @@ JAZZMIN_SETTINGS = {
     "site_title": "Admin Panel",
     "site_header": "Admin Panel",
     "site_icon": "images/fav.png",
-    "site_logo": "images/logo.png",
+    # "site_logo": "images/logo.png",
     "welcome_sign": "Welcome to Admin Dashboard",
     'copyright': 'Baby Planet',
     "icons": {
