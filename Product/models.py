@@ -10,6 +10,14 @@ COLOR_CHOICES = (
     ('Out Of Stock','Out Of Stock'),
   
 )
+SIZE_CHOICES = (
+    ('----','----'),
+    ('x-small', 'x-small'),
+    ('small', 'small'),
+    ('medium', 'medium'),
+    ('large', 'large'),
+    ('x-large', 'x-large'),
+)
 
 def validate_image_size(image):
     """Ensure the image size is 500x500 pixels."""
@@ -26,6 +34,7 @@ class Products(models.Model):
     discount_price = models.IntegerField(blank = True , help_text='this price is to attract the costumer and this is higher than price that you sell' , null=True)
     More_information = models.TextField(blank=True , null=True)
     availability = models.CharField(max_length=20, choices=COLOR_CHOICES, default='----' , null=True)
+    size = models.CharField(max_length=20, choices=SIZE_CHOICES, default='----' , null=True)
     category = models.ForeignKey(Category , on_delete=models.CASCADE , null=True)
     image = models.FileField(upload_to= "products/" , max_length=200 , null=True , help_text='Image size must be 500 X 500 pixels and add all images. If you dont have enough images then you can add 1 image 6 times' , validators=[validate_image_size]) 
     image2 = models.FileField(upload_to= "products/" , max_length=200 , null=True , help_text='Image size must be 500 X 500 pixels and add all images. If you dont have enough images then you can add 1 image 6 times' ,  validators=[validate_image_size])

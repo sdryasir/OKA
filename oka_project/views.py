@@ -895,3 +895,13 @@ def newsletter(request):
         return redirect("home")  # Redirect after successful subscription
 
     return redirect("home")
+
+def orderStatus(request):
+    # Fetch all orders for the logged-in user, including their items
+    orders = Orders.objects.filter(user=request.user).prefetch_related('orderitem_set')
+
+    # Check if orders exist
+    if not orders.exists():
+        return render(request, 'order_status.html', {'no_order': True})
+
+    return render(request, 'order_status.html', {'orders': orders})
