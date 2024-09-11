@@ -221,6 +221,9 @@
         <p style="font-size: 14px; margin: 0; margin-top: 6px;"><strong>Email</strong> : {{ user.email }}</p>
         <p style="font-size: 14px; margin: 0; margin-top: 6px;"><strong>Address</strong> : {{ address }}</p>
       </div><!-- /.u-user-name -->
+      <div class="u-order-check">
+        <a href="{% url 'order_status' %}" class="btn btn-primary" style="width: 100%; margin-top: 10px; background-color: #f85606; border-color: #f85606;">Check Your Orders</a>
+      </div><!-- /.u-order-check -->
 
 
 

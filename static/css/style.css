@@ -1069,7 +1069,7 @@ input:-internal-autofill-selected {
   left: 44%;
   color: white;
   background-color: #7d7d7d;
-  padding: 8px;
+  padding: 8px 10px;
   border-radius: 40px;
 }
 .no-order {

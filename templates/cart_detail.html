@@ -81,8 +81,9 @@
           SUBTOTAL : Rs. {{subtotal}}
         </p>
         {% if subtotal != 0 %}
-        <p style="font-weight: 600; color: #333; text-align: end">
+        <p style="font-weight: 600; color: #333; text-align: end; margin-bottom: 0">
           SHIPPING : Rs. 200
+          <p style="font-size: 13px; color: #797979; text-align: end">(Shipping Date: {{ shipping_date|date:"d M, Y" }})</p>  
         </p>
         {% else %}
         <p style="font-weight: 600; color: #333; text-align: end">
@@ -151,7 +152,9 @@
         {% if subtotal != 0 %}
         <p style="font-weight: 600; color: #333; border-bottom: 1px rgb(0,0,0,.5) dotted; text-align: end">
           Shipping Charges : Rs. 200
+          
         </p>
+
         {% else %}
         <p style="font-weight: 600; color: #333; border-bottom: 1px rgb(0,0,0,.5) dotted; text-align: end">
           Shipping Charges : Rs. 0
