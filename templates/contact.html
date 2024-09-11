@@ -19,14 +19,15 @@
 
 <body>
 
-    
+    {% for i in info %}
     <div class="container-fluid p-0">
         <iframe class="w-100"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2629.3364469259504!2d73.05171778159371!3d33.59481154268757!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38df949d2be3d885%3A0x83a37f5f6cf58313!2sSuperTech%20Institute%20of%20Computer%20Sciences!5e0!3m2!1sen!2s!4v1720588599133!5m2!1sen!2s"
+            src="{{i.map_link}}"
             height="450" style="border: 0" allowfullscreen="" loading="lazy"
             referrerpolicy="no-referrer-when-downgrade">
         </iframe>
     </div>
+    {% endfor %}
     <div class="container d-flex justify-content-center align-items-center">
         {% for message in messages %}
         <div style="text-align: center;"
@@ -76,16 +77,17 @@
                 </div>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12">
+                {% for i in info %}
                 <div style="border: none !important;
-    background-color: #FCFCFC !important;" class="p-3 border bg-light">
+                background-color: #FCFCFC !important;" class="p-3 border bg-light">
                     <h4>CONTACT INFORMATION</h4><br>
-                    <p>We are always delighted to hear from you. Please feel free to write us about your queries,
-                        questions, testimonials or anything that you think would help us to serve you better.</p><br>
-                    <p><i class="bi bi-house-door"></i> Building # 21, Block B, Faisal Town, Lahore.</p>
-                    <p><i class="bi bi-telephone"></i> +92 333 142 1787</p>
-                    <p><i class="bi bi-envelope"></i> info@babyplanet.pk</p>
+                    <p>{{i.info}}</p><br>
+                    <p><i class="bi bi-house-door"></i> {{i.address}}</p>
+                    <p><i class="bi bi-telephone"></i> {{i.phone}}</p>
+                    <p><i class="bi bi-envelope"></i> {{i.email}}</p>
                     <p><i class="bi bi-clock"></i> 24/7</p>
                 </div>
+                {% endfor %}
             </div>
         </div>
     </div>
