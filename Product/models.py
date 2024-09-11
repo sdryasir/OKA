@@ -11,6 +11,7 @@ COLOR_CHOICES = (
   
 )
 
+
 def validate_image_size(image):
     """Ensure the image size is 500x500 pixels."""
     img = Image.open(image)

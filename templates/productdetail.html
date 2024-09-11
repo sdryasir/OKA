@@ -242,37 +242,13 @@
             <h5 class="card-title" style="font-size: 18px; font-weight: 600;">{{products.name}}</h5>
             <div class="card-subtitle mb-2 text-body-secondary mt-2 d-flex align-items-center"><span
                 style="text-decoration: line-through; color: #696969;">Rs.{{products.discount_price}}</span>
-              <spa style="color: #ff6f00; font-weight: 600;">
+              <span style="color: #ff6f00; font-weight: 600;">
                 <h5 class="d-inline ms-2">Rs.{{products.price}}</h5>
-              </spa><span class="ms-2"
-                style="background-color: #ff6f00; border-radius: 2px; font-weight: 600; color: white; font-size: 13px; padding: 2px 4px;">
-                SAVE 34%</span>
+              </span>
             </div>
             <p class="card-text" style="font-size: 14px; color: #696969;">{{products.sub_title}}</p>
-            <div class="card-text d-flex align-items-baseline " style="font-size: 14px; color: #696969;">
-              <h6 class="me-2" style="font-size: 15px;">SELECT SIZE :
-              </h6>
-              <select style=" border-radius: 4px; font-weight: 600;">
-                <option value="0">Choose</option>
-                <option value="1">Small</option>
-                <option value="2">Medium</option>
-                <option value="3">Large</option>
-                <option value="3">X-large</option>
-                <option value="3">Full Size</option>
-              </select>
-            </div>
-            <div class="card-text d-flex mt-3 align-items-baseline " style="font-size: 14px; color: #696969;">
-              <h6 class="me-2" style="font-size: 15px;">SELECT COLOUR :
-              </h6>
-              <select style=" border-radius: 4px; font-weight: 600;">
-                <option value="0">Choose</option>
-                <option value="1">Red</option>
-                <option value="2">Green</option>
-                <option value="3">White</option>
-                <option value="3">Black</option>
-                <option value="3">Brown</option>
-              </select>
-            </div>
+            
+            
             <div>
               <h6 class="me-2 mt-3" style="font-size: 15px;">AVAILABILITY : <b>"{{products.availability}}"</b>
               </h6>
@@ -288,10 +264,23 @@
               </form>
 
 
+              {% if products.availability == 'Out Of Stock' %}
+              <div class="u-add-to-cart d-flex align-items-center mt-3" style="opacity: 0.5;
+              pointer-events: none;
+              cursor: not-allowed;" disabled>
+                <a style="text-align: center;" class="u-cart-adjust ms-2" href="#"><i
+                    class="bi bi-cart me-1"> </i> ADD TO CART</a>
+              </div><!-- /.u-add-to-cart -->
+              {% else %}
               <div class="u-add-to-cart d-flex align-items-center mt-3">
                 <a style="text-align: center;" class="u-cart-adjust ms-2" href="{% url 'cart_add' products.id %}"><i
                     class="bi bi-cart me-1"> </i> ADD TO CART</a>
               </div><!-- /.u-add-to-cart -->
+              {% endif %}
+
+
+
+              
             </div>
 
           </div>

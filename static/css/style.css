@@ -248,7 +248,8 @@ iframe {
   justify-content: center;
   margin-bottom: 3%;
 }
-.u-sorting{
+
+.u-sorting {
   display: flex !important;
   justify-content: start !important;
 }
@@ -393,7 +394,8 @@ h1#faq-title {
     font-size: 14px;
   }
 
-  #faq-main , .u-main-style{
+  #faq-main,
+  .u-main-style {
     margin-top: 17% !important;
   }
 
@@ -1032,11 +1034,13 @@ input:-internal-autofill-selected {
   font-size: 9px;
   top: 38%;
 }
+
 #profile_picture {
   width: 207px;
   font-size: 13px;
 }
-.u-btn-p-save{
+
+.u-btn-p-save {
   color: white;
   background-color: #f85606;
   border: 1px #f85606 solid;
@@ -1047,12 +1051,50 @@ input:-internal-autofill-selected {
   transition: .35s;
   font-size: 14px;
 }
+
 .u-form-style .form-group {
   text-align: end;
 }
-.u-form-style{
+
+.u-form-style {
   margin-top: 8px !important;
   text-align: center;
+
+}
+
+.u-plus-style {
+  cursor: pointer;
+  position: absolute;
+  bottom: 19px;
+  left: 44%;
+  color: white;
+  background-color: #7d7d7d;
+  padding: 8px 10px;
+  border-radius: 40px;
+}
+.no-order {
+  text-align: center;
+  font-size: 18px;
+  color: red;
+}
+.orders-container {
+  width: 60%;
+  margin: 0 auto;
+}
+.order-card {
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin-bottom: 10px;
+}
+.order-card h4, .order-card p {
+  margin-bottom: 5px;
+}
+.order-card ul {
+  list-style-type: none;
+  padding: 0;
+}
+.order-card ul li {
+  padding: 5px 0;
 }
 
 
@@ -1598,17 +1640,26 @@ body {
 /* checkout modal start */
 
 .modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  padding-top: 60px; /* Location of the box */
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  padding-top: 60px;
+  /* Location of the box */
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
 }
 
 /* Modal Content */
@@ -1619,7 +1670,7 @@ body {
   padding: 0;
   border: 1px solid #888;
   width: 70%;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   -webkit-animation-name: animatetop;
   -webkit-animation-duration: 0.4s;
   animation-name: animatetop;
@@ -1628,13 +1679,27 @@ body {
 
 /* Add Animation */
 @-webkit-keyframes animatetop {
-  from {top:-300px; opacity:0} 
-  to {top:0; opacity:1}
+  from {
+    top: -300px;
+    opacity: 0
+  }
+
+  to {
+    top: 0;
+    opacity: 1
+  }
 }
 
 @keyframes animatetop {
-  from {top:-300px; opacity:0}
-  to {top:0; opacity:1}
+  from {
+    top: -300px;
+    opacity: 0
+  }
+
+  to {
+    top: 0;
+    opacity: 1
+  }
 }
 
 /* The Close Button */
@@ -1656,11 +1721,14 @@ body {
   padding: 2px 16px;
 }
 
-.modal-body {padding: 2px 16px;}
+.modal-body {
+  padding: 2px 16px;
+}
 
 .modal-footer {
   padding: 2px 16px;
 }
+
 /* search modal ends */
 
 /* dorpdown-start */
@@ -1915,19 +1983,23 @@ body {
     color: gold;
     margin: 0;
   }
-  .modal-content{
+
+  .modal-content {
     width: 80% !important;
   }
-  .u-custom-row .col-sm-8{
-      flex: 0 0 auto;
-      width: 33.33333337%;
-  
+
+  .u-custom-row .col-sm-8 {
+    flex: 0 0 auto;
+    width: 33.33333337%;
+
   }
-  .u-custom-row .col-sm-2{
-      flex: 0 0 auto;
-      width: 33.33333337%;
-  
+
+  .u-custom-row .col-sm-2 {
+    flex: 0 0 auto;
+    width: 33.33333337%;
+
   }
+
   main {
     margin-top: 102px;
   }
@@ -2034,9 +2106,11 @@ body {
   .u-navbar-title {
     width: 28% !important;
   }
-  .u-pill{
+
+  .u-pill {
     top: 20px;
   }
+
   main {
     margin-top: 81px;
   }
@@ -2092,6 +2166,7 @@ body {
 
     /* margin-left: 12px; */
   }
+
   main {
     margin-top: 104px;
   }

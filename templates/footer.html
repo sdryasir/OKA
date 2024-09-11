@@ -313,6 +313,35 @@
     }
   }
   </script>
+  <script>
+    // JavaScript to toggle the Save button based on file selection
+    document.getElementById('profile_picture').addEventListener('change', function() {
+        var saveButton = document.getElementById('saveButton');
+        
+        // Check if a file is selected
+        if (this.files.length > 0) {
+            saveButton.style.display = 'inline-block';  // Show the button
+        } else {
+            saveButton.style.display = 'none';  // Hide the button
+        }
+    });
+</script>
+<script>
+  // JavaScript to toggle Save button and "+" icon based on file selection
+  document.getElementById('profile_picture').addEventListener('change', function() {
+      var saveButton = document.getElementById('saveButton');
+      var uploadIcon = document.getElementById('uploadIcon');
+      
+      // Check if a file is selected
+      if (this.files.length > 0) {
+          saveButton.style.display = 'inline-block';  // Show the Save button
+          uploadIcon.style.display = 'none';  // Hide the "+" icon
+      } else {
+          saveButton.style.display = 'none';  // Hide the Save button
+          uploadIcon.style.display = 'inline-block';  // Show the "+" icon
+      }
+  });
+</script>
 
 
 </body>

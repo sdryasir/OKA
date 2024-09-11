@@ -6,11 +6,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Baby Planet</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-<link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <link rel="icon" type="image/x-icon" href="https://babyplanet.pk/cdn/shop/files/fav.png?v=1685708323&width=32">
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -41,7 +42,8 @@
               <div class="hamburger">
 
               </div><!-- /.hamburger -->
-              <a href="{% url 'home' %}" class="u-navbar-title" style="display: flex; justify-content: center;" ><img class="logo-size" src="{% static 'images/logo.png' %}" alt=""></a>
+              <a href="{% url 'home' %}" class="u-navbar-title" style="display: flex; justify-content: center;"><img
+                  class="logo-size" src="{% static 'images/logo.png' %}" alt=""></a>
 
 
               <div class="nav-items-inner">
@@ -61,23 +63,29 @@
                         <i class="ph-bold ph-x"></i>
                       </button>
                     </div>
-                      
+
                   </li>
                   {% if user.is_authenticated %}
                   {% if profile_picture %}
                   <li class="nav-item sizing me-3">
-                    <i data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" id="person-icon" class="material-symbols-outlined u-p-icon"
-                      style="color: black; font-weight: 700; font-size: 105%;"> <img src="{{ profile_picture }}" alt="Profile Picture" class="img-fluid rounded-circle" style="width: 26px; height: 26px; object-fit: cover;"></i>
+                    <i data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"
+                      id="person-icon" class="material-symbols-outlined u-p-icon"
+                      style="color: black; font-weight: 700; font-size: 105%;"> <img src="{{ profile_picture }}"
+                        alt="Profile Picture" class="img-fluid rounded-circle"
+                        style="width: 26px; height: 26px; object-fit: cover;"></i>
                   </li>
                   {% else %}
                   <li class="nav-item sizing me-3">
-                    <i data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" id="person-icon" class="material-symbols-outlined u-p-icon"
-                      style="color: black; font-weight: 700; font-size: 105%;"> <img src="{% static 'images/profile2.jpeg' %}" alt="Profile Picture" class="img-fluid rounded-circle" style="width: 26px; height: 26px; object-fit: cover;"></i>
+                    <i data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"
+                      id="person-icon" class="material-symbols-outlined u-p-icon"
+                      style="color: black; font-weight: 700; font-size: 105%;"> <img
+                        src="{% static 'images/profile2.jpeg' %}" alt="Profile Picture" class="img-fluid rounded-circle"
+                        style="width: 26px; height: 26px; object-fit: cover;"></i>
                   </li>
                   {% endif %}
                   {% else %}
                   <li class="nav-item sizing me-3">
-                    <i id="person-icon"  class="bi bi-person material-symbols-outlined u-p-icon"
+                    <i id="person-icon" class="bi bi-person material-symbols-outlined u-p-icon"
                       style="color: black; font-weight: 700; font-size: 102%;"></i>
 
                   </li>
@@ -87,8 +95,7 @@
                   <li class="nav-item sizing me-3 u-view-upper">
                     <a class="bi bi-cart" href="{% url 'cart_detail' %}"
                       style="color: black; font-weight: 700; font-size: 102%; text-decoration: none;">
-                      <span class="position-absolute translate-middle badge rounded-pill bg-danger u-pill"
-                        >
+                      <span class="position-absolute translate-middle badge rounded-pill bg-danger u-pill">
                         {{request.session.cart|length}}
                         <span class="visually-hidden">unread messages</span>
                       </span>
@@ -118,16 +125,16 @@
             </button>
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
               <ul class="navbar-nav">
-                  {% if header %}
-                      {% for item in header %}
-                          <li class="nav-item">
-                              <a class="nav-link nav-bottom-cl mb-cl" aria-current="page" href="{{ item.url }}">{{ item.name }}</a>
-                          </li>
-                      {% endfor %}
-                  {% endif %}
+                {% if header %}
+                {% for item in header %}
+                <li class="nav-item">
+                  <a class="nav-link nav-bottom-cl mb-cl" aria-current="page" href="{{ item.url }}">{{ item.name }}</a>
+                </li>
+                {% endfor %}
+                {% endif %}
               </ul>
-          </div>
-          
+            </div>
+
           </div>
         </nav>
       </div><!-- /.nav-bottom -->
@@ -164,45 +171,61 @@
       </div><!-- /.u-mobile-nav -->
 
     </div><!-- /.head-wrapper -->
-  </header> 
+  </header>
   {% if user.is_authenticated %}
-  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" style="width: 280px;" aria-labelledby="offcanvasRightLabel">
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" style="width: 280px;"
+    aria-labelledby="offcanvasRightLabel">
     <div class="offcanvas-header">
       <h5 class="offcanvas-title" id="offcanvasRightLabel">Hi! <strong>{{user.first_name}}</strong></h5>
       <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body" style="padding-top: 2px;">
-    <div class="u-profile-edit d-flex" style="justify-content: space-between;">
-      <a href=""></a> 
-      <a href="{% url 'logout' %}" style=" padding: 3px 8px; border-radius: 5px;" class="btn btn-danger"><i class="bi bi-box-arrow-right"></i></a>
-    </div><!-- /.u-profile-edit -->
+      <div class="u-profile-edit d-flex" style="justify-content: space-between;">
+        <a href=""></a>
+        <a href="{% url 'logout' %}" style=" padding: 3px 8px; border-radius: 5px;" class="btn btn-danger"><i
+            class="bi bi-box-arrow-right"></i></a>
+      </div><!-- /.u-profile-edit -->
 
-    {% if profile_picture %}
-        <div class="mt-2" style="text-align: center;">
-            <img src="{{ profile_picture }}" alt="Profile Picture" class="img-fluid rounded-circle" style="width: 130px; height: 130px; object-fit: cover;">
+
+      <div class="mt-2" style="text-align: center; position: relative;">
+        {% if profile_picture %}
+        <img src="{{ profile_picture }}" alt="Profile Picture" class="img-fluid rounded-circle"
+          style="width: 130px; height: 130px; object-fit: cover;">
+        {% else %}
+        <img src="{% static 'images/profile2.jpeg' %}" alt="Profile Picture" class="img-fluid rounded-circle"
+          style="width: 130px; height: 130px; object-fit: cover;">
+        {% endif %}
+        <form method="post" enctype="multipart/form-data" class="mt-4 u-form-style">
+        {% csrf_token %}
+        <div class="form-group">
+          <!-- Hidden File Input -->
+          <input type="file" name="profile_picture" id="profile_picture" required class="form-control-file"
+            style="display: none;">
+          <!-- Custom Label as a "+" Button -->
+          <label for="profile_picture" class="custom-file-upload" id="uploadIcon">
+            <i class="fa fa-plus u-plus-style"></i>
+          </label>
         </div>
-    {% else %}
-    <div class="mt-4" style="text-align: center;">
-      <img src="{% static 'images/profile2.jpeg' %}" alt="Profile Picture" class="img-fluid rounded-circle" style="width: 130px; height: 130px; object-fit: cover;">
-  </div>
-    {% endif %}
-    <form method="post" enctype="multipart/form-data" class="mt-4 u-form-style">
-      {% csrf_token %}
-      <div class="form-group">
-          <input type="file" name="profile_picture" id="profile_picture" required class="form-control-file">
-      </div>
-      <button type="submit" class="btn u-btn-p-save btn-primary">Save</button>
-  </form>
-  <div class="u-user-name mt-4">
-    <p style="font-size: 14px; margin: 0; margin-top: 6px;"><strong>Username</strong> : {{ user.username }}</p>
-    <p style="font-size: 14px; margin: 0; margin-top: 6px;"><strong>Phone</strong> : {{ phone_no }}</p>
-    <p style="font-size: 14px; margin: 0; margin-top: 6px;"><strong>Email</strong> : {{ user.email }}</p>
-    <p style="font-size: 14px; margin: 0; margin-top: 6px;"><strong>City</strong> : {{ city }}</p>
-    <p style="font-size: 14px; margin: 0; margin-top: 6px;"><strong>Country</strong> : {{ country }}</p>
-    <p style="font-size: 14px; margin: 0; margin-top: 6px;"><strong>Address</strong> : {{ address }}</p>
-  </div><!-- /.u-user-name -->
 
-          
+        <!-- Save Button (hidden by default) -->
+        <button id="saveButton" type="submit" class="btn u-btn-p-save btn-primary" style="display: none;">Save</button>
+        </form>
+      </div>
+
+
+
+
+
+      <div class="u-user-name mt-4">
+        <p style="font-size: 14px; margin: 0; margin-top: 6px;"><strong>Username</strong> : {{ user.username }}</p>
+        <p style="font-size: 14px; margin: 0; margin-top: 6px;"><strong>Email</strong> : {{ user.email }}</p>
+        <p style="font-size: 14px; margin: 0; margin-top: 6px;"><strong>Address</strong> : {{ address }}</p>
+      </div><!-- /.u-user-name -->
+      <div class="u-order-check">
+        <a href="{% url 'order_status' %}" class="btn btn-primary" style="width: 100%; margin-top: 10px; background-color: #f85606; border-color: #f85606;">Check Your Orders</a>
+      </div><!-- /.u-order-check -->
+
+
 
     </div>
   </div>
