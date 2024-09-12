@@ -170,17 +170,14 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "mail.nullxcoder.xyz"
-EMAIL_PORT = 465  # or 587 if you switch to TLS
-EMAIL_USE_TLS = (
-    False  # or True if you switch to port 587  # or False if you switch to port 587
-)
-EMAIL_USE_SSL = (
-    True  # or True if you switch to port 587  # or False if you switch to port 587
-)
-EMAIL_HOST_USER = "info@nullxcoder.xyz"
-EMAIL_HOST_PASSWORD = "Pq-?C@6TH27Z"
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+EMAIL_HOST_USER = 'kidsassessories@gmail.com'  
+EMAIL_HOST_PASSWORD = 'uvnsiqbgqyuwoiwb'  
+DEFAULT_FROM_EMAIL = 'kidsassessories@gmail.com'
 
 
 JAZZMIN_SETTINGS = {
