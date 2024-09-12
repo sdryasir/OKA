@@ -131,21 +131,6 @@
                     <a class="nav-link nav-bottom-cl mb-cl" aria-current="page" href="{{ item.url }}">{{ item.name }}</a>
                 </li>
                 {% endfor %}
-            
-                {% if header|length > 4 %}
-                <li class="nav-item dropdown">
-                    <a style="padding: 0 !important; color: white;" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        More
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        {% for item in header|slice:"4:" %}
-                        <li>
-                            <a class="dropdown-item" href="{{ item.url }}">{{ item.name }}</a>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </li>
-                {% endif %}
                 {% endif %}
             </ul>
             </div>
