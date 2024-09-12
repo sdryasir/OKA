@@ -125,13 +125,13 @@
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
               <ul class="navbar-nav">
                 {% if header %}
-                {% for item in header %}
+                {% for item in header|slice:":4" %}
                 <li class="nav-item">
-                  <a class="nav-link nav-bottom-cl mb-cl" aria-current="page" href="{{ item.url }}">{{ item.name }}</a>
+                    <a class="nav-link nav-bottom-cl mb-cl" aria-current="page" href="{{ item.url }}">{{ item.name }}</a>
                 </li>
                 {% endfor %}
                 {% endif %}
-              </ul>
+            </ul>
             </div>
 
           </div>
