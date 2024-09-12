@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseBadRequest
 import logging
+from datetime import datetime
 from newsletter.models import Newsletter
 from django.db.models import Q
 from django.core.mail import send_mail, BadHeaderError
@@ -722,8 +723,8 @@ def create_checkout_session(request):
     checkout_session = stripe.checkout.Session.create(
         line_items=line_items,
         mode="payment",
-        success_url=settings.YOUR_DOMAIN + "success",
-        cancel_url=settings.YOUR_DOMAIN + "cancel",
+        success_url="https://nullxcoder.xyz/success",
+        cancel_url="https://nullxcoder.xyz/cancel",
         client_reference_id=order.id,  # Pass the order ID for matching in webhook
         shipping_options=[
             {
@@ -745,9 +746,14 @@ def create_checkout_session(request):
 
     return redirect(checkout_session.url, code=303)
 
+@login_required(login_url="/users/login")
 def success(request):
     profile_picture = None
+    city = None
+    country = None
     address = None
+    phone_no = None
+
     if request.user.is_authenticated:
         userdata, created = Userdata.objects.get_or_create(user=request.user)
         profile_picture = userdata.profile_picture.url if userdata.profile_picture else None
@@ -758,8 +764,20 @@ def success(request):
                 userdata.profile_picture = request.FILES['profile_picture']
                 userdata.save()
                 return redirect('home')
+        
         address = userdata.address if userdata.address else None
-    return render(request, "success.html" , {"profile_picture": profile_picture , "city": city , "country": country , "address": address , "phone_no": phone_no})
+
+    if request.method == 'GET':
+        cart = Cart(request)
+        cart.clear()
+
+    return render(request, "success.html", {
+        "profile_picture": profile_picture,
+        "city": city,
+        "country": country,
+        "address": address,
+        "phone_no": phone_no
+    })
 
 def cancel(request):
     profile_picture = None
@@ -784,6 +802,29 @@ def cancel(request):
     
     return render(request, "cancel.html" , {"profile_picture": profile_picture , "city": city , "country": country , "address": address , "phone_no": phone_no})
 
+
+
+# Define email functions outside of conditional logic
+def send_payment_confirmation_email(client_reference_id, user_email, order_time, status):
+    subject = f'Order Payment Confirmation - {status}'
+    message = f"""
+    Dear Customer,
+
+    Thank you for your purchase!
+
+    Your payment status is: {status}
+    Order ID: {client_reference_id}
+    Order Date and Time: {order_time.strftime('%Y-%m-%d %H:%M:%S')}
+
+    If you have any questions or need further assistance, please contact us.
+
+    Shipping is expected to be within 5-7 business days.
+
+    Best regards,
+    NullxCODER Team
+    """
+    send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [user_email])
+
 @csrf_exempt
 def stripe_webhook(request):
     payload = request.body
@@ -806,16 +847,19 @@ def stripe_webhook(request):
     if event['type'] == 'checkout.session.completed':
         session = event['data']['object']
         session_id = session.get('id')
-        client_reference_id = session.get('client_reference_id')  # Retrieve the order ID
+        client_reference_id = session.get('client_reference_id')
         print(f"Processing checkout.session.completed for session_id: {session_id}, client_reference_id: {client_reference_id}")
 
         try:
             # Fetch the order using client_reference_id
             order = Orders.objects.get(id=client_reference_id)
             order.payment_status = "paid"
-            order.payment_id = session_id  # Optionally store the Stripe session ID
+            order.payment_id = session_id
             order.save()
             print(f"Order updated: {order}")
+
+            # Send confirmation email
+            send_payment_confirmation_email(client_reference_id, order.user.email, order.created_at, "PAID")
         except Orders.DoesNotExist:
             print(f"Order with client_reference_id {client_reference_id} not found")
 
@@ -826,8 +870,11 @@ def stripe_webhook(request):
     elif event['type'] == 'payment_intent.payment_failed':
         # Handle the payment_intent.payment_failed event if needed
         print(f"PaymentIntent failed: {json.dumps(event, indent=2)}")
+        # Example: Send a failure email if needed
+        # You might need to fetch the order details here
 
     return JsonResponse({'status': 'success'}, status=200)
+
 
 # Configure logger
 logger = logging.getLogger(__name__)
@@ -942,4 +989,4 @@ def delete_order(request, order_id):
     order = get_object_or_404(Orders, id=order_id, user=request.user)
     if request.method == 'POST':
         order.delete()
-        return redirect('order_status')  # Redirect to order status page after deletion
+        return redirect('order_status') 
