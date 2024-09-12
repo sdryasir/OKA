@@ -38,7 +38,7 @@ urlpatterns = [
     path('create_checkout_session', views.create_checkout_session, name='create_checkout_session'),
     path('all-products/', views.products, name='products'),
     path('resetfilter/', views.resetfilter, name='resetfilter'),
-    path('product-details/<id>', views.product_details, name='product-details'),
+    path('product-details/<int:id>', views.product_details, name='product-details'),
     path('search-results/', views.searchResult, name='search-results'),
     path('product-results/', views.productResult, name='product-results'),
     path('submit_review/<int:id>/', views.submit_review, name='submit-review'),
@@ -60,6 +60,7 @@ urlpatterns = [
     path('cart/cart-detail/',views.cart_detail,name='cart_detail'),
     path('order_status/', views.orderStatus, name='order_status'),
     path('delete_order/<int:order_id>/', views.delete_order, name='delete_order'),
+    
 
 ]
 if settings.DEBUG :

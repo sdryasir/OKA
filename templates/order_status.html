@@ -9,6 +9,7 @@
     </div><!-- /.container -->    
 </div><!-- /.order-status-wrapper -->
 
+
 {% if no_order %}
     <div class="no-order my-4">
         <h3>No order found</h3>
@@ -27,9 +28,9 @@
                 
                 {% if order.payment_status == "unpaid" %}
                     <div style="text-align: center;">
-                        <a href="{% url 'cart_detail' %}" style=" color: white; background-color: #f85606; border: 1px #f85606 solid; text-decoration: none; padding: 6px 20px; border-radius: 8px; margin: 4px 0; transition: .35s;">Pay Now</a>
+                        <a href="{% url 'create_checkout_session' %}" style=" color: white; background-color: #f85606; border: 1px #f85606 solid; text-decoration: none; padding: 6px 20px; border-radius: 8px; margin: 4px 0; transition: .35s;">Pay Now</a>
                     </div>
-                {% endif %}
+                
 
                 <!-- Delete Button -->
                 <div style="text-align: center; margin-top: 20px;">
@@ -40,6 +41,7 @@
                         </button>
                     </form>
                 </div>
+                {% endif %}
             </div>
         {% endfor %}
     </div>
