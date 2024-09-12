@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseBadRequest
 import logging
+from datetime import datetime
 from newsletter.models import Newsletter
 from django.db.models import Q
 from django.core.mail import send_mail, BadHeaderError
@@ -747,7 +748,10 @@ def create_checkout_session(request):
 
 def success(request):
     profile_picture = None
+    city = None
+    country = None
     address = None
+    phone_no = None
     if request.user.is_authenticated:
         userdata, created = Userdata.objects.get_or_create(user=request.user)
         profile_picture = userdata.profile_picture.url if userdata.profile_picture else None
@@ -820,14 +824,52 @@ def stripe_webhook(request):
             print(f"Order with client_reference_id {client_reference_id} not found")
 
     elif event['type'] == 'payment_intent.succeeded':
+        def send_payment_confirmation_email(client_reference_id, user_email, order_time):
+            subject = 'Order Payment Confirmation'
+            message = f"""
+            Dear Customer,
+
+            Thank you for your purchase!
+
+            Your payment status is: PAID
+            Order ID: {client_reference_id}
+            Order Date and Time: {order_time.strftime('%Y-%m-%d %H:%M:%S')}
+
+            If you have any questions or need further assistance, please contact us.
+
+            Shipping is expected to be within 5-7 business days.
+
+            Best regards,
+            NullxCODER Team
+            """
+            send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [user_email])
         # Handle the payment_intent.succeeded event if needed
         print(f"PaymentIntent succeeded: {json.dumps(event, indent=2)}")
 
     elif event['type'] == 'payment_intent.payment_failed':
-        # Handle the payment_intent.payment_failed event if needed
+        def send_payment_confirmation_email(client_reference_id, user_email, order_time):
+            subject = 'Order Payment Failed!'
+            message = f"""
+            Dear Customer,
+
+            Please Order/pay Again To Confirm You!
+
+            Your payment status is: UnPAID
+            Order ID: {client_reference_id}
+            Order Date and Time: {order_time.strftime('%Y-%m-%d %H:%M:%S')}
+
+            If you have any questions or need further assistance, please contact us.
+
+            Best regards,
+            NullxCODER Team
+            """
+            send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [user_email])
         print(f"PaymentIntent failed: {json.dumps(event, indent=2)}")
 
     return JsonResponse({'status': 'success'}, status=200)
+
+
+
 
 # Configure logger
 logger = logging.getLogger(__name__)

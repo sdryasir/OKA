@@ -177,7 +177,7 @@ EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 EMAIL_HOST_USER = 'kidsassessories@gmail.com'  
 EMAIL_HOST_PASSWORD = 'uvnsiqbgqyuwoiwb'  
-DEFAULT_FROM_EMAIL = 'kidsassessories@gmail.com'
+DEFAULT_FROM_EMAIL = 'info@nullxcoder.xyz'
 
 
 JAZZMIN_SETTINGS = {
