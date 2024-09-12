@@ -196,6 +196,7 @@ JAZZMIN_SETTINGS = {
         "faq.Faq": "fas fa-question",
         "navbar.Navbar" : "fas fa-bars",
         "contact.Contact":"fas fa-id-badge",
+        "contact.Usrinfo":"fas fa-info",
         "carousel.Carousel":"fas fa-image",
         "categories.Category":"fas fa-list",
         "offer.Offer":"fas fa-tag",

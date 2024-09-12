@@ -6,7 +6,7 @@
         <div class="col-lg-2 col-md-4 col-sm-6 mb-4">
           <h5 class="h5-center">{{ section.title }}</h5>
           <ul class="media-footer-mobile">
-            {% for link in section.links.all %}
+            {% for link in section.links.all|slice:":4" %}
               <li><a href="{{ link.url }}">{{ link.name }}</a></li>
             {% endfor %}
           </ul>
