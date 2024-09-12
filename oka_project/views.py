@@ -788,6 +788,29 @@ def cancel(request):
     
     return render(request, "cancel.html" , {"profile_picture": profile_picture , "city": city , "country": country , "address": address , "phone_no": phone_no})
 
+
+
+# Define email functions outside of conditional logic
+def send_payment_confirmation_email(client_reference_id, user_email, order_time, status):
+    subject = f'Order Payment Confirmation - {status}'
+    message = f"""
+    Dear Customer,
+
+    Thank you for your purchase!
+
+    Your payment status is: {status}
+    Order ID: {client_reference_id}
+    Order Date and Time: {order_time.strftime('%Y-%m-%d %H:%M:%S')}
+
+    If you have any questions or need further assistance, please contact us.
+
+    Shipping is expected to be within 5-7 business days.
+
+    Best regards,
+    NullxCODER Team
+    """
+    send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [user_email])
+
 @csrf_exempt
 def stripe_webhook(request):
     payload = request.body
@@ -810,65 +833,33 @@ def stripe_webhook(request):
     if event['type'] == 'checkout.session.completed':
         session = event['data']['object']
         session_id = session.get('id')
-        client_reference_id = session.get('client_reference_id')  # Retrieve the order ID
+        client_reference_id = session.get('client_reference_id')
         print(f"Processing checkout.session.completed for session_id: {session_id}, client_reference_id: {client_reference_id}")
 
         try:
             # Fetch the order using client_reference_id
             order = Orders.objects.get(id=client_reference_id)
             order.payment_status = "paid"
-            order.payment_id = session_id  # Optionally store the Stripe session ID
+            order.payment_id = session_id
             order.save()
             print(f"Order updated: {order}")
+
+            # Send confirmation email
+            send_payment_confirmation_email(client_reference_id, order.user.email, order.created_at, "PAID")
         except Orders.DoesNotExist:
             print(f"Order with client_reference_id {client_reference_id} not found")
 
     elif event['type'] == 'payment_intent.succeeded':
-        def send_payment_confirmation_email(client_reference_id, user_email, order_time):
-            subject = 'Order Payment Confirmation'
-            message = f"""
-            Dear Customer,
-
-            Thank you for your purchase!
-
-            Your payment status is: PAID
-            Order ID: {client_reference_id}
-            Order Date and Time: {order_time.strftime('%Y-%m-%d %H:%M:%S')}
-
-            If you have any questions or need further assistance, please contact us.
-
-            Shipping is expected to be within 5-7 business days.
-
-            Best regards,
-            NullxCODER Team
-            """
-            send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [user_email])
         # Handle the payment_intent.succeeded event if needed
         print(f"PaymentIntent succeeded: {json.dumps(event, indent=2)}")
 
     elif event['type'] == 'payment_intent.payment_failed':
-        def send_payment_confirmation_email(client_reference_id, user_email, order_time):
-            subject = 'Order Payment Failed!'
-            message = f"""
-            Dear Customer,
-
-            Please Order/pay Again To Confirm You!
-
-            Your payment status is: UnPAID
-            Order ID: {client_reference_id}
-            Order Date and Time: {order_time.strftime('%Y-%m-%d %H:%M:%S')}
-
-            If you have any questions or need further assistance, please contact us.
-
-            Best regards,
-            NullxCODER Team
-            """
-            send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [user_email])
+        # Handle the payment_intent.payment_failed event if needed
         print(f"PaymentIntent failed: {json.dumps(event, indent=2)}")
+        # Example: Send a failure email if needed
+        # You might need to fetch the order details here
 
     return JsonResponse({'status': 'success'}, status=200)
-
-
 
 
 # Configure logger
