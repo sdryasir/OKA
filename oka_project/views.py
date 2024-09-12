@@ -723,8 +723,8 @@ def create_checkout_session(request):
     checkout_session = stripe.checkout.Session.create(
         line_items=line_items,
         mode="payment",
-        success_url=settings.YOUR_DOMAIN + "success",
-        cancel_url=settings.YOUR_DOMAIN + "cancel",
+        success_url="https://nullxcoder.xyz/success",
+        cancel_url="https://nullxcoder.xyz/cancel",
         client_reference_id=order.id,  # Pass the order ID for matching in webhook
         shipping_options=[
             {
