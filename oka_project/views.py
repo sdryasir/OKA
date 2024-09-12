@@ -942,4 +942,4 @@ def delete_order(request, order_id):
     order = get_object_or_404(Orders, id=order_id, user=request.user)
     if request.method == 'POST':
         order.delete()
-        return redirect('order_status')  # Redirect to order status page after deletion
+        return redirect('order_status') 
