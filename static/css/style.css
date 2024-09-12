@@ -1072,31 +1072,50 @@ input:-internal-autofill-selected {
   padding: 8px 10px;
   border-radius: 40px;
 }
+
 .no-order {
   text-align: center;
   font-size: 18px;
   color: red;
 }
+
 .orders-container {
   width: 60%;
   margin: 0 auto;
 }
+
 .order-card {
   border: 1px solid #ccc;
   padding: 20px;
   margin-bottom: 10px;
 }
-.order-card h4, .order-card p {
+
+.order-card h4,
+.order-card p {
   margin-bottom: 5px;
 }
+
 .order-card ul {
   list-style-type: none;
   padding: 0;
 }
+
 .order-card ul li {
   padding: 5px 0;
 }
 
+.u-btn-order-color {
+  width: 100%;
+  margin-top: 10px;
+  background-color: #f85606;
+  border-color: #f85606;
+  transition: 0.3s ease;
+}
+.u-btn-order-color:hover {
+  background-color: #fff;
+  border-color: #f85606;
+  color: black;
+}
 
 
 

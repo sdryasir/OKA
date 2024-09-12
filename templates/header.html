@@ -65,6 +65,15 @@
                     </div>
 
                   </li>
+                  <li class="nav-item sizing me-3 u-view-upper">
+                    <a class="bi bi-cart" href="{% url 'cart_detail' %}"
+                      style="color: black; font-weight: 700; font-size: 102%; text-decoration: none;">
+                      <span class="position-absolute translate-middle badge rounded-pill bg-danger u-pill">
+                        {{request.session.cart|length}}
+                        <span class="visually-hidden">unread messages</span>
+                      </span>
+                    </a>
+                  </li>
                   {% if user.is_authenticated %}
                   {% if profile_picture %}
                   <li class="nav-item sizing me-3">
@@ -92,18 +101,8 @@
 
                   {% endif %}
 
-                  <li class="nav-item sizing me-3 u-view-upper">
-                    <a class="bi bi-cart" href="{% url 'cart_detail' %}"
-                      style="color: black; font-weight: 700; font-size: 102%; text-decoration: none;">
-                      <span class="position-absolute translate-middle badge rounded-pill bg-danger u-pill">
-                        {{request.session.cart|length}}
-                        <span class="visually-hidden">unread messages</span>
-                      </span>
-                    </a>
-                  </li>
-                  <li class="nav-item sizing u-view-upper">
-                    <i class="bi bi-heart" style="color: black; font-weight: 700; font-size: 102%;"></i>
-                  </li>
+                  
+                  
                 </ul>
               </div><!-- /.nav-items-inner -->
             </div>
@@ -164,7 +163,7 @@
             padding: 0;">
               <a class="nav-link nav-bottom-cl"
                 style="margin: 10px !important; padding: 8px; color: #000 !important; font-size: 20px;"
-                aria-current="page" href="#"><i class="bi bi-heart"></i></a>
+                aria-current="page" href="{% url 'products' %}"><i class="fas fa-box"></i></a>
             </li>
           </ul>
         </div><!-- /.container -->
@@ -222,7 +221,7 @@
         <p style="font-size: 14px; margin: 0; margin-top: 6px;"><strong>Address</strong> : {{ address }}</p>
       </div><!-- /.u-user-name -->
       <div class="u-order-check">
-        <a href="{% url 'order_status' %}" class="btn btn-primary" style="width: 100%; margin-top: 10px; background-color: #f85606; border-color: #f85606;">Check Your Orders</a>
+        <a href="{% url 'order_status' %}" class="btn btn-primary u-btn-order-color">Check Your Orders</a>
       </div><!-- /.u-order-check -->
 
 
