@@ -746,12 +746,14 @@ def create_checkout_session(request):
 
     return redirect(checkout_session.url, code=303)
 
+@login_required(login_url="/users/login")
 def success(request):
     profile_picture = None
     city = None
     country = None
     address = None
     phone_no = None
+
     if request.user.is_authenticated:
         userdata, created = Userdata.objects.get_or_create(user=request.user)
         profile_picture = userdata.profile_picture.url if userdata.profile_picture else None
@@ -762,8 +764,20 @@ def success(request):
                 userdata.profile_picture = request.FILES['profile_picture']
                 userdata.save()
                 return redirect('home')
+        
         address = userdata.address if userdata.address else None
-    return render(request, "success.html" , {"profile_picture": profile_picture , "city": city , "country": country , "address": address , "phone_no": phone_no})
+
+    if request.method == 'GET':
+        cart = Cart(request)
+        cart.clear()
+
+    return render(request, "success.html", {
+        "profile_picture": profile_picture,
+        "city": city,
+        "country": country,
+        "address": address,
+        "phone_no": phone_no
+    })
 
 def cancel(request):
     profile_picture = None
