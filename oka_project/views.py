@@ -100,8 +100,7 @@ def home(request):
     return render(request, "index.html", data)
 
 def contact(request):
-    info = Contact.objects.all()
-   
+    info = Usrinfo.objects.all()
     profile_picture = None
     city = None
     country = None
@@ -121,7 +120,6 @@ def contact(request):
         country = userdata.country if userdata.country else None
         address = userdata.address if userdata.address else None
         phone_no = userdata.phone_no if userdata.phone_no else None
-    print(info)
     data ={
         "info": info,
         "profile_picture": profile_picture,

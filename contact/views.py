@@ -6,14 +6,13 @@ from .models import Contact, Usrinfo
 
 def contact(request):
     info = Usrinfo.objects.all()
-    print(info)
-    data ={
-        "info": info
+    data = {
+        "info": info,
     }
     return render(request, 'contact.html', data)
 
 def savecontact(request):
-    # Check honeypot fields
+    d = Usrinfo.objects.all()
     if request.POST.get('honeypot_name') or request.POST.get('honeypot_email'):
         return render(request, 'contact.html', {'error': 'Bot detected'})
 
@@ -25,7 +24,7 @@ def savecontact(request):
     # Check if required fields are filled
     if not name or not email or not phone or not message:
         messages.error(request, 'Please Fill All The Fields!')
-        return render(request, 'contact.html')
+        return render(request, 'contact.html', {'info': d})
     else:
         Captcha_token = request.POST["g-recaptcha-response"]
         google_api = "https://www.google.com/recaptcha/api/siteverify"
@@ -37,8 +36,8 @@ def savecontact(request):
         Captcha_Server_response_parse = json.loads(Captcha_Server_response.text)
         if Captcha_Server_response_parse["success"] == False:
             messages.error(request, "Invalid Captcha Try Again!")
-            return redirect("login")
+            return render(request, 'contact.html', {'info': d})
         contact = Contact(name=name, email=email, phone=phone, message=message)
         contact.save()
         messages.success(request, 'Sent Successfully!')
-        return redirect('contact')  # Redirect to the contact page or another page of your choice
+        return render(request, 'contact.html', {'info': d}) # Redirect to the contact page or another page of your choice
