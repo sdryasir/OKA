@@ -6,9 +6,8 @@ from .models import Contact, Usrinfo
 
 def contact(request):
     info = Usrinfo.objects.all()
-    print(info)
     data ={
-        "info": info
+        "info": info,
     }
     return render(request, 'contact.html', data)
 

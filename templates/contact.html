@@ -19,15 +19,9 @@
 
 <body>
 
-    {% for i in info %}
-    <div class="container-fluid p-0">
-        <iframe class="w-100"
-            src="{{i.map_link}}"
-            height="450" style="border: 0" allowfullscreen="" loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
-    </div>
-    {% endfor %}
+
+<h1 style="margin-top: 14%; text-align: center;">Contact Us</h1>
+
     <div class="container d-flex justify-content-center align-items-center">
         {% for message in messages %}
         <div style="text-align: center;"
@@ -91,6 +85,16 @@
             </div>
         </div>
     </div>
+    <h1 style="text-align: center;">Google Map Location</h1>
+    {% for i in info %}
+    <div class="container-fluid p-0">
+        <iframe class="w-100"
+            src="{{i.map_link}}"
+            height="450" style="border: 0" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+    </div>
+    {% endfor %}
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     {% include 'footer.html' %}
 
