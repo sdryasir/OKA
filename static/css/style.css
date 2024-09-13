@@ -1116,6 +1116,14 @@ input:-internal-autofill-selected {
   border-color: #f85606;
   color: black;
 }
+.u-checkout-disabled{
+  cursor: not-allowed;
+  background-color: #6b6a6a !important;
+  border-color: #6b6a6a !important;
+  color: #fff !important;
+  opacity: 0.7;
+  pointer-events: none;
+}
 
 
 
