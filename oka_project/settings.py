@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'orders',
     'reviews',
     'newsletter',
+    'import_export',
         
     
 ]

@@ -44,20 +44,20 @@
                         {% csrf_token %}
                         <div class="mb-3">
                             <label for="formGroupExampleInput" class="form-label">Your Name (required)</label>
-                            <input name="name" type="text" class="form-control" id="formGroupExampleInput">
+                            <input name="name" type="text" class="form-control" id="formGroupExampleInput" required>
                         </div>
                         <div class="mb-3">
                             <label for="formGroupExampleInput2" class="form-label">Your Email (required)</label>
-                            <input name="email" type="text" class="form-control" id="formGroupExampleInput2">
+                            <input name="email" type="text" class="form-control" id="formGroupExampleInput2" required>
                         </div>
                         <div class="mb-3">
                             <label for="formGroupExampleInput3" class="form-label">Your Phone Number</label>
-                            <input name="phone" type="text" class="form-control" id="formGroupExampleInput3">
+                            <input name="phone" type="text" class="form-control" id="formGroupExampleInput3" required>
                         </div>
                         <div class="mb-3">
                             <label for="formGroupExampleInput4" class="form-label">Your Message</label>
                             <textarea name="message" class="form-control" id="formGroupExampleInput4" rows="9"
-                                cols="6"></textarea>
+                                cols="6" required></textarea>
                         </div>
                         <div style="display:none;">
                             <label for="honeypot_name">Leave this field empty:</label>
