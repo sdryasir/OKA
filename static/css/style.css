@@ -397,6 +397,7 @@ h1#faq-title {
 
   .bg-cl {
     background-color: #F5F5F5;
+
   }
 
   .faq-wrapper {
@@ -432,7 +433,7 @@ main {
 }
 
 .logo-size {
-  width: 68% !important;
+  width: 161px !important;
 }
 
 .nav-top {
@@ -1119,6 +1120,9 @@ input:-internal-autofill-selected {
   color: #fff !important;
   opacity: 0.7;
   pointer-events: none;
+}
+.bg-cl{
+  padding: 0;
 }
 
 
@@ -1860,9 +1864,7 @@ body {
     width: 85vw !important;
   }
 
-  .carousel-wrapper {
-    margin-top: -4% !important;
-  }
+
 
   .u_sizing {
     position: absolute;
@@ -2071,7 +2073,7 @@ body {
   }
 
   .logo-size {
-    width: 60% !important;
+    width: 114px !important;
   }
 
   .icon-sizing {
@@ -2198,6 +2200,7 @@ body {
 @media (min-width: 992px) {
   .bg-cl {
     background-color: #f85606;
+    padding: 8px 0;
   }
 
   .nav-bt-cetr {
