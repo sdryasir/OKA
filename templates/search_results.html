@@ -1,7 +1,7 @@
 {% load static %}
- {% include 'header.html' %}
+{% include 'header.html' %}
 <style>
-  .messAge{
+  .messAge {
     text-align: center !important;
     margin-bottom: 8% !important;
     font-weight: bolder !important;
@@ -9,49 +9,77 @@
   }
 </style>
 <main>
- <div class="u_category_inner_wrapper">
-  <div class="container-fluid">
-    <div class="row">
+  <div class="u_category_inner_wrapper">
+    <div class="container-fluid">
+      <div class="row">
         <div class="category mb-5">
-            <h2 style="text-align: center;"> Your Search Results for "{{request.GET.search}}" </h2>
-          </div><!-- /.category -->
-          <div>
-            {% if messages %}
+          <h2 style="text-align: center;"> Your Search Results for "{{request.GET.search}}" </h2>
+        </div>
+        <!-- /.category -->
+
+        <div>
+          {% if messages %}
           {% for mSg in messages %}
           <div class="messAge">{{mSg}}</div>
           {% endfor %}
           {% endif %}
-          </div>
-  
-        {% for product in searchterm %}
+        </div>
+
+        {% for product in page_obj %}
         <div class="col-sm-6 u-card-adjusting col-md-4 col-lg-3 col-xl-3 my-2">
-          <a style="text-decoration: none; list-style-type:none; color:black;"
-          href="{% url 'product-details' product.id %}">
-          <div class="card u_card_hover">
-            <img src="/media/{{product.image}}" class="card-img-top u-img-lining" alt="..." />
-            <div class="card-body" style="text-align: center;">
-              <h5 class="card-title u-lining">{{product.name}}
-              </h5>
-              <div class="stars u-star-adjusting">
-                &#9733;&#9733;&#9733;&#9733;&#9733;
+          <a style="text-decoration: none; list-style-type:none; color:black;" href="{% url 'product-details' product.id %}">
+            <div class="card u_card_hover">
+              <img src="/media/{{product.image}}" class="card-img-top u-img-lining" alt="..." />
+              <div class="card-body" style="text-align: center;">
+                <h5 class="card-title u-lining">{{product.name}}</h5>
+                <div class="stars u-star-adjusting">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p style="margin: 0;">
+                  <span style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.{{product.discount_price}}</span>
+                  <span style="color: #FF6F00; font-size: 17px;">Rs.{{product.price}}</span>
+                </p>
               </div>
-              <p style="margin: 0;"><span
-                  style="color: #858585; text-decoration: line-through; font-size: 15px;">Rs.{{product.discount_price}}</span>
-                <span style="color: #FF6F00; font-size: 17px;">Rs.{{product.price}}</span>
-              </p>
-              <!-- <a style="margin-top: 1rem;" href="{% url 'cart_add' product.id %}" class="btn btn-primary u_btn_color">Add to cart</a>
-              <a style="margin-top: 1rem;" href="{% url 'product-details' product.id %}"
-                class="btn btn-primary u_btn_color">Details</a> -->
             </div>
-          </div>
           </a>
         </div>
         {% endfor %}
+      </div>
     </div>
-  </div>
- </div><!-- /.u_category_inner_wrapper -->
- 
 
+    <div class="pagination-wrapper">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination d-flex justify-content-center m-0 py-5">
+          {% if page_obj.has_previous %}
+          <li class="page-item">
+            <a style="color: black; box-shadow: none; border: 1px solid black" class="page-link"
+              href="?page={{page_obj.previous_page_number}}&search={{search_query}}&min_price={{minprice}}&max_price={{maxprice}}&sort_order={{sort_order}}">
+              Previous
+            </a>
+          </li>
+          {% endif %}
+    
+          {% for p in paginator.page_range %}
+          <li class="page-item">
+            <a style="color: black; box-shadow: none; border: 1px solid black"
+              class="page-link {% if page_obj.number == p %} u-bg-pg {% endif %}"
+              href="?page={{p}}&search={{search_query}}&min_price={{minprice}}&max_price={{maxprice}}&sort_order={{sort_order}}">
+              {{p}}
+            </a>
+          </li>
+          {% endfor %}
+    
+          {% if page_obj.has_next %}
+          <li class="page-item">
+            <a style="color: black; box-shadow: none; border: 1px solid black" class="page-link"
+              href="?page={{page_obj.next_page_number}}&search={{search_query}}&min_price={{minprice}}&max_price={{maxprice}}&sort_order={{sort_order}}">
+              Next
+            </a>
+          </li>
+          {% endif %}
+        </ul>
+      </nav>
+    </div>
+  </div><!-- /.u_category_inner_wrapper -->
 
-{% include 'filter2.html' %} {% include 'footer.html' %}
+  {% include 'filter2.html' %}
+  {% include 'footer.html' %}
 </main>
