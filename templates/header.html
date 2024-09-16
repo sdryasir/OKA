@@ -29,7 +29,24 @@
 
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
-
+<style>
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    main{
+      margin-top: 86px !important;
+    }
+    
+  }
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    main {
+        margin-top: 63px !important;
+    }
+    @media (min-width: 50px) and (max-width: 575.98px) {
+    main {
+        margin-top: 55px !important;
+    }
+}
+  }
+</style>
 
 <body>
   <header>
@@ -138,7 +155,7 @@
           </div>
         </nav>
       </div><!-- /.nav-bottom -->
-      <div class="u-mobile-nav d-none" style="position: fixed; bottom: 0; background-color: #f2f5f5; width: 100%;">
+      <div class="u-mobile-nav d-none" style="position: fixed; bottom: 0; z-index: 4; background-color: #f2f5f5; width: 100%;">
         <div class="container">
           <ul class="inner navbar-nav justify-content-between" style="flex-direction: row;">
             <li class="nav-item" style="margin: 0; display: contents; padding: 0;">
