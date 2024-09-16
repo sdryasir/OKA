@@ -166,7 +166,7 @@ body {
 }
 
 iframe {
-  margin-top: 15%;
+  margin-top: 40px;
 }
 
 .color-and-fonts {
@@ -297,9 +297,7 @@ iframe {
     padding-top: 11%;
   }
 
-  iframe {
-    width: 96vw !important;
-  }
+
 
   #z-mob-responsive {
     width: 40vw;
@@ -315,9 +313,7 @@ iframe {
     width: 85vw !important;
   }
 
-  .form-control {
-    width: 85vw;
-  }
+
 }
 
 main#faq-main {
