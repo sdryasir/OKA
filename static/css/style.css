@@ -267,9 +267,7 @@ iframe {
     margin-bottom: 10%;
   }
 
-  .pc-mode {
-    justify-content: left;
-  }
+
 
   .bg-footer-color .container {
     margin-bottom: 0rem !important;
@@ -309,8 +307,7 @@ iframe {
   }
 
   .z-w-but-login {
-    margin-top: 30% !important;
-    width: 85vw !important;
+    width: 59vw !important;
   }
 
 
@@ -2028,6 +2025,12 @@ body {
   main {
     margin-top: 102px;
   }
+  .pc-mode {
+    justify-content: left;
+  }
+  .pc-mode form div input {
+    width: 170% !important;
+  } 
 }
 
 @media (min-width: 300px) and (max-width: 575.98px) {
