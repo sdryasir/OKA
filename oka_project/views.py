@@ -316,59 +316,54 @@ def resetfilter(request):
     return render(request, "products.html")
 
 
+
 def searchResult(request):
-    # Get search term and filter parameters from the request
     search_term = request.GET.get("search", "")
     sort_order = request.GET.get("sort_order")
     min_price = request.GET.get("min_price", 0)
     max_price = request.GET.get("max_price", 5000)
 
-    # Start with a base queryset that includes the search term
     search_results = Products.objects.filter(name__icontains=search_term)
 
-    # Apply price filter if min_price or max_price is specified
     if min_price or max_price:
-        search_results = search_results.filter(
-            price__gte=min_price, price__lte=max_price
-        )
+        search_results = search_results.filter(price__gte=min_price, price__lte=max_price)
 
-    # Apply sorting if sort_order is specified
-    if sort_order == "ascending":
+    if sort_order == "ascending" or sort_order == "lth":
         search_results = search_results.order_by("price")
-    elif sort_order == "descending":
-        search_results = search_results.order_by("-price")
-    elif sort_order == "lth":
-        search_results = search_results.order_by("price")
-    elif sort_order == "htl":
+    elif sort_order == "descending" or sort_order == "htl":
         search_results = search_results.order_by("-price")
 
-    # Check if there are any results and handle the case where no products are found
+    paginator = Paginator(search_results, 10)  # Show 10 products per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     if not search_results.exists():
         messages.error(request, "No Product Found!")
+
     profile_picture = None
     city = None
     country = None
     address = None
     phone_no = None
+
     if request.user.is_authenticated:
         userdata, created = Userdata.objects.get_or_create(user=request.user)
         profile_picture = userdata.profile_picture.url if userdata.profile_picture else None
-    
+
         if request.method == 'POST':
             if 'profile_picture' in request.FILES:
-                # Save the profile picture
                 userdata.profile_picture = request.FILES['profile_picture']
                 userdata.save()
                 return redirect('products')
+
         city = userdata.city if userdata.city else None
         country = userdata.country if userdata.country else None
         address = userdata.address if userdata.address else None
         phone_no = userdata.phone_no if userdata.phone_no else None
 
-    # Prepare context data for rendering the template
     context = {
-        "searchterm": search_results,
-        "search_query": search_term,  # Pass the search term to the template
+        "searchterm": page_obj,
+        "search_query": search_term,
         "sort_order": sort_order,
         "minprice": min_price,
         "maxprice": max_price,
@@ -376,10 +371,14 @@ def searchResult(request):
         "city": city,
         "country": country,
         "address": address,
-        "phone_no": phone_no
+        "phone_no": phone_no,
+        "paginator": paginator,
+        "page_obj": page_obj,
     }
 
     return render(request, "search_results.html", context)
+
+
 
 
 def productResult(request, category):
