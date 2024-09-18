@@ -23,8 +23,16 @@
 </head>
 
 <body style="background-color: #F5F5F5;">
-    <main style="margin-top: 170px;" id="faq-main">
-        <h1 id="faq-title">FAQs</h1>
+    <main style=" overflow-y: hidden !important;
+    background: transparent;
+    overflow-y: scroll;
+    background-color: #F5F5F5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    ">
+        <h1 id="faq-title u-par-underline-2" style="margin-top: 20px;">FAQs</h1>
         {% if faq %}
         {% for faqs in faq %}
         <div class="faq-wrapper">

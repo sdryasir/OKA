@@ -269,10 +269,7 @@ iframe {
 
 
 
-  .bg-footer-color .container {
-    margin-bottom: 0rem !important;
-    margin-top: 1rem !important;
-  }
+ 
 
   #mer {
     text-align: center;
@@ -598,6 +595,22 @@ main {
   position: absolute;
   left: calc(11% - 10%);
   bottom: -6px;
+}
+
+.u-par-underline-4 {
+  display: inline-block;
+  position: relative;
+}
+
+.u-par-underline-4::after {
+  content: "";
+  height: 2px;
+  width: 60%;
+  left: 27% !important;
+  background: rgb(0, 0, 0);
+  position: absolute;
+  left: calc(11% - 10%);
+  bottom: -3px;
 }
 
 .u-par-underline-2 {
@@ -2031,6 +2044,9 @@ body {
   .pc-mode form div input {
     width: 170% !important;
   } 
+  .u-navbar-center {
+    display: flex;
+  }
 }
 
 @media (min-width: 300px) and (max-width: 575.98px) {
