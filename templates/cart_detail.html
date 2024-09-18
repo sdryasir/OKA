@@ -1,6 +1,9 @@
 {% include 'header.html' %} {% load static %} {% load cart_tag %}
-<main class="main" style="margin-top: 13%">
-  <div class="u-cart-wrapper pt-5 mb-5">
+<main class="main">
+  <div class="u-your-cart mb-5 pt-5 d-flex justify-content-center">
+    <h2 class="u-par-underline-4">Your Cart</h2>
+  </div><!-- /.u-your-cart -->
+  <div class="u-cart-wrapper pt-3 mb-5">
     <div class="container-fluid">
       <div class="u-cart-head row p-0 d-none">
         <div class="col-md-6">PRODUCT</div>
@@ -89,7 +92,7 @@
         {% if subtotal != 0 %}
         <p style="font-weight: 600; color: #333; text-align: end; margin-bottom: 0">
           SHIPPING : Rs. 200
-          <p style="font-size: 13px; color: #797979; text-align: end">(Shipping Date: {{ shipping_date|date:"d M, Y" }})</p>  
+          <p style="font-size: 13px; color: #797979; text-align: end">(Shipping : {{ shipping_date|date:"d M, Y" }})</p>  
         </p>
         {% else %}
         <p style="font-weight: 600; color: #333; text-align: end">
@@ -156,9 +159,10 @@
           Subtotal : Rs. {{subtotal}}
         </p>
         {% if subtotal != 0 %}
-        <p style="font-weight: 600; color: #333; border-bottom: 1px rgb(0,0,0,.5) dotted; text-align: end">
+        <p style="font-weight: 600; color: #333; margin-bottom: 4px; border-bottom: 1px rgb(0,0,0,.5) dotted; text-align: end">
           Shipping Charges : Rs. 200
-          
+          <p style="font-size: 13px; color: #797979; text-align: end">(Shipping : {{ shipping_date|date:"d M, Y" }})</p>  
+
         </p>
 
         {% else %}
