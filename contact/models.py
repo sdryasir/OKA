@@ -12,7 +12,9 @@ class Contact(models.Model):
 class Usrinfo(models.Model):
     phone = models.CharField(max_length=100, blank=False)
     email = models.EmailField(max_length=100, blank=False)
+    email2 = models.EmailField(max_length=100, blank=True,null=True)
     address = models.TextField(null=False, blank=False)
+    working_hours = models.CharField(null=True, blank=False, max_length=50)
     info = models.TextField(null=True, blank=False)
     map_link = models.TextField(null=False, blank=False)  
 

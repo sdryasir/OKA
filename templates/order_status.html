@@ -3,49 +3,61 @@
 
 <main class="pt-5">
 
-<div class="order-status-wrapper" style=" text-align: center;">
-    <div class="container">
-        <h2 class="u-par-underline-2">Order Status</h2>
-    </div><!-- /.container -->    
-</div><!-- /.order-status-wrapper -->
+    <div class="order-status-wrapper text-center">
+        <div class="container">
+            <h2 class="u-par-underline-2">Order Status</h2>
+        </div><!-- /.container -->
+    </div><!-- /.order-status-wrapper -->
 
+    {% if no_order %}
+        <div class="no-order my-4">
+            <h3>No order found</h3>
+        </div>
+    {% else %}
+        <div class="orders-container my-5">
+            {% for order in orders %}
+                <div class="order-card">
+                    {% for item in order.orderitem_set.all %}
+                        <h5>Product Name: <strong>{{ item.product_name }}</strong></h5>
+                    {% endfor %}
+                    <h5>Total Price: <span class="text-danger">Rs. {{ order.total_price }}</span></h5>
+                    {% if order.status == 'Pending' %}
+                    <h5>Order Status:  <span style="color: rgb(236, 203, 13); font-weight: 600" class="font-weight-normal">{{ order.status }}</span></h5>
+                    {% else %}
+                    <h5>Order Status: <strong class="text-success font-weight-normal">{{ order.status }}</strong></h5>
+                    {% endif %}
 
-{% if no_order %}
-    <div class="no-order my-4">
-        <h3>No order found</h3>
-    </div>
-{% else %}
-    <div class="orders-container my-5">
-        {% for order in orders %}
-            <div class="order-card">
-                {% for item in order.orderitem_set.all %}
-                    <h5>Product Name: <strong>{{ item.product_name }}</strong></h5>
-                {% endfor %}
-                <h5>Total Price: <span style="color: #f85606;">Rs. {{ order.total_price }}</span></h5>
-                <h5>Order Status: <strong style=" font-weight: 400; color: #03c352;">{{ order.status }}</strong></h5>
-                <h5>Payment Status: <strong style=" font-weight: 400; color: #ea9700;">{{ order.payment_status }}</strong></h5>
-                <p>Expected Delivery: {{ order.expected_delivery|date:"F j, Y" }}</p>           
-                
-                {% if order.payment_status == "unpaid" %}
-                    <div style="text-align: center;">
-                        <a href="{% url 'create_checkout_session' %}" style=" color: white; background-color: #f85606; border: 1px #f85606 solid; text-decoration: none; padding: 6px 20px; border-radius: 8px; margin: 4px 0; transition: .35s;">Pay Now</a>
-                    </div>
-                
+                    {% if order.payment_status == 'paid' %}
+                        <h5>Payment Status: <strong style="color: #28a745;">{{ order.payment_status }}</strong></h5>
+                    {% else %}
+                        <h5>Payment Status: <strong style="color: #f70000!important">{{ order.payment_status }}</strong></h5>
+                        
+                        {% if order.expected_delivery %}
+                            <p>Expected Delivery: {{ order.expected_delivery|date:"F j, Y" }}</p>
+                        {% endif %}
+                        
+                        {% if order.payment_status == "unpaid" %}
+                            <div class="text-center">
+                                <a href="{% url 'create_checkout_session'%}" class="btn btn-primary pay-now-btn">
+                                    Pay Now
+                                </a>
+                            </div>
 
-                <!-- Delete Button -->
-                <div style="text-align: center; margin-top: 20px;">
-                    <form action="{% url 'delete_order' order.id %}" method="post">
-                        {% csrf_token %}
-                        <button type="submit" style="color: white; background-color: #d9534f; border: none; padding: 6px 20px; border-radius: 8px; margin: 4px 0; cursor: pointer;">
-                            Delete Order
-                        </button>
-                    </form>
-                </div>
-                {% endif %}
-            </div>
-        {% endfor %}
-    </div>
-{% endif %}
+                            <!-- Delete Button -->
+                            <div class="text-center mt-4">
+                                <form action="{% url 'delete_order' order.id %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger delete-order-btn">
+                                        Delete Order
+                                    </button>
+                                </form>
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                </div><!-- /.order-card -->
+            {% endfor %}
+        </div><!-- /.orders-container -->
+    {% endif %}
 
 </main>
 

@@ -182,7 +182,9 @@ DEFAULT_FROM_EMAIL = 'info@nullxcoder.xyz'
 
 
 JAZZMIN_SETTINGS = {
+    "show_ui_builder" : True,
     "custom_css": "css/custom_admin.css",
+    "hide_sidebar": True,
     "site_title": "Admin Panel",
     "site_header": "Admin Panel",
     "site_icon": "images/fav.png",
@@ -210,7 +212,21 @@ JAZZMIN_SETTINGS = {
         "orders.OrderItem":"fas fa-italic",
         "reviews.Reviews":"fas fa-registered",
         "newsletter.Newsletter":"fas fa-envelope",
-    }
+    },
+    "usermenu_links": [
+        {"name": "My Profile", "url": "/admin/profile/", "icon": "fas fa-user"},
+        {"name": "Help", "url": "/admin/help/", "icon": "fas fa-question-circle"},
+        {"name": "Logout", "url": "/admin/logout/", "icon": "fas fa-sign-out-alt"},
+        # Add more links as needed
+    ],
+}
+
+JAZZMIN_UI_TWEAKS = {
+    "theme": "simplex",  # Apply the "simplex" theme
+    "navbar": "navbar-dark bg-dark",  # Adjust the navbar style if needed
+    "font_family": "Roboto, sans-serif",  # Customize font family if supported
+    "link_color": "#007bff",  # Change link color (blue example, adjust as needed)
+    "link_hover_color": "#0056b3",  # Change link hover color (darker blue example)
 }
 
 

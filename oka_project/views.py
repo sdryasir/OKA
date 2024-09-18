@@ -57,6 +57,7 @@ def header(request):
     return render(request, "header.html", data)
 
 def home(request):
+    info = Usrinfo.objects.all()
     profile_picture = None
     city = None
     country = None
@@ -96,6 +97,7 @@ def home(request):
         "country": country,
         "address": address,
         "phone_no": phone_no,
+        "info": info,
         }
     return render(request, "index.html", data)
 
