@@ -12,3 +12,12 @@
   /* Customize font size */
   font-weight: bold; /* Customize font weight */
 }
+
+#recent-actions-module {
+  display: none !important;
+}
+
+
+
+/* =========== */
+

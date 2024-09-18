@@ -163,26 +163,30 @@
 <div class="last-wrapper">
   <div class="bg-footer-color">
     <div class="d-flex container px-5">
+      {% if info %}
+      {% for i in info %}
       <div class="row" id="mer">
         <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
           <h2 style="font-weight:600;">Address</h2>
-          <p>Building # 21, Block B, Faisal Town, Lahore</p>
+          <p>{{i.address}}</p>
         </div>
         <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
           <h2>Call Us</h2>
-          <p>+92 333 142 1787</p>
+          <p>{{i.phone}}</p>
           <h2>Whatsapp</h2>
-          <p>+92 333 142 1787</p>
+          <p>{{i.phone}}</p>
         </div>
         <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
           <h2>Email</h2>
-          <p>info@babyplanet.pk<br>care@babyplanet.pk</p>
+          <p>{{i.email}}<br>{{i.email2}}</p>
         </div>
         <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
           <h2>Working Hours</h2>
-          <p>10:00 - 20:00</p>
+          <p>{{i.working_hours}}</p>
         </div>
       </div>
+      {% endfor %}
+      {% endif %}
     </div>
     <hr class="m-0">
     <div class="container py-4">
