@@ -29,6 +29,9 @@
 
                     {% if order.payment_status == 'paid' %}
                         <h5>Payment Status: <strong style="color: #28a745;">{{ order.payment_status }}</strong></h5>
+                    {% if order.expected_delivery %}
+                        <p>Expected Delivery: {{ order.expected_delivery|date:"F j, Y" }}</p>
+                    {% endif %}
                     {% else %}
                         <h5>Payment Status: <strong style="color: #f70000!important">{{ order.payment_status }}</strong></h5>
                         
