@@ -31,7 +31,7 @@ STRIPE_PUBLISHABLE_KEY = config('STRIPE_PUBLISHABLE_KEY')
 SECRET_KEY="django-insecure-o6)v^=#%mw105c45tst@am0ay4hd26iy7zuv@=37nhq@$crhgu"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
@@ -214,8 +214,8 @@ JAZZMIN_SETTINGS = {
         "newsletter.Newsletter":"fas fa-envelope",
     },
     "usermenu_links": [
-        {"name": "My Profile", "url": "/admin/profile/", "icon": "fas fa-user"},
-        {"name": "Help", "url": "/admin/help/", "icon": "fas fa-question-circle"},
+        {"name": "My Profile", "url": "/admin/auth/user/?is_staff__exact=1&q=", "icon": "fas fa-user"},
+        {"name": "Help", "url": "https://django-jazzmin.readthedocs.io/", "icon": "fas fa-question-circle"},
         {"name": "Logout", "url": "/admin/logout/", "icon": "fas fa-sign-out-alt"},
         # Add more links as needed
     ],
